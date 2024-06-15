@@ -1,0 +1,42 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-signup {
+  max-width: 500px;  /* Adjust this value to control the width */
+  padding: 1rem;
+  background-color: #fff;  /* Add background color to differentiate from the body */
+  border-radius: 8px;  /* Add border radius for rounded corners */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);  /* Optional: Add box shadow for depth */
+}
+
+
+.form-signup .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signup input[type="text"],
+.form-signup input[type="email"],
+.form-signup input[type="password"],
+.form-signup input[type="date"],
+.form-signup input[type="tel"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signup .form-floating {
+  margin-bottom: 10px;
+}
+
+.form-signup .name-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.form-signup .name-fields .form-floating {
+  flex: 1;
+}
