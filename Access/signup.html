@@ -4,125 +4,15 @@
   <script src="assets\js\color-modes.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tenant Management System - Sign Up</title>
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  <title>Sign Up</title>
   <link href="assets\dist\css\bootstrap.min.css" rel="stylesheet">
+  <link href="styles\signup.css" rel="stylesheet">
   <link rel="icon" href="assets\pictures\web-icon.png">
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    .b-example-divider {
-      width: 100%;
-      height: 3rem;
-      background-color: rgba(0, 0, 0, .1);
-      border: solid rgba(0, 0, 0, .15);
-      border-width: 1px 0;
-      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-    }
-
-    .b-example-vr {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 100vh;
-    }
-
-    .bi {
-      vertical-align: -.125em;
-      fill: currentColor;
-    }
-
-    .nav-scroller {
-      position: relative;
-      z-index: 2;
-      height: 2.75rem;
-      overflow-y: hidden;
-    }
-
-    .nav-scroller .nav {
-      display: flex;
-      flex-wrap: nowrap;
-      padding-bottom: 1rem;
-      margin-top: -1px;
-      overflow-x: auto;
-      text-align: center;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .btn-bd-primary {
-      --bd-violet-bg: #712cf9;
-      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-      --bs-btn-font-weight: 600;
-      --bs-btn-color: var(--bs-white);
-      --bs-btn-bg: var(--bd-violet-bg);
-      --bs-btn-border-color: var(--bd-violet-bg);
-      --bs-btn-hover-color: var(--bs-white);
-      --bs-btn-hover-bg: #6528e0;
-      --bs-btn-hover-border-color: #6528e0;
-      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-      --bs-btn-active-color: var(--bs-btn-hover-color);
-      --bs-btn-active-bg: #5a23c8;
-      --bs-btn-active-border-color: #5a23c8;
-    }
-
-    .bd-mode-toggle {
-      z-index: 1500;
-    }
-
-    .bd-mode-toggle .dropdown-menu .active .bi {
-      display: block !important;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .form-row .form-floating {
-      flex: 1;
-    }
-
-    .bd-mode-toggle {
-      z-index: 1500;
-    }
-
-    .bd-mode-toggle .dropdown-menu .active .bi {
-      display: block !important;
-    }
-
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-
-  <!-- Custom styles for this template -->
-  <link href="style.css" rel="stylesheet">
 </head>
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
+
+<body class="bg-body-tertiary">
+
+  <!-- Theme Logo -->
   <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
       <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -138,6 +28,7 @@
       <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-4.657a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707l-1.414 1.414a.5.5 0 1 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 0a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
   </svg>
 
+  <!-- Theme Dropdown -->
   <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
             id="bd-theme"
@@ -174,11 +65,11 @@
   </div>
 
 <div class="container">
-  <main class="d-flex align-items-center justify-content-center vh-100 bg-body-tertiary">
+
   <div class="form-signup">
-    <form>
+    <form method="POST">
       <img class="mb-4" src="assets/pictures/web-icon.png" alt="" width="72" height="60">
-      <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+      <h1 class="h3 mb-3 fw-normal">Create Account</h1>
 
       <div class="name-fields d-flex justify-content-between">
         <div class="form-floating me-1 flex-fill">
@@ -221,17 +112,15 @@
       </div>
 
       <div class="d-flex justify-content-start my-3">
-        <a href="login.php" class="text-decoration-none">Already have an account?</a>
+        <a href="login.html" class="text-decoration-none">Already have an account?</a>
       </div>
 
       <button class="btn btn-primary w-100 py-2" type="submit">Sign up</button>
       <p class="mt-5 mb-3 text-body-secondary">&copy; C-Apartments 2024</p>
     </form>
   </div>
-</main>
 </div>
-
-
 <script src="assets\dist\js\bootstrap.bundle.min.js"></script>
+<script src="script\signup.js"></script>
 </body>
 </html>
