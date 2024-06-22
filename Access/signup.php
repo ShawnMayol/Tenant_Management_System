@@ -85,36 +85,36 @@
 
       <div class="name-fields d-flex justify-content-between">
         <div class="form-floating me-1 flex-fill">
-          <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+          <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required>
           <label for="firstName">First Name</label>
         </div>
         <div class="form-floating mx-1 flex-fill">
-          <input type="text" class="form-control" id="middleName" placeholder="Middle Name">
+          <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Middle Name">
           <label for="middleName">Middle Name</label>
         </div>
         <div class="form-floating ms-1 flex-fill">
-          <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+          <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
           <label for="lastName">Last Name</label>
         </div>
       </div>
 
       <div class="form-floating">
-        <input type="date" class="form-control" id="birthDate" placeholder="Birth Date" required>
+        <input type="date" class="form-control" id="birthDate" name="birthDate" placeholder="Birth Date" required>
         <label for="birthDate">Birth Date</label>
       </div>
 
       <div class="form-floating">
-        <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone Number" required>
+        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
         <label for="phoneNumber">Phone Number</label>
       </div>
 
       <div class="form-floating">
-        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
         <label for="email">Email address</label>
       </div>
 
       <div class="form-floating d-flex align-items-center position-relative">
-        <input type="password" class="form-control" id="password" placeholder="Password" required>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
         <label for="password">Password</label>
         <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
             <i class="fas fa-eye"></i>
@@ -122,7 +122,7 @@
       </div>
 
       <div class="form-floating d-flex align-items-center position-relative">
-        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
         <label for="confirmPassword">Confirm Password</label>
         <span class="field-icon toggle-confirm-password position-absolute end-0 top-50 translate-middle-y">
             <i class="fas fa-eye"></i>
@@ -136,7 +136,77 @@
       <p class="mt-5 mb-3 text-body-secondary">&copy; C-Apartments 2024</p>
     </form>
   </div>
+
 </div>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    include('db-connection.php');
+
+    $firstName = $_POST['firstName'];
+    $middleName = $_POST['middleName'];
+    $lastName = $_POST['lastName'];
+    $dateOfBirth = $_POST['birthDate'];
+    $phoneNumber = $_POST['phoneNumber'];
+    $emailAddress = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    // Check if passwords match
+    if ($password !== $confirmPassword) {
+        echo "<br><div style='text-align:center; color:darkred;'>Passwords do not match!</div>";
+        exit();
+    }
+
+    // Hash the password
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+    // Start transaction
+    mysqli_begin_transaction($conn);
+
+    try {
+        // Insert into tenant table
+        $tenantQuery = "INSERT INTO tenant (firstName, middleName, lastName, dateOfBirth, phoneNumber, emailAddress) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $tenantQuery);
+        mysqli_stmt_bind_param($stmt, "ssssss", $firstName, $middleName, $lastName, $dateOfBirth, $phoneNumber, $emailAddress);
+        mysqli_stmt_execute($stmt);
+        $tenantID = mysqli_insert_id($conn);
+        mysqli_stmt_close($stmt);
+
+        // Insert into user table
+        $userRole = 'Tenant';  // assuming the role for signup is Tenant
+        $userQuery = "INSERT INTO user (tenant_ID, username, password, userRole) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $userQuery);
+        mysqli_stmt_bind_param($stmt, "isss", $tenantID, $emailAddress, $hashedPassword, $userRole);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Commit transaction
+        mysqli_commit($conn);
+
+        // Redirect to homepage after signing in
+        header("Location: homepage\index.html");
+        exit();
+    } catch (mysqli_sql_exception $exception) {
+        mysqli_rollback($conn);
+        throw $exception;
+    }
+
+    mysqli_close($conn);
+}
+?>
+
+<script>
+  document.querySelector('form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting
+    // Perform your AJAX request here or any other actions
+
+    // Clear the form
+    this.reset();
+  });
+</script>
+
+
 <script src="assets\dist\js\bootstrap.bundle.min.js"></script>
 <script src="assets\signup.js"></script>
 </body>

@@ -1,18 +1,18 @@
-CREATE DATABASE IF NOT EXISTS tenantManagementSystem;
-USE tenantManagementSystem;
+CREATE DATABASE IF NOT EXISTS tenant_management_system;
+USE tenant_management_system;
 
-DROP TABLE IF EXISTS apartment;
-DROP TABLE IF EXISTS tenant;
-DROP TABLE IF EXISTS lease;
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS fees;
-DROP TABLE IF EXISTS invoice;
-DROP TABLE IF EXISTS bill;
 DROP TABLE IF EXISTS transactionLog;
-DROP TABLE IF EXISTS maintenanceStaff;
-DROP TABLE IF EXISTS maintenanceRequest;
 DROP TABLE IF EXISTS maintenanceTask;
+DROP TABLE IF EXISTS maintenanceStaff;
 DROP TABLE IF EXISTS maintenanceAssignment;
+DROP TABLE IF EXISTS maintenanceRequest;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS bill;
+DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS fees;
+DROP TABLE IF EXISTS lease;
+DROP TABLE IF EXISTS tenant;
+DROP TABLE IF EXISTS apartment;
 
 -- Create tables in order to handle foreign key dependencies correctly
 CREATE TABLE apartment (

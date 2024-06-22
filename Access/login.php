@@ -13,6 +13,10 @@
   <link href="assets\fontawesome-free-6.5.2-web\css\all.min.css" rel="stylesheet">
 </head>
 
+<?php
+  include('db-connection.php');
+?>
+
 <style>
   .field-icon:hover {
     cursor: pointer ;
@@ -105,20 +109,17 @@
         <h1 class="h3 mb-3 fw-normal">Login to your account</h1>
 
         <div class="form-floating">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
           <label for="floatingInput">Email</label>
         </div>
 
-
         <div class="form-floating d-flex align-items-center position-relative">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
           <label for="floatingPassword">Password</label>
           <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
             <i class="fas fa-eye"></i>
           </span>
         </div>
-
-
 
         <div class="d-flex justify-content-start my-3">
           <a href="#" class="text-decoration-none">Forgot password?</a>
