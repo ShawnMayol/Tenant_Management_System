@@ -1,13 +1,17 @@
 document.getElementById('apartments-btn').addEventListener('click', function() {
-    document.getElementById('display-content').innerText = 'hello';
+    document.getElementById('display-content').innerHTML = '<br><h3>APARTMENTS</h3>';
   });
 
   document.getElementById('invoice-btn').addEventListener('click', function() {
-    document.getElementById('display-content').innerText = 'Happy Birthday';
+    document.getElementById('display-content').innerHTML = '<br><h3>INVOICE</h3>';
+  });
+
+  document.getElementById('history-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>PAYMENT HISTORY</h3>';
   });
 
   document.getElementById('req-maintenance-btn').addEventListener('click', function() {
-    document.getElementById('display-content').innerText = 'Waxxupt';
+    document.getElementById('display-content').innerHTML = '<br><h3>MAINTENANCE REQUEST</h3>';
   });
 
   document.getElementById('account-btn').addEventListener('click', function() {
