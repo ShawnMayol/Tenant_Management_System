@@ -14,21 +14,18 @@
 <body>
   <div class="container">
 
-    <!--Home Menu-->
+    <!-- Home Menu -->
     <div class="home-menu" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+      <a href="admin.html" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
         <img src="../assets/pictures/web-icon.png" class="house-logo">
         <span class="fs-4 fw-semibold">DASHBOARD</span>
       </a>
       <ul class="list-unstyled ps-0">
         <li class="mb-1">
-          <button id="apartments-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">
-            Apartments
-          </button>
+          <button id="apartments-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed">Apartments</button>
         </li>
         <li class="mb-1">
-          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-            data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+          <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
             Payments
           </button>
           <div class="collapse" id="dashboard-collapse">
@@ -39,8 +36,7 @@
           </div>
         </li>
         <li class="mb-1">
-          <button id="maintenance-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-            data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+          <button id="maintenance-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
             Maintenance
           </button>
           <div class="collapse" id="orders-collapse">
@@ -51,8 +47,7 @@
           </div>
         </li>
         <li class="mb-1">
-          <button id="admin-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-            data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
+          <button id="admin-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#admin-collapse" aria-expanded="false">
             Admin
           </button>
           <div class="collapse" id="admin-collapse">
@@ -64,8 +59,7 @@
         </li>
         <li class="border-top my-3"></li>
         <li class="mb-1">
-          <button id="account-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-            data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          <button id="account-btn" class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
             Account
           </button>
           <div class="collapse" id="account-collapse">
@@ -81,7 +75,9 @@
     </div>
 
     <!-- Div to display the content -->
-    <div id="display-content"></div>
+    <div id="display-content">
+      <!-- Content will be dynamically loaded here -->
+    </div>
 
   </div>
 
@@ -90,7 +86,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+  <script src="users.js"></script>
+
 </body>
 
 </html>

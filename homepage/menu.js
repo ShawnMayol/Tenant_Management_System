@@ -14,10 +14,6 @@ document.getElementById('apartments-btn').addEventListener('click', function() {
     document.getElementById('display-content').innerHTML = '<br><h3>MAINTENANCE REQUEST</h3>';
   });
 
-  document.getElementById('admin-users-btn').addEventListener('click', function() {
-    document.getElementById('display-content').innerHTML = '<br><h3>ADMIN</h3>';
-  });
-
   document.getElementById('account-btn').addEventListener('click', function() {
     document.getElementById('display-content').innerText = 'otin';
   });

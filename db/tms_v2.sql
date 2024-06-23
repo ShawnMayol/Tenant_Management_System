@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2024 at 07:44 AM
+-- Generation Time: Jun 23, 2024 at 03:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `middle_name`, `last_name`, `birth_date`, `phone_number`, `email`, `password`) VALUES
 (1, '', '', '', '0000-00-00', '', 'admin', '$2y$10$Gbekc/DyMf0ovJkKBotVWePjIIXx1anmOduiQQeskUONkRV3oMWB.'),
-(2, 'Lance', 'Majorenos', 'Cerenio', '2024-06-23', '09159031303', '20010110@usc.edu.ph', '$2y$10$CKr1dugh4uq5ciZIx1dSieyh9Ter8zLbmscpTRQ7YZxPed0To8OW6');
+(2, 'Lance', 'Majorenos', 'Cerenio', '2024-06-23', '09159031303', '20010110@usc.edu.ph', '$2y$10$CKr1dugh4uq5ciZIx1dSieyh9Ter8zLbmscpTRQ7YZxPed0To8OW6'),
+(4, 'shawn', 'bigdick', '69', '2024-06-23', '123456789', 'shawnbigD@gmail.com', '$2y$10$s5MqW6jFd9Chb0X5rgGsh.jBWqhgR2Wvhytof2EwQW6SQK5mbt/WC');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +65,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
