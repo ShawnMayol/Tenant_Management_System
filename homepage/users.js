@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleDelete(event) {
     const id = event.target.getAttribute('data-id');
   
-    fetch('delete_user.php', {
+    fetch('del_user.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

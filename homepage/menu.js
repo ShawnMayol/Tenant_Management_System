@@ -14,8 +14,24 @@ document.getElementById('apartments-btn').addEventListener('click', function() {
     document.getElementById('display-content').innerHTML = '<br><h3>MAINTENANCE REQUEST</h3>';
   });
 
-  document.getElementById('account-btn').addEventListener('click', function() {
-    document.getElementById('display-content').innerText = 'otin';
+  document.getElementById('status-maintenance-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>MAINTENANCE STATUS</h3>';
+  });
+
+  document.getElementById('account-new-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>NEW ACCOUNT</h3>';
+  });
+
+  document.getElementById('account-profile-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>PROFILE</h3>';
+  });
+
+  document.getElementById('account-settings-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>SETTINGS</h3>';
+  });
+
+  document.getElementById('account-signout-btn').addEventListener('click', function() {
+    document.getElementById('display-content').innerHTML = '<br><h3>SIGN OUT</h3>';
   });
 
   document.addEventListener('DOMContentLoaded', function () {
