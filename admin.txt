@@ -1,0 +1,23 @@
+ADMIN CREDENTIALS
+
+Email: admin
+Password: admin
+
+TENANT CREDENTIAL
+
+Email: Elgen@gmail.com
+Password: a
+
+
+Project Folder:
+
+app     >   assets  > dist - for premade libraries/frameworks
+                    > src - for our source code
+        
+        > database - contains .sql file for our database
+
+
+Communicate important information here
+
+-- merged tenant and admin side index/dashboard view for now
+        - login_handler.php, Ln 62

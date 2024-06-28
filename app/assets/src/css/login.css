@@ -1,0 +1,26 @@
+.container {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.form-floating {
+  margin-bottom: 10px;
+}
+
+.field-icon:hover {
+  cursor: pointer ;
+}
+
+.field-icon i {
+font-size: 1rem;
+padding: 1rem;
+}
+
+.log-in {
+  margin-top: 40px;
+  width: 500px;
+}
