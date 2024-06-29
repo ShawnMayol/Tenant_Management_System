@@ -1,61 +1,102 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="dark">
 
 <?php 
     session_start();
 ?>
 
 <head>
-    <script src="assets/dist/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="assets/src/img/web-icon.png" rel="icon">
-    <title><?php echo isset($_SESSION['title']) ? $_SESSION['title'] : '' ?></title>
+    <link href="assets/src/img/c-logo.svg" rel="icon">
+    <!-- <title><?php //echo isset($_SESSION['title']) ? $_SESSION['title'] : '' ?></title> -->
+     <title>Login | C-Apartments</title>
 
     <!-- eye icon for password -->
     <link href="assets/dist/font-awesome/css/all.min.css" rel="stylesheet">    
 
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/src/css/login.css" rel="stylesheet">
+    <link href="assets/src/css/loading.css" rel="stylesheet">
     <link href="assets/src/css/themes.css" rel="stylesheet">
 </head>
 
+<style>
+    .navbar {
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* background: rgba(0, 0, 0, 0.7); */
+        z-index: 999;
+        text-align: center;
+        }
+        .navbar-brand {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        }
+        .logo {
+        /* margin-top: -20px; */
+        height: 100px;
+        }
+</style>
+
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
 
-<?php include('themes.php') ?>
-    <!-- LOG IN FORM -->
+    <!-- LOADING ANIMATION -->
+    <div id="loading-screen">
+        <img src="assets/src/img/loading.gif" alt="Loading...">
+    </div>
+
+    <?php include('themes.php') ?>
+
+    <nav class="navbar">
+        <a class="navbar-brand logo" href="landing.php">
+            <img src="assets/src/img/c.svg" alt="Website Logo">
+        </a>
+    </nav>
+
+        <!-- LOG IN FORM -->
     <div class="container">
         <div class="log-in">
-        <form action="login_handler.php" method="POST">
-            <img class="mb-4" src="assets/src/img/web-icon.png" alt="" width="72" height="60">
-            <h1 class="h3 mb-3 fw-normal">C Apartments</h1>
+            <form action="login_handler.php" method="POST" class="text-center">
+                <br><br><br>
+                <h1 class="h3 mb-3 fw-normal">Login</h1>
+                <br>   
+                <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
+                <label for="floatingInput">Email</label>
+                </div>
+                <div class="form-floating mb-3 position-relative">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <label for="floatingPassword">Password</label>
+                <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
+                    <i class="fas fa-eye"></i>
+                </span>
+                </div>
 
-            <div class="form-floating">
-            <input type="" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
-            <label for="floatingInput">Email</label>
-            </div>
-            <div class="form-floating">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-            <label for="floatingPassword">Password</label>
-            <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
-                <i class="fas fa-eye"></i>
-            </span>
-            </div>
+                <div class="d-flex justify-content-start my-3">
+                    <a href="#" class="text-decoration-none">Forgot password?</a>
+                </div>
+                <div class="d-flex justify-content-start my-3">
+                    <a href="landing.php" class="text-decoration-none">Don't have an account?</a>
+                    
+                </div>
 
-            <div class="d-flex justify-content-start my-3">
-            <a href="#" class="text-decoration-none">Forgot password?</a>
-            </div>
-            <div class="d-flex justify-content-start my-3">
-            <a href="signup.php" class="text-decoration-none">Don't have an account?</a>
-            </div>
-
-            <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
-            <p class="mt-5 mb-3 text-body-secondary">&copy; C-Apartments 2024</p>
-        </form>
+                <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
+                <p class="mt-5 mb-3 text-body-secondary">&copy; 2024 C-Apartments - Tenant Management System</p>
+            </form>
         </div>
     </div>
+
+    <script src="assets/src/js/loading.js"></script>
     <script src="assets/src/js/login.js"></script>
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 

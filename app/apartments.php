@@ -2,6 +2,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+<?php 
+    session_start();
+?>
+
 <head>
     <script src="assets/dist/js/color-modes.js"></script>
     <meta charset="UTF-8">
@@ -12,7 +17,7 @@
     <title>Apartment Catalogue</title>
 </head>
 <body class="bg-body-tertiary">
-    <?php include('themes.php') ?>
+    
     
     <div class="container-fluid card text-center p-3">
         <h1 class="align-middle px-4">Apartment Catalogue</h1>
@@ -234,6 +239,8 @@
             </div>
         </div>
     </div>
+
+    <?php include('themes.php') ?>
 
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>

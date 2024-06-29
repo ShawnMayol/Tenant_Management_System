@@ -64,18 +64,18 @@ if (isset($_POST['email'], $_POST['password'])) {
                 exit();
             } else {
                 // Incorrect password
-                echo '<script>alert("Incorrect password. Please try again."); window.location.href = "login.html";</script>';
+                echo '<script>alert("Incorrect password. Please try again."); window.location.href = "login.php";</script>';
             }
         } else {
             // Email not found
-            echo '<script>alert("Email not found. Please try again."); window.location.href = "login.html";</script>';
+            echo '<script>alert("Email not found. Please try again."); window.location.href = "login.php";</script>';
         }
 
         // Close the statement
         mysqli_stmt_close($stmt);
     } else {
         // Error preparing statement
-        echo '<script>alert("Error preparing statement: ' . mysqli_error($conn) . '"); window.location.href = "login.html";</script>';
+        echo '<script>alert("Error preparing statement: ' . mysqli_error($conn) . '"); window.location.href = "login.php";</script>';
     }
 
     // Close the connection
@@ -83,6 +83,6 @@ if (isset($_POST['email'], $_POST['password'])) {
 
 } else {
     // Required fields are missing
-    echo '<script>alert("Required fields are missing."); window.location.href = "login.html";</script>';
+    echo '<script>alert("Required fields are missing."); window.location.href = "login.php";</script>';
     exit();
 }

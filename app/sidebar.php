@@ -1,10 +1,10 @@
-
+<?php ?>
 <!-- Home Menu -->
 
 <div class="home-menu" style="width: 280px;">
-        <a href="admin.html" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
-        <!-- <img src="assets/src/img/web-icon.png" class="house-logo"> -->
-        <span class="fs-4 fw-semibold">DASHBOARD</span>
+        <a href="index.php" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
+        <img src="assets/src/img/c.svg" style="height: 50px; width: 300px">
+        <!-- <span class="fs-4 fw-semibold">DASHBOARD</span> -->
         </a>
         <ul class="list-unstyled ps-0">
         <li class="mb-1">
@@ -53,7 +53,7 @@
                 <li><a href="#" id="account-new-btn" class="link-body-emphasis d-inline-flex text-decoration-none rounded">New...</a></li>
                 <li><a href="#" id="account-profile-btn" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Profile</a></li>
                 <li><a href="#" id="account-settings-btn" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Settings</a></li>
-                <li><a href="login.php" id="account-signout-btn" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a></li>
+                <li><a href="landing.php" id="account-signout-btn" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Sign out</a></li>
             </ul>
             </div>
         </li>

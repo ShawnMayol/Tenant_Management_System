@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="light">
 
 <?php 
     session_start();
 
-    $_SESSION['title'] = 'Tenant Management System' // initialize title
+    //$_SESSION['title'] = 'Tenant Management System' // initialize title
     // Redirect to login.php if user is not logged in yet
 
     // if(!isset($_SESSION['login_id']))
@@ -17,19 +17,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="assets/src/img/web-icon.png" rel="icon">
-    <title><?php echo isset($_SESSION['title']) ? $_SESSION['title'] : '' ?></title> 
+    <link href="assets/src/img/c-logo.svg" rel="icon">
     <!-- dynamic title -->
+    <!-- <title><?php //echo isset($_SESSION['title']) ? $_SESSION['title'] : '' ?></title>  -->
+     <title>Dashboard | C-Apartments</title>
 
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/src/css/dashboard.css" rel="stylesheet">
     <link href="assets/src/css/themes.css" rel="stylesheet">
+    <link href="assets/src/css/loading.css" rel="stylesheet">
     
     <!-- causes problems -->
     <!-- <link href="assets/src/css/sidebar.css" rel="stylesheet"> -->
 </head>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
+
+    <!-- LOADING ANIMATION -->
+    <div id="loading-screen">
+        <img src="assets/src/img/loading.gif" alt="Loading...">
+    </div>
+
+    <?php //include('topbar.php'); ?>
 
     <!-- themes button -->
     <?php include('themes.php') ?>
@@ -38,6 +47,8 @@
     
     <!-- sidebar -->
     <?php include('sidebar.php') ?>
+    <?php //include('x.php') ?>
+
 
     <!-- Div to display the content -->
     <div id="display-content">
@@ -49,6 +60,7 @@
 <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/src/js/user.js"></script>
 <script src="assets/src/js/menu.js"></script>
+<script src="assets/src/js/loading.js"></script>
 
 <!-- para asa ni ahahah -->
 <!-- di mo gana ang themes if naa ni siya -->
