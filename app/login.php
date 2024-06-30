@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="auto">
 
 <?php 
     session_start();
@@ -91,7 +91,7 @@
                 </div>
 
                 <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
-                <p class="mt-5 mb-3 text-body-secondary">&copy; 2024 C-Apartments - Tenant Management System</p>
+                <p class="mt-5 mb-3 text-body-secondary">Copyright &copy; C-Apartments - Tenant Management System 2024</p>
             </form>
         </div>
     </div>
