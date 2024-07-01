@@ -3,6 +3,9 @@
 
 <?php 
     session_start();
+
+    // print_r($_SESSION);
+
 ?>
 
 <head>
@@ -46,58 +49,100 @@
         /* margin-top: -20px; */
         height: 100px;
         }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification.alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .notification.alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
 </style>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
+    
+    <div id="notification-container" class="notification-container"></div>
 
     <!-- LOADING ANIMATION -->
-    <div id="loading-screen">
+    <!-- <div id="loading-screen">
         <img src="assets/src/img/loading.gif" alt="Loading...">
-    </div>
+    </div> -->
 
     <?php include('themes.php') ?>
 
     <nav class="navbar">
         <a class="navbar-brand logo" href="landing.php">
-            <img src="assets/src/img/c.svg" alt="Website Logo">
+            <img src="assets/src/svg/c.svg" alt="Website Logo">
         </a>
     </nav>
 
-        <!-- LOG IN FORM -->
     <div class="container">
         <div class="log-in">
-            <form action="login_handler.php" method="POST" class="text-center">
-                <br><br><br>
-                <h1 class="h3 mb-3 fw-normal">Login</h1>
-                <br>   
-                <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
-                <label for="floatingInput">Email</label>
-                </div>
-                <div class="form-floating mb-3 position-relative">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                <label for="floatingPassword">Password</label>
-                <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
-                    <i class="fas fa-eye"></i>
-                </span>
-                </div>
+            <?php 
 
-                <div class="d-flex justify-content-start my-3">
-                    <a href="#" class="text-decoration-none">Forgot password?</a>
-                </div>
-                <div class="d-flex justify-content-start my-3">
-                    <a href="landing.php" class="text-decoration-none">Don't have an account?</a>
-                    
-                </div>
+                if (isset($_SESSION['error'])) {
+                    echo '<script>';
+                    echo 'showNotification("' . $_SESSION['error'] . '", "danger");';
+                    echo '</script>';
 
-                <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
-                <p class="mt-5 mb-3 text-body-secondary">Copyright &copy; C-Apartments - Tenant Management System 2024</p>
-            </form>
+                    // Unset the error message to clear it after displaying
+                    unset($_SESSION['error']);
+                }
+
+                // Similarly, for success messages
+                if (isset($_SESSION['success'])) {
+                    echo '<script>';
+                    echo 'showNotification("' . $_SESSION['success'] . '", "success");';
+                    echo '</script>';
+
+                    // Unset the success message to clear it after displaying
+                    unset($_SESSION['success']);
+                }
+
+                $page = isset($_GET['login']['page']) ? $_GET['login']['page'] : 'form.login'; 
+                include $page . '.php'; 
+                //include 'form.forgot.php';
+            ?>
         </div>
     </div>
 
+
+    <script>
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `notification alert-${type}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            setTimeout(function() {
+                notification.style.opacity = '0';
+                setTimeout(function() {
+                    document.body.removeChild(notification);
+                }, 600); // Remove after fade out animation (600ms)
+            }, 3000); // Show for 3 seconds
+        }
+    </script>
+
+    
+
     <script src="assets/src/js/loading.js"></script>
-    <script src="assets/src/js/login.js"></script>
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

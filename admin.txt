@@ -1,12 +1,22 @@
-ADMIN CREDENTIALS
+Admin & Manager Credentials
 
-Email: admin
+Username: admin
 Password: admin
 
-TENANT CREDENTIAL
+Username: manager1
+Password: manager1password
 
-Email: Elgen@gmail.com
-Password: a
+Username: manager2
+Password: manager2password
+
+Username: manager3
+Password: manager3password
+
+
+Tenant Credentials
+
+Username: <>
+Password: password
 
 
 Project Folder:
@@ -18,6 +28,3 @@ app     >   assets  > dist - for premade libraries/frameworks
 
 
 Communicate important information here
-
--- merged tenant and admin side index/dashboard view for now
-        - login_handler.php, Ln 62

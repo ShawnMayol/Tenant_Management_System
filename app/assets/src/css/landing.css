@@ -46,16 +46,7 @@
 }
 .navbar {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
     z-index: 999;
-    text-align: center;
 }
 .navbar-brand {
     display: flex;
@@ -63,6 +54,6 @@
     width: 100%;
 }
 .logo {
-    margin-top: -20px;
-    height: 100px;
+    padding-left: 10px;
+    height: 50px;
 }

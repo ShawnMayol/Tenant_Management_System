@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "tenant_management_system";
+$dbname = "tms";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
