@@ -1,14 +1,17 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
-<?php
-session_start();
+<?php 
+  session_start();
 
-//$_SESSION['title'] = 'Tenant Management System' // initialize title
-// Redirect to login.php if user is not logged in yet
+  // Debugging: Check session values
+  print_r($_SESSION);
 
-// if(!isset($_SESSION['login_id']))
-// header('location:login.php');
+  // Redirect to landing.php if user is not logged in yet
+  if(!isset($_SESSION['user_id'])) {
+      header('Location: landing.php');
+      exit(); 
+  }
 ?>
 
 <head>
@@ -103,10 +106,10 @@ session_start();
       </li>
     </ul>
 
-    <div id="navbarSearch" class="navbar-search w-100 collapse">
-      <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-    </div>
-  </header>
+  <!-- <div id="navbarSearch" class="navbar-search w-100 collapse">
+    <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+  </div> -->
+</header>
 
   <div class="container-fluid">
     <div class="row">
@@ -215,33 +218,33 @@ session_start();
 
             <hr class="my-3">
 
-            <ul class="nav flex-column mb-auto">
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-person-circle" viewBox="0 0 16 16">
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                    <path fill-rule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                  </svg>
-                  Account
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2" href="landing.php">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
-                    class="bi bi-door-closed" viewBox="0 0 16 16">
-                    <path
-                      d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z" />
-                    <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0" />
-                  </svg>
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#accountModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+                Account
+              </a>
+            </li>
+
+            <?php include('account.modal.php'); ?>
+            <?php include('changePass.modal.php'); ?>
+
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="signout.handler.php">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-door-closed" viewBox="0 0 16 16">
+                  <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+                  <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+                </svg>
+                Sign out
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
 
       <!-- INSIDE MAIN TAG ARE PLACE HOLDER CONTENT -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

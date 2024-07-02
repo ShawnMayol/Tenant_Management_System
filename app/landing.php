@@ -3,6 +3,9 @@
 
 <?php 
     session_start();
+
+    // for debugging
+    // print_r($_SESSION);
 ?>
 
 <head>
@@ -32,12 +35,18 @@
         <img src="assets/src/img/loading.gif" alt="Loading...">
     </div>
 
+    <nav class="navbar">
+        <a class="navbar-brand logo" href="landing.php">
+            <img src="assets/src/svg/c-banner.svg" alt="Website Logo">
+        </a>
+    </nav>
+
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-md-6 half-page left-side">
                 <div class="overlay">
                     <h1>Already a Tenant?</h1>
-                    <a href="login/login.php">Login</a>
+                    <a href="login.php?login[page]=form.login">Login</a>
                 </div>
             </div>
             <div class="col-md-6 half-page right-side">
