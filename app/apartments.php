@@ -24,6 +24,7 @@
     <link href="assets/src/css/dashboard.css" rel="stylesheet">
 
 </head>
+
 <body class="bg-body-tertiary">
     <?php include('themes.php'); ?>
     
@@ -263,4 +264,5 @@
     <script src="assets/src/js/dashboard.js"></script>
     <script src="assets/src/js/loading.js"></script>
 </body>
+
 </html>

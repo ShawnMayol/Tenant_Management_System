@@ -58,9 +58,6 @@
         </div>
     </div>
 
-    <script src="assets/src/js/loading.js">
-
-    </script>
-
+    <script src="assets/src/js/loading.js"></script>
 </body>
 </html>

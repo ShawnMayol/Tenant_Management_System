@@ -1,10 +1,31 @@
-.container {
-  margin: 0px;
+* {
   padding: 0px;
+  margin: 0px;
+}
+
+body {
+  height: 100%;
+  margin: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  max-width: 100%;
+  align-items: center;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0px 50px 0px;
 }
 
 .form-floating {
@@ -12,15 +33,20 @@
 }
 
 .field-icon:hover {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .field-icon i {
-font-size: 1rem;
-padding: 1rem;
+  font-size: 1rem;
+  padding: 1rem;
 }
 
 .log-in {
-  margin-top: 40px;
   width: 500px;
+}
+
+.brand-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
