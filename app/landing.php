@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="assets/src/img/c-logo.svg" rel="icon">
+    <link href="assets/src/svg/c-logo.svg" rel="icon">
     <title>Tenant Management System | C-Apartments</title>
     
     <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,18 +32,12 @@
         <img src="assets/src/img/loading.gif" alt="Loading...">
     </div>
 
-    <nav class="navbar">
-        <a class="navbar-brand logo" href="landing.php">
-            <img src="assets/src/img/c.svg" alt="Website Logo">
-        </a>
-    </nav>
-
     <div class="container-fluid">
         <div class="row no-gutters">
             <div class="col-md-6 half-page left-side">
                 <div class="overlay">
                     <h1>Already a Tenant?</h1>
-                    <a href="login.php">Login</a>
+                    <a href="login/login.php">Login</a>
                 </div>
             </div>
             <div class="col-md-6 half-page right-side">
@@ -55,9 +49,6 @@
         </div>
     </div>
 
-    <script src="assets/src/js/loading.js">
-
-    </script>
-
+    <script src="assets/src/js/loading.js"></script>
 </body>
 </html>

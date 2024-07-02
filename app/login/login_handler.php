@@ -57,9 +57,9 @@ if (isset($_POST['email'], $_POST['password'])) {
 
                 // Redirect based on role
                 if ($_SESSION['is_admin']) {
-                    header("Location: index.php");
+                    header("Location: ../index.php");
                 } else {
-                    header("Location: index.php");  // merged for now
+                    header("Location: ../index.php");  // merged for now
                 }
                 exit();
             } else {

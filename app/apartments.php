@@ -3,22 +3,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php 
-    session_start();
+<?php
+session_start();
 ?>
 
 <head>
-    <script src="assets/dist/js/color-modes.js"></script>
+    <script src="./assets/dist/js/color-modes.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="assets/dist/font-awesome/css/all.min.css" rel="stylesheet">    
-    <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/src/css/apartment_catalogue.css">
+    <link href="./assets/dist/font-awesome/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/src/css/apartment_catalogue.css">
+    <link href="assets/src/css/dashboard.css" rel="stylesheet">
+    <link rel="icon" href="assets/src/svg/c-logo.svg">
     <title>Apartment Catalogue</title>
 </head>
+
 <body class="bg-body-tertiary">
-    
-    
+
+
     <div class="container-fluid card text-center p-3">
         <h1 class="align-middle px-4">Apartment Catalogue</h1>
     </div>
@@ -82,20 +85,25 @@
                                 <div id="carouselExample1" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample1" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample1" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample1" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample1" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -109,7 +117,9 @@
                                     <p>Max Occupants: 2</p>
                                 </div>
                                 <!-- Rent Button -->
-                                <button class="btn btn-primary w-100">Rent</button>
+                                <a href="client/request.php">
+                                    <button class="btn btn-primary w-100">Rent</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -122,20 +132,25 @@
                                 <div id="carouselExample2" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample2" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample2" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -149,7 +164,9 @@
                                     <p>Max Occupants: 2</p>
                                 </div>
                                 <!-- Rent Button -->
-                                <button class="btn btn-primary w-100">Rent</button>
+                                <a href="client/request.php">
+                                    <button class="btn btn-primary w-100">Rent</button>
+                                </a>
 
                             </div>
                         </div>
@@ -163,20 +180,25 @@
                                 <div id="carouselExample3" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample3" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample3" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample3" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample3" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -190,7 +212,9 @@
                                     <p>Max Occupants: 2</p>
                                 </div>
                                 <!-- Rent Button -->
-                                <button class="btn btn-primary w-100">Rent</button>
+                                <a href="client/request.php">
+                                    <button class="btn btn-primary w-100">Rent</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -203,20 +227,25 @@
                                 <div id="carouselExample4" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100" alt="...">
+                                            <img src="assets/src/img/apartment-img-template-1.jpg" class="d-block w-100"
+                                                alt="...">
                                         </div>
                                     </div>
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample4" data-bs-slide="prev">
+                                    <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExample4" data-bs-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Previous</span>
                                     </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample4" data-bs-slide="next">
+                                    <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExample4" data-bs-slide="next">
                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         <span class="visually-hidden">Next</span>
                                     </button>
@@ -230,8 +259,9 @@
                                     <p>Max Occupants: 2</p>
                                 </div>
                                 <!-- Rent Button -->
-                                <button class="btn btn-primary w-100">Rent</button>
-
+                                <a href="client/request.php">
+                                    <button class="btn btn-primary w-100">Rent</button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -240,8 +270,8 @@
         </div>
     </div>
 
-    <?php include('themes.php') ?>
-
+    <?php include ('./aesthetics/themes.php'); ?>
     <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
