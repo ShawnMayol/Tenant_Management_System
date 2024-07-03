@@ -1,6 +1,12 @@
+<style>
+  .sidebar, .offcanvas-md {
+    z-index: 9999;
+}
+</style>
+
 <div class="container-fluid">
     <div class="row">
-      <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+      <div class="sidebar position-fixed border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
         <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
           aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-header">
@@ -14,7 +20,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="index.php">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="#house-fill" />
+                      <use xlink:href="#house" />
                   </svg>
                   Dashboard
               </a>
@@ -46,7 +52,7 @@
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
-                  Clients
+                  Requests
                 </button>
               </li>
               <li class="nav-item">
@@ -131,6 +137,7 @@
               </a>
             </li>
           </ul>
+          <br>
         </div>
       </div>
     </div>

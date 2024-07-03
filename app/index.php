@@ -5,8 +5,8 @@
   session_start();
 
   // Debugging: Check session values
-  // print_r($_SESSION);
-  // print_r($_GET);
+  print_r($_SESSION);
+  print_r($_GET);
 
   // Redirect to landing.php if user is not logged in yet
   if(!isset($_SESSION['user_id'])) {
@@ -27,14 +27,28 @@
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link href="assets/src/css/dashboard.css" rel="stylesheet">
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
+
+<style>
+
+#accountPictureTrigger img {
+    display: block;
+    margin-right: 30px; /* Adjust this value to add margin to the right of the account image */
+}
+
+</style>
 
 <body>
 
   <?php include ('core/themes.php'); ?>
   <?php include ('core/icons.php'); ?>
 
-  <header class="navbar sticky-top flex-md-nowrap p-0 shadow" data-bs-theme="auto">
+  <header class="navbar sticky-top bg-dark-subtle flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="index.php">
         <img src="assets/src/svg/c.svg" alt="Company Logo" style="width: 100%; height: 80%">
     </a>
@@ -50,44 +64,45 @@
                 </svg>
             </button>
         </li>
-        <li class="nav-item text-nowrap d-none d-md-block">
-            <!-- Account Picture (Placeholder) -->
-            <img src="placeholder.jpg" class="img-fluid rounded-circle mx-2" style="width: 32px; height: 32px;"
-                alt="Account Picture">
+        <li class="nav-item text-nowrap d-none d-md-flex align-items-center">
             <!-- Username (Placeholder) -->
-            <span class="nav-link px-2">Username</span>
+            <span class="px-2">Admin</span>
+            <!-- Account Picture (Placeholder) -->
+            <a href="#" id="accountPictureTrigger" data-bs-toggle="modal" data-bs-target="#accountModal">
+                <img src="uploads/admin/profile_pictures/placeholder.jpg" class="img-fluid rounded-circle" style="width: 32px; height: 32px;" alt="Account Picture">
+            </a>
         </li>
     </ul>
 </header>
 
-  
 <?php 
     // Check if the session role is set
     if (isset($_SESSION['role'])) {
       // Assign the appropriate sidebar based on the user role
       switch ($_SESSION['role']) {
-          case 'Admin':
+          case 'admin':
               $sideBar = 'views/admin/admin.sidebar';
-              $dashboard = 'views/admin/admin.dashboard';
               break;
-          case 'Manager':
+          case 'manager':
               $sideBar = 'views/manager/manager.sidebar';
-              $dashboard = 'views/manager/manager.dashboard';
               break;
-          case 'Tenant':
+          case 'tenant':
               $sideBar = 'views/tenant/tenant.sidebar';
-              $dashboard = 'views/tenant/tenant.dashboard';
               break;
           default:
               echo('error');
       }
 
       include $sideBar . '.php'; 
-      include $dashboard . '.php'; 
-
-     } else {
-      // do nothing
-    }   
+      
+    } else {
+        // do nothing
+    }
+    if (isset($_GET['page'])) {
+        $dashboard = $_GET['page']; 
+        $role = $_SESSION['role'];
+        include 'views/' .  $role . '/' . $dashboard . '.php'; 
+    }
   ?>
 
   </div>

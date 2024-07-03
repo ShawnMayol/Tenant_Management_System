@@ -43,7 +43,6 @@
             <div class="col-md-6 half-page left-side">
                 <div class="overlay">
                     <h1>Already a Tenant?</h1>
-                    $_SESSION['login']['page'] = login.formInput
                     <a href="../../views/common/login.php?login[page]=login.formInput">Login</a>
                 </div>  
             </div>
