@@ -45,11 +45,20 @@
 
 <body>
 
-  <?php include ('core/themes.php'); ?>
-  <?php include ('core/icons.php'); ?>
+    <?php 
+        include ('core/themes.php'); 
+        include ('core/icons.php'); 
+
+        $role = $_SESSION['role'] ?? 'tenant';
+        $dashboardPage = match ($role) {
+            'admin' => 'index.php?page=admin.dashboard',
+            'manager' => 'index.php?page=manager.dashboard',
+            'tenant' => 'index.php?page=tenant.dashboard',
+        };
+    ?>
 
   <header class="navbar sticky-top bg-dark-subtle flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="index.php">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="<?= htmlspecialchars($dashboardPage) ?>">
         <img src="assets/src/svg/c.svg" alt="Company Logo" style="width: 100%; height: 80%">
     </a>
     <ul class="navbar-nav flex-row">
@@ -64,12 +73,36 @@
                 </svg>
             </button>
         </li>
+
+        <?php
+            include 'core/database.php';
+
+            // Retrieve user data from session
+            $loggedInUserID = $_SESSION['user_id'] ?? null;
+            $username = "";
+
+            // Check if user is logged in
+            if ($loggedInUserID) {
+                // Query to fetch the username based on logged-in user ID
+                $query = "SELECT username FROM user WHERE user_ID = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('i', $loggedInUserID);
+                $stmt->execute();
+                $stmt->bind_result($username);
+                $stmt->fetch();
+                $stmt->close();
+            } else {
+                echo "User not logged in.";
+            }
+            $conn->close();
+        ?>
+
         <li class="nav-item text-nowrap d-none d-md-flex align-items-center">
-            <!-- Username (Placeholder) -->
-            <span class="px-2">Admin</span>
-            <!-- Account Picture (Placeholder) -->
+            <div class="navbar-nav">
+                <span class="px-2"><?= htmlspecialchars($username) ?></span>
+            </div>
             <a href="#" id="accountPictureTrigger" data-bs-toggle="modal" data-bs-target="#accountModal">
-                <img src="uploads/admin/profile_pictures/placeholder.jpg" class="img-fluid rounded-circle" style="width: 32px; height: 32px;" alt="Account Picture">
+                <img src="uploads/admin/profile/placeholder.jpg" class="img-fluid rounded-circle" style="width: 32px; height: 32px;" alt="Account Picture">
             </a>
         </li>
     </ul>
@@ -100,7 +133,6 @@
     }
     if (isset($_GET['page'])) {
         $dashboard = $_GET['page']; 
-        $role = $_SESSION['role'];
         include 'views/' .  $role . '/' . $dashboard . '.php'; 
     }
   ?>

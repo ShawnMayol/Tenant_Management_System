@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
         $fullName = $row['fullName'];
         $dateOfBirth = date('l, F j, Y', strtotime($row['dateOfBirth']));
         $phoneNumber = $row['phoneNumber'];
-        $emailAddress = $row['emailAddress']; // Fetch email address
+        $emailAddress = $row['emailAddress'];
     }
 
     } else {
@@ -69,7 +69,7 @@ if ($result->num_rows > 0) {
                     <div class="row">
                         <div class="col-md-4 text-center">
                             <!-- Placeholder for tenant's picture -->
-                            <img src="placeholder.jpg" class="img-fluid rounded-circle mb-2" alt="Tenant Picture">
+                            <img src="uploads/admin/profile/placeholder.jpg" class="img-fluid mb-2" alt="Tenant Picture">
                             <div>
                                 <button class="btn btn-outline-primary">Change Picture</button>
                             </div>

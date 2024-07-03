@@ -20,7 +20,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username'])) {
     $updateUsernameQuery = "UPDATE user SET username = '$newUsername' WHERE user_ID = $loggedInUserID";
 
     if ($conn->query($updateUsernameQuery) === TRUE) {
-        echo '<script>window.location.href = "../../index.php";</script>';
+
+        switch ($_SESSION['role']) {
+            case 'admin':
+                header("Location: ../../index.php?page=admin.dashboard");
+                break;
+            case 'manager':
+                header("Location: ../../index.php?page=manager.dashboard");
+                break;
+            case 'tenant':
+                header("Location: ../../index.php?page=tenant.dashboard");
+                break;
+            default:
+                echo('error');
+        }
+
     } else {
         echo "Error updating username: " . $conn->error;
     }
@@ -36,7 +50,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['phoneNumber'])) {
     $updatePhoneNumberQuery = "UPDATE tenant SET phoneNumber = '$newPhoneNumber' WHERE tenant_ID IN (SELECT tenant_ID FROM user WHERE user_ID = $loggedInUserID)";
 
     if ($conn->query($updatePhoneNumberQuery) === TRUE) {
-        echo '<script>window.location.href = "../../index.php";</script>';
+        switch ($_SESSION['role']) {
+            case 'admin':
+                header("Location: ../../index.php?page=admin.dashboard");
+                break;
+            case 'manager':
+                header("Location: ../../index.php?page=manager.dashboard");
+                break;
+            case 'tenant':
+                header("Location: ../../index.php?page=tenant.dashboard");
+                break;
+            default:
+                echo('error');
+        }
     } else {
         echo "Error updating phone number: " . $conn->error;
     }
@@ -52,7 +78,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['emailAddress'])) {
     $updateEmailAddressQuery = "UPDATE tenant SET emailAddress = '$newEmail' WHERE tenant_ID IN (SELECT tenant_ID FROM user WHERE user_ID = $loggedInUserID)";
 
     if ($conn->query($updateEmailAddressQuery) === TRUE) {
-        echo '<script>window.location.href = "../../index.php";</script>';
+        switch ($_SESSION['role']) {
+            case 'admin':
+                header("Location: ../../index.php?page=admin.dashboard");
+                break;
+            case 'manager':
+                header("Location: ../../index.php?page=manager.dashboard");
+                break;
+            case 'tenant':
+                header("Location: ../../index.php?page=tenant.dashboard");
+                break;
+            default:
+                echo('error');
+        }
     } else {
         echo "Error updating phone number: " . $conn->error;
     }
