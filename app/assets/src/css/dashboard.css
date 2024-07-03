@@ -127,3 +127,16 @@
 .cl-table {
   vertical-align: middle;
 }
+
+
+.theme-icon {
+  transition: fill 0.3s ease;
+}
+
+[data-bs-theme="light"] .theme-icon {
+  fill: black;
+}
+
+[data-bs-theme="dark"] .theme-icon {
+  fill: white;
+}
