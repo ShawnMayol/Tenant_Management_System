@@ -38,18 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             unset($_GET['login']['page']);
             $_SESSION['user_id'] = $user['user_ID'];
-            $role = strtolower($user['userRole']);
-            $_SESSION['role'] = $role;
+            $_SESSION['role'] = $user['userRole'];
 
             // Redirect based on user role
             if ($user['userRole'] == 'Admin') {
-                header("Location: ../../index.php?page=admin.dashboard");
+                header("Location: ../../index.php?dashboard[role]=admin.dashboard");
                 exit();
             } else if ($user['userRole'] == 'Manager' ) {
-                header("Location: ../../index.php?page=manager.dashboard");
+                header("Location: ../../index.php?dashboard[role]=manager.dashboard");
                 exit();
             } else if ($user['userRole'] == 'Tenant') {
-                header("Location: ../../index.php?page=tenant.dashboard");
+                header("Location: ../../index.php?dashboard[role]=tenant.dashboard");
                 exit();
             } else {
                 echo "Unknown user role.";

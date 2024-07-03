@@ -46,7 +46,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../../views/common/login.php?login[page]=login.newPassword");
         exit();
     }
-
-    $conn->close();
 }
-?>
+
