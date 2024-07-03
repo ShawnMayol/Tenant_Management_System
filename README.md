@@ -12,6 +12,13 @@ Password: manager2password
 Username: manager3
 Password: manager3password
 
+
+Tenant Credentials
+
+Username: <>
+Password: password
+
+
 Project Folder:
 
 app     >   assets  > dist - for premade libraries/frameworks

@@ -1,12 +1,7 @@
-<style>
-  .sidebar, .offcanvas-md {
-    z-index: 9999;
-}
-</style>
 
 <div class="container-fluid">
     <div class="row">
-      <div class="sidebar position-fixed border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+      <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
         <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu"
           aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-header">
@@ -18,9 +13,9 @@
             <ul class="nav flex-column">
 
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="index.php">
+              <a class="nav-link d-flex align-items-center gap-2" aria-current="page" href="?page=dashboard">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="#house" />
+                      <use xlink:href="#house-fill" />
                   </svg>
                   Dashboard
               </a>
@@ -48,12 +43,12 @@
                 </a>
               </li>
               <li class="nav-item">
-                <button class="nav-link d-flex align-items-center gap-2" id="client-btn">
+                <a class="nav-link d-flex align-items-center gap-2" href="?page=requests" id="req-btn">
                   <svg class="bi">
                     <use xlink:href="#people" />
                   </svg>
-                  Requests
-                </button>
+                  Request
+                </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2" href="#">
@@ -137,7 +132,6 @@
               </a>
             </li>
           </ul>
-          <br>
         </div>
       </div>
     </div>

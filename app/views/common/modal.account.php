@@ -5,9 +5,6 @@
         color: #6c757d; /* Neutral gray for text color */
         cursor: not-allowed; /* Show disabled cursor */
     }
-    .modal, .modal-backdrop {
-        z-index: 1060; /* Ensure the modal and backdrop have high z-index values */
-    }
 </style>
 
 <?php
