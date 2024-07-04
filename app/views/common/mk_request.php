@@ -4,8 +4,15 @@
 <?php
 session_start();
 // Retrieve the apartment number from the query parameter
-$aptNumber = isset($_GET['apartment_number']) ? $_GET['apartment_number'] : '';
+$aptNumber = isset($_GET['apartmentNumber']) ? $_GET['apartmentNumber'] : '';
 ?>
+
+<style>
+    input[readonly] {
+        color: #6c757d; /* Neutral gray for text color */
+        cursor: not-allowed; /* Show disabled cursor */
+    }
+</style>
 
 <head>
   <script src="../../assets/dist/js/color-modes.js"></script>
@@ -76,7 +83,7 @@ $aptNumber = isset($_GET['apartment_number']) ? $_GET['apartment_number'] : '';
 
         <div class="mb-3">
           <label for="formFileMultiple" class="form-label">Attach Valid I.D (Front & Back)</label>
-          <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple[]" multiple>
+          <input class="form-control" type="file" id="formFileMultiple" name="formFileMultiple[]" multiple required>
         </div>
 
         <button class="btn btn-primary w-100 py-2 mt-3" id="signup-btn" type="submit">Send Request</button>

@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $updateQuery = "UPDATE user SET password = '$hashedPassword' WHERE user_ID = $loggedInUserID";
 
                 if ($conn->query($updateQuery) === TRUE) {
-                    echo '<script>alert("Password updated successfully."); window.location.href = "../../index.php";</script>';
+                    echo '<script>alert("Password updated successfully."); window.location.href = "../../views/common/landing.php";</script>';
                 } else {
                     echo "Error updating password: " . $conn->error;
                 }

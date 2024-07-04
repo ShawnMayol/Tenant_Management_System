@@ -28,11 +28,11 @@
     <div class="row">
     <!-- Pending Rent Requests Card -->
     <div class="col-md-4 mb-4">
-        <a href="pending-rent-requests.php" class="card-link">
+        <a href="index.php?page=admin.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-clock" style="margin-right: 10px;"></i> Pending Rent Requests</h5>
-                    <p class="card-text display-4">0</p>
+                    <p class="card-text display-4"><?php echo $totalRequestsPending; ?></p>
                 </div>
             </div>
         </a>
@@ -76,7 +76,7 @@
 
     <!-- Total Tenants Card -->
     <div class="col-md-4 mb-4">
-        <a href="total-tenants.php" class="card-link">
+        <a href="index.php?page=admin.tenants" class="card-link">
             <div class="card text-white bg-secondary hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-people" style="margin-right: 10px;"></i> Total Tenants</h5>

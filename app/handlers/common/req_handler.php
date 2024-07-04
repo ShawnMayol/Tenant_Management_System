@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $conn->real_escape_string($_POST['email']);
 
     // Check if the apartment number exists in the apartments table
-    $check_apartment = "SELECT apartment_number FROM apartment WHERE apartment_number = '$apartmentNumber'";
+    $check_apartment = "SELECT apartmentNumber FROM apartment WHERE apartmentNumber = '$apartmentNumber'";
     $result = $conn->query($check_apartment);
 
     if ($result->num_rows == 0) {
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "You can only upload a maximum of 2 files.";
             $uploadOk = 0;
         } else {
-            $target_dir = "/uploads/request/";
+            $target_dir = "../../tms3/App/uploads/request/";
             if (!is_dir($target_dir)) {
                 mkdir($target_dir, 0755, true);
             }
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $idAttachment = implode(',', $file_names);
 
                 // Insert data into database
-                $sql = "INSERT INTO request (apartment_number, first_name, middle_name, last_name, birth_date, phone_number, email, id_attachment, request_date)
+                $sql = "INSERT INTO request (apartmentNumber, firstName, middleName, lastName, dateOfBirth, phoneNumber, emailAddress, requestBin, requestDate)
                          VALUES ('$apartmentNumber', '$firstName', '$middleName', '$lastName', '$birthDate', '$phoneNumber', '$email', '$idAttachment','$requestDate')";
 
                 if ($conn->query($sql) === TRUE) {

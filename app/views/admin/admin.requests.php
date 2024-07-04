@@ -1,8 +1,8 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div>
-        <div class="client-title">
-            <h1 class="h1 mb-3 fw-normal">CLIENTS</h1>
-        </div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Requests</h1>
+    </div>
 
         <div>
             <table class="table table-striped">
@@ -68,19 +68,19 @@
                 
                 // Generate links for each attachment
                 let attachmentsHTML = '';
-                request.id_attachment.forEach((attachment, index) => {
+                request.requestBin.forEach((attachment, index) => {
                     attachmentsHTML += `<a href="${attachment}" target="_blank">View Picture ${index + 1}</a><br>`;
                 });
                 
                 row.innerHTML = `
                     <td class="cl-table">${request.Name}</td>
-                    <td class="cl-table">${request.birth_date}</td>
-                    <td class="cl-table">${request.email}</td>
-                    <td class="cl-table">${request.phone_number}</td>
+                    <td class="cl-table">${request.dateOfBirth}</td>
+                    <td class="cl-table">${request.emailAddress}</td>
+                    <td class="cl-table">${request.phoneNumber}</td>
                     <td class="cl-table">${attachmentsHTML}</td>
                     <td class="cl-table ">
-                      <button class="btn btn-sm btn-success cli-accept-btn" data-id="${request.request_id}">Accept</button>
-                      <button class="btn btn-sm btn-danger cli-reject-btn" data-id="${request.request_id}">Reject</button>
+                      <button class="btn btn-sm btn-success cli-accept-btn" data-id="${request.request_ID}">Accept</button>
+                      <button class="btn btn-sm btn-danger cli-reject-btn" data-id="${request.request_ID}">Reject</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -97,7 +97,6 @@
             console.error('Error fetching clients:', error);
         });
 }
-
 
     // Call retrieveReq() once the script is loaded
     retrieveReq();

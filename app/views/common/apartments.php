@@ -44,7 +44,7 @@ include '../../core/database.php';
                         <!-- Retrieve Info from databse -->
                         <?php
 
-                        $sql = "SELECT apartment_number, apartmentSize, apartmentPrice, apartmentStatus, maxOccupants FROM apartment";
+                        $sql = "SELECT apartmentNumber, apartmentType, rentPerMonth, apartmentStatus, maxOccupants FROM apartment";
                         $stmt = $conn->prepare($sql);
                         $stmt->execute();
                         $result = $stmt->get_result();
@@ -55,7 +55,7 @@ include '../../core/database.php';
                                 <div class="col-xl-3 col-md-4 mb-4">
                                     <div class="card">
                                         <div class="card-body">
-                                            <div id="carouselExample<?= $row['apartment_number']; ?>" class="carousel slide">
+                                            <div id="carouselExample<?= $row['apartmentNumber']; ?>" class="carousel slide">
                                                 <div class="carousel-inner">
                                                     <div class="carousel-item active">
                                                         <img src="../../assets/src/img/apartment-img-template-1.jpg"
@@ -71,26 +71,26 @@ include '../../core/database.php';
                                                     </div>
                                                 </div>
                                                 <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carouselExample<?= $row['apartment_number']; ?>"
+                                                    data-bs-target="#carouselExample<?= $row['apartmentNumber']; ?>"
                                                     data-bs-slide="prev">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Previous</span>
                                                 </button>
                                                 <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carouselExample<?= $row['apartment_number']; ?>"
+                                                    data-bs-target="#carouselExample<?= $row['apartmentNumber']; ?>"
                                                     data-bs-slide="next">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Next</span>
                                                 </button>
                                             </div>
                                             <div class="apartment-info">
-                                                <h5 class="card-title">Apartment <?= $row['apartment_number']; ?></h5>
-                                                <p>Size: <?= $row['apartmentSize']; ?></p>
-                                                <p>Price: ₱<?= $row['apartmentPrice']; ?>/month</p>
+                                                <h5 class="card-title">Apartment <?= $row['apartmentNumber']; ?></h5>
+                                                <p>Size: <?= $row['apartmentType']; ?></p>
+                                                <p>Price: ₱<?= $row['rentPerMonth']; ?>/month</p>
                                                 <p>Status: <?= $row['apartmentStatus']; ?></p>
                                                 <p>Max Occupants: <?= $row['maxOccupants']; ?></p>
                                             </div>
-                                            <a href="../common/mk_request.php?apartment_number=<?= $row['apartment_number']; ?>">
+                                            <a href="../common/mk_request.php?apartmentNumber=<?= $row['apartmentNumber']; ?>">
                                                 <button class="btn btn-primary w-100">Rent</button>
                                             </a>
                                         </div>

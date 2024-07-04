@@ -1,6 +1,6 @@
 <style>
   .sidebar, .offcanvas-md {
-    z-index: 1050;
+    z-index: 9999;
   }
   .selected {
     background-color: rgba(0, 123, 255, 0.1); /* Subtle glass-like background */
@@ -36,9 +36,6 @@
     });
 </script>
 
-<?php include('views/admin/modal.staffAccount.php'); ?>
-<?php include('views/common/modal.changePassword.php'); ?>
-
 <div class="container-fluid">
     <div class="row">
       <div class="sidebar position-fixed border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
@@ -63,7 +60,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.requests' ? 'selected' : 'highlight'; ?>" aria-current="page" href="?page=admin.requests">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.requests' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.requests">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'admin.requests' ? '#file-earmark-fill' : '#file-earmark'; ?>" />
                   </svg>
@@ -131,7 +128,8 @@
                 </a>
             </li>
 
-
+            <?php include('views/admin/modal.staffAccount.php'); ?>
+            <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">
               <a id="logout-link" class="nav-link d-flex align-items-center gap-2 highlight" href="handlers/common/logout.php">

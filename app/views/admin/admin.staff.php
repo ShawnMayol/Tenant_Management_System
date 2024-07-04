@@ -1,13 +1,16 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Tenants</h1>
+        <h1 class="h2">Staff</h1>
     </div>
+    <?php
+        $search = '';
+    ?>
 
     <!-- Search Form -->
     <form class="mb-4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search tenants..." name="search">
+            <input type="text" class="form-control" placeholder="Search staff..." name="search" value="<?php echo htmlspecialchars($search); ?>">
             <button class="btn btn-primary" type="submit">Search</button>
         </div>
     </form>
@@ -17,17 +20,14 @@
     // Include database connection file
     include 'core/database.php';
 
-    // Initialize search variable
-    $search = '';
-
     // Process search query if submitted
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search'])) {
         // Sanitize and store search query
         $search = mysqli_real_escape_string($conn, $_GET['search']);
     }
 
-    // Query to fetch tenant data with search filter
-    $sql = "SELECT * FROM tenant WHERE CONCAT(lastName, ' ', firstName, ' ', middleName) LIKE '%$search%'";
+    // Query to fetch staff data with search filter, excluding admin
+    $sql = "SELECT * FROM staff WHERE staffRole != 'Admin' AND CONCAT(lastName, ' ', firstName, ' ', middleName) LIKE '%$search%'";
 
     $result = $conn->query($sql);
 
@@ -41,7 +41,7 @@
         echo '<th>Date of Birth</th>';
         echo '<th>Phone Number</th>';
         echo '<th>Email</th>';
-        echo '<th>Deposit</th>';
+        echo '<th>Role</th>';
         echo '<th>Status</th>';
         echo '</tr>';
         echo '</thead>';
@@ -56,15 +56,15 @@
             echo '<td>' . $row['dateOfBirth'] . '</td>';
             echo '<td>' . $row['phoneNumber'] . '</td>';
             echo '<td>' . $row['emailAddress'] . '</td>';
-            echo '<td>$' . number_format($row['deposit'], 2) . '</td>';
-            echo '<td>' . $row['tenantStatus'] . '</td>';
+            echo '<td>' . $row['staffRole'] . '</td>';
+            echo '<td>' . $row['staffStatus'] . '</td>';
             echo '</tr>';
         }
 
         echo '</tbody>';
         echo '</table>';
     } else {
-        echo 'No tenants found.';
+        echo 'No staff found.';
     }
 
     // Close database connection
