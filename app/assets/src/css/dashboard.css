@@ -140,7 +140,3 @@
 [data-bs-theme="dark"] .theme-icon {
   fill: white;
 }
-
-.sidebarMenu {
-  z-index: 9999;
-}

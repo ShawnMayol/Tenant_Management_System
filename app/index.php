@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
-<?php 
-  session_start();
+<?php
+session_start();
 
-  // Debugging: Check session values
-  print_r($_SESSION);
-  print_r($_GET);
+// Debugging: Check session values
+// print_r($_SESSION);
+// print_r($_GET);
 
-  // Redirect to landing.php if user is not logged in yet
-  if(!isset($_SESSION['user_id'])) {
-      header('Location: views/common/landing.php');
-      exit(); 
-  }
+// Redirect to landing.php if user is not logged in yet
+if (!isset($_SESSION['user_id'])) {
+  header('Location: views/common/landing.php');
+  exit();
+}
 ?>
 
 <head>
@@ -27,21 +27,7 @@
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <link href="assets/src/css/dashboard.css" rel="stylesheet">
-
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
-
-
 </head>
-
-<style>
-
-#accountPictureTrigger img {
-    display: block;
-    margin-right: 30px; /* Adjust this value to add margin to the right of the account image */
-}
-
-</style>
 
 <body>
 
@@ -106,47 +92,53 @@
             </a>
         </li>
     </ul>
-</header>
+  </header>
 
-<?php 
-    // Check if the session role is set
-    if (isset($_SESSION['role'])) {
-      // Assign the appropriate sidebar based on the user role
-      switch ($_SESSION['role']) {
-          case 'admin':
-              $sideBar = 'views/admin/admin.sidebar';
-              break;
-          case 'manager':
-              $sideBar = 'views/manager/manager.sidebar';
-              break;
-          case 'tenant':
-              $sideBar = 'views/tenant/tenant.sidebar';
-              break;
-          default:
-              echo('error');
-      }
-
-      include $sideBar . '.php'; 
-      
-    } else {
-        // do nothing
+  <?php
+  // Check if the session role is set
+  if (isset($_SESSION['role'])) {
+    
+    // Assign the appropriate sidebar and default dashboard based on the user role
+    switch ($_SESSION['role']) {
+      case 'Admin':
+        $sideBar = 'views/admin/admin.sidebar';
+        $dashboard = 'views/admin/admin.dashboard';
+        break;
+      case 'Manager':
+        $sideBar = 'views/manager/manager.sidebar';
+        $dashboard = 'views/manager/manager.dashboard';
+        break;
+      case 'Tenant':
+        $sideBar = 'views/tenant/tenant.sidebar';
+        $dashboard = 'views/tenant/tenant.dashboard';
+        break;
+      default:
+        echo ('error');
     }
+
+    // Check if a specific page is requested, override $dashboard if needed
     if (isset($_GET['page'])) {
         $dashboard = $_GET['page']; 
         include 'views/' .  $role . '/' . $dashboard . '.php'; 
     }
+
+    // Include the sidebar and selected dashboard content
+    include $sideBar . '.php';
+    include $dashboard . '.php';
+  }
   ?>
 
+
   </div>
-</div>
+  </div>
 
-<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
-  integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp"
-  crossorigin="anonymous"></script>
-<script src="assets/src/js/dashboard.js"></script>
-<script src="assets/src/js/loading.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.2/dist/chart.umd.js"
+    integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp"
+    crossorigin="anonymous"></script>
+  <script src="assets/src/js/dashboard.js"></script>
+  <script src="assets/src/js/loading.js"></script>
 
 </body>
 
