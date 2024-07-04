@@ -44,20 +44,3 @@
 .right-side a:hover {
     color: black;
 }
-.navbar {
-    position: absolute;
-    z-index: 999;
-}
-.navbar-brand {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.logo {
-    padding-left: 10px;
-    height: 100px;
-}
-
-#banner {
-    height: 60px;
-}

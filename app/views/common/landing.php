@@ -25,6 +25,11 @@
     .right-side {
         background-image: url('../../assets/src/img/browse.jpg');
     }
+    .glass-navbar {
+        background: rgba(0, 0, 0, 0.3); /* White background with 70% opacity */
+        backdrop-filter: blur(0.5px); /* Blur effect */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
 </style>
 
 </head>
@@ -32,9 +37,9 @@
 <body>
     <?php //include('../../core/loading.php'); ?>
 
-    <nav class="navbar">
+    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="landing.php">
-            <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo">
+            <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid" style="max-height: 50px;">
         </a>
     </nav>
 
@@ -49,7 +54,7 @@
             <div class="col-md-6 half-page right-side">
                 <div class="overlay">
                     <h1>New Here?</h1>
-                    <a href="apartments.php">Browse Apartments</a>
+                    <a href="browse.php">Browse Apartments</a>
                 </div>
             </div>
         </div>

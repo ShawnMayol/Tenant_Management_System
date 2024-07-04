@@ -31,26 +31,11 @@
 </head>
 
 <style>
-    .navbar {
-        position:absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 90px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 999;
-        text-align: center;
-        }
-        .navbar-brand {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        }
-        .logo {
-            height: 90px;
-        }
+        .glass-navbar {
+        background: rgba(0, 0, 0, 0.3); /* White background with 70% opacity */
+        backdrop-filter: blur(0.5px); /* Blur effect */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
 </style>
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
@@ -59,9 +44,9 @@
 
     <?php include('../../core/themes.php') ?>
 
-    <nav class="navbar">
+    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="landing.php">
-            <img src="../../assets/src/svg/c.svg" alt="Website Logo">
+            <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid" style="max-height: 50px;">
         </a>
     </nav>
 

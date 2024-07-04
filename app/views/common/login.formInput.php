@@ -20,7 +20,7 @@
         <a href="?login[page]=login.forgotPassword" class="text-decoration-none forgot-password-link">Forgot password?</a>
     </div>
     <div class="d-flex justify-content-start my-3">
-        <a href="landing.php" class="text-decoration-none">Don't have an account?</a>
+        <a href="landing.php" class="text-decoration-none" title="Back to landing page">Don't have an account?</a>
     </div>
 
     <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
