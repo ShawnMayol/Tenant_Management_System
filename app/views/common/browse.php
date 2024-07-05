@@ -29,9 +29,6 @@
         max-height: 50px; /* Minimized logo size */
         transition: 0.8s; /* Smooth transition */
     }
-    .card-columns {
-            column-count: 3;
-        }
     .thumbnail { 
         display:block; 
         z-index:999; 
@@ -52,7 +49,7 @@
 
     <?php
     // Fetch apartment data from the database
-    $sql = "SELECT apartmentNumber, apartmentType, rentPerMonth, apartmentPictures FROM apartment WHERE apartmentStatus = 'available'";
+    $sql = "SELECT apartmentNumber, apartmentType, rentPerMonth, apartmentPictures, apartmentStatus FROM apartment ORDER BY apartmentStatus";
     $result = $conn->query($sql);
 
     $apartments = [];
@@ -70,46 +67,81 @@
         </a>
     </nav>
 
-    <main class="col-md-12 col-lg-12 px-md-4">
-        <div class="container mt-5 pt-5">
-            <div class="row mb-3">
-                <div class="col-12">
-                    <input type="text" class="form-control" id="filterInput" placeholder="Filter apartments...">
-                </div>
-            </div>
-            <div class="row" id="apartmentGrid">
-                <!-- Apartment cards will be dynamically inserted here -->
+    <main class="container-xl container mt-3 pt-3 px-0">
+
+        <div class="container pb-4" style="padding-top: 65px; ">
+            <div class="text-center">
+                <span class="">
+                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to landing page">Home</a> / 
+                    <span class="text-secondary">Browse</span>
+                </span>
             </div>
         </div>
-    </main>
+        
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-12">
+                <input type="text" class="form-control" id="filterInput" placeholder="Filter apartments...">
+            </div>
+        </div>
+        <div class="row" id="apartmentGrid">
+            <!-- Apartment cards will be dynamically inserted here -->
+        </div>
+    </div>
+</main>
 
-    <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const apartments = <?php echo json_encode($apartments); ?>;
+<script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const apartments = <?php echo json_encode($apartments); ?>;
 
-        function createApartmentCard(apartment) {
-            return `
-                <div class="col-md-4 mb-4">
-                    <div class="card bg-transparent thumbnail shadow">
-                        <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
-                                <img src="${apartment.apartmentPictures}" class="card-img-top " alt="${apartment.apartmentType}">
-                            <div class="card-body ">
-                                <h5 class="card-title">${apartment.apartmentType}</h5>
-                                <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
+    function createApartmentCard(apartment) {
+        // Determine the status message
+        let statusMessage = '';
+        if (apartment.apartmentStatus === 'available') {
+            statusMessage = '<div class="p-3 mb-2 text-success-emphasis text-end">Available</div>';
+        } else if (apartment.apartmentStatus === 'unavailable') {
+            // Assuming you want the date the apartment will be available
+            let availableDate = new Date();
+            availableDate.setMonth(availableDate.getMonth() + 1); // Example: setting available date to one month later
+            statusMessage = `<div class="p-3 mb-2 text-danger-emphasis text-end">Available by ${availableDate.toISOString().split('T')[0]}</div>`;
+            statusMessage = `<div class="p-3 mb-2 text-danger-emphasis text-end">Unavailable</div>`;
+        } else {
+            statusMessage = 'unknown status';
+        }
+
+        const cardBgClass = apartment.apartmentStatus === 'available' ? 'bg-success-subtle' : 'bg-danger-subtle';
+
+        return `
+            <div class="col-md-4 mb-4">
+                <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
+                    <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
+                        <img src="../../${apartment.apartmentPictures}" class="card-img-top" alt="${apartment.apartmentType}">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="card-title">${apartment.apartmentType}</h5>
+                                        <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        ${statusMessage}
+                                    </div>
+                                </div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </div>
-            `;
-        }
+            </div>
+        `;
+    }
 
-        function loadApartments() {
-            const apartmentGrid = document.getElementById('apartmentGrid');
-            apartmentGrid.innerHTML = apartments.map(createApartmentCard).join('');
-        }
+    function loadApartments() {
+        const apartmentGrid = document.getElementById('apartmentGrid');
+        apartmentGrid.innerHTML = apartments.map(createApartmentCard).join('');
+    }
 
-        document.addEventListener('DOMContentLoaded', loadApartments);
-    </script>
+    document.addEventListener('DOMContentLoaded', loadApartments);
+</script>
     <script>
         // Function to handle scroll event
         window.addEventListener('scroll', function() {

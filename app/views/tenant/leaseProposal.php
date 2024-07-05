@@ -41,64 +41,67 @@
     </nav>
 
     <main class="col-md-12 col-lg-12 px-md-4">
-        <div class="container mt-4">
+        <div class="container mt-4 pt-4">
             <div class="row">
                 <!-- Image column -->
-                <div class="col-lg-6 mb-4">
+                <div class="col-lg-5 mb-4">
                     <img src="../../assets/src/img/apartment-img-template-1.jpg" class="img-fluid shadow" alt="Apartment Image">
                 </div>
                     
                 <!-- Form column -->
-                <div class="col-lg-6">
-                    <h2>Input Tenant Information</h2>
+                <div class="col-lg-7">
+                    <h2>Tenant Information</h2>
+                    <p>Enter your personal information so that we may get to know you better.</p>
                     <hr>
                     <!-- Tenant details form -->
                     <form action="submit_tenant_info.php" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="firstName" class="form-label">First Name*</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                <input type="text" class="form-control py-2" id="firstName" name="firstName" placeholder="First Name" required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="middleName" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="middleName" name="middleName">
+                                <input type="text" class="form-control py-2" id="middleName" name="middleName" placeholder="Middle Name">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="lastName" class="form-label">Last Name*</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                <input type="text" class="form-control py-2" id="lastName" name="lastName" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+                            <input type="date" class="form-control  py-2" id="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyy" required>
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label">Gender*</label>
-                            <select class="form-select" id="gender" name="gender" required>
+                            <select class="form-select py-2" id="gender" name="gender" required>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
                                 <option value="N">Prefer not to say</option>
                             </select>
                         </div>
-
+                        <br>
                         <!-- Contact information -->
                         <h2>Contact Information</h2>
+                        <p>Enter your contact information so that we may be able to get back to you.</p>
                         <hr>
                         <div class="mb-3">
                             <label for="emailAddress" class="form-label">Email Address*</label>
-                            <input type="email" class="form-control" id="emailAddress" name="emailAddress" required>
+                            <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="example@domain.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="phoneNumber" class="form-label">Phone Number*</label>
-                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                            <input type="tel" class="form-control py-2" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
                         </div>
-
+                        <br>
                         <!-- Valid documents upload -->
                         <h2>Valid Documents</h2>
+                        <p>Upload a picture or scan of your <a href="#" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
                         <hr>
                         <div class="mb-3">
-                            <label for="documentImage" class="form-label">Upload Valid Documents*</label>
-                            <input type="file" class="form-control" id="documentImage" name="documentImage" accept="image/*" required>
+                            <label for="documentImage" class="form-label">Valid Documents*</label>
+                            <input type="file" class="form-control py-2" id="documentImage" name="documentImage" accept="image/*" required>
                         </div>
 
                         <!-- Submit button -->

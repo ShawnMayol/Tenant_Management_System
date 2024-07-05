@@ -76,19 +76,35 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12 mb-4">
-                    <img src="<?php echo $apartment['apartmentPictures']; ?>" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
+                    <img src="../../<?php echo $apartment['apartmentPictures']; ?>" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
                 </div>
                 <div class="col-lg-4 col-md-12">
-                    <h1><?php echo $apartment['apartmentType']; ?></h1><br>
+                    <h1><?php echo $apartment['apartmentType']; ?></h1>
                     <hr>
                     <h5>₱<?php echo number_format($apartment['rentPerMonth'], 2); ?> / month</h5>
                     <p><?php echo $apartment['description']; ?></p>
                     <p><strong>Max Occupants:</strong> <?php echo $apartment['maxOccupants']; ?></p>
                     <p><strong>Address:</strong> <?php echo $apartment['address']; ?></p>
-                    <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p>
-                    <hr>
+                    <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
+                    <h3>Availability</h3><hr>
+                    <?php 
+                        switch($apartment['apartmentStatus']) {
+                            case 'available':
+                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                break;
+                                
+                            case 'unavailable':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently unvailable <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            default:
+                                echo 'unknown status';
+                        }
+                    ?>
+                    
                     <div class="mt-5">
-                    <h3>Propose Lease</h3><br>
+                        <h3>Make a Request</h3>
+                        <hr>
                         <form action="../../views/tenant/leaseProposal.php" method="POST">
                             <input type="hidden" name="apartmentNumber" value="<?php echo $apartmentNumber; ?>">
                             <div class="mb-3">

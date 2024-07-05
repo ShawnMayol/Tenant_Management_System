@@ -97,6 +97,7 @@
             </div>
         </a>
     </div>
+    <hr>
 </div>
 
     <!-- Dummy Graph -->
