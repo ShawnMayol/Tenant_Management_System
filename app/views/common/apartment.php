@@ -82,9 +82,9 @@
                     <h1><?php echo $apartment['apartmentType']; ?></h1>
                     <hr>
                     <h5>₱<?php echo number_format($apartment['rentPerMonth'], 2); ?> / month</h5>
-                    <p><?php echo $apartment['description']; ?></p>
+                    <p><?php echo $apartment['apartmentDescription']; ?></p>
                     <p><strong>Max Occupants:</strong> <?php echo $apartment['maxOccupants']; ?></p>
-                    <p><strong>Address:</strong> <?php echo $apartment['address']; ?></p>
+                    <p><strong>Address:</strong> <?php echo $apartment['apartmentAddress']; ?></p>
                     <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
                     <h3>Availability</h3><hr>
                     <?php 
@@ -94,7 +94,7 @@
                                 break;
                                 
                             case 'unavailable':
-                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently unvailable <br>
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently unavailable <br>
                                 Will be available by ' . date('m-d-Y') . '</div>';
                                 break;
                             default:

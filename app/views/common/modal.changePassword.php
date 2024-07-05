@@ -22,7 +22,7 @@
                     <div class="mb-3">
                         <label for="oldPassword" class="form-label">Old Password:</label>
                         <div class="position-relative">
-                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                            <input type="password" class="form-control py-2" id="oldPassword" name="oldPassword" required>
                             <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -31,7 +31,7 @@
                     <div class="mb-3">
                         <label for="newPassword" class="form-label">New Password:</label>
                         <div class="position-relative">
-                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                            <input type="password" class="form-control py-2" id="newPassword" name="newPassword" required>
                             <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -40,7 +40,7 @@
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password:</label>
                         <div class="position-relative">
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <input type="password" class="form-control py-2" id="confirmPassword" name="confirmPassword" required>
                             <span class="field-icon toggle-password position-absolute end-0 top-50 translate-middle-y">
                                 <i class="fas fa-eye"></i>
                             </span>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Change Password & Sign out</button>
+                    <button type="submit" class="btn btn-outline-danger">Change Password & Sign out</button>
                 </div>
             </form>
         </div>

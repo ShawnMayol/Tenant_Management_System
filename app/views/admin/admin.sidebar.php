@@ -47,7 +47,7 @@
               <h5 class="offcanvas-title" id="sidebarMenuLabel">C-Apartments</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-          <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+          <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto shadow">
             <ul class="nav flex-column">
 
             <?php

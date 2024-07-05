@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2024 at 11:40 AM
+-- Generation Time: Jul 05, 2024 at 12:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,26 +31,28 @@ CREATE TABLE `apartment` (
   `apartmentNumber` int(11) NOT NULL,
   `apartmentType` varchar(50) NOT NULL,
   `rentPerMonth` decimal(10,2) NOT NULL,
+  `apartmentDimensions` varchar(50) DEFAULT NULL,
+  `apartmentAddress` varchar(255) DEFAULT NULL,
   `apartmentStatus` enum('available','unavailable') DEFAULT 'available',
   `maxOccupants` int(11) DEFAULT NULL,
   `numOccupants` int(11) DEFAULT 0,
   `apartmentPictures` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL
+  `apartmentDescription` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `apartment`
 --
 
-INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentStatus`, `maxOccupants`, `numOccupants`, `apartmentPictures`, `description`) VALUES
-(1, 'Studio', 1200.00, 'unavailable', 2, 2, NULL, 'Cozy studio apartment with modern amenities.'),
-(2, '1 Bedroom', 1500.00, 'unavailable', 3, 3, NULL, 'Spacious one-bedroom apartment with scenic views.'),
-(3, '2 Bedroom', 2000.00, 'available', 4, 0, NULL, 'Comfortable two-bedroom apartment perfect for families.'),
-(4, '3 Bedroom', 2500.00, 'available', 5, 0, NULL, 'Luxurious three-bedroom apartment with elegant interiors.'),
-(5, '1 Bedroom', 1600.00, 'available', 3, 0, NULL, 'Charming one-bedroom apartment in a quiet neighborhood.'),
-(6, '2 Bedroom', 2100.00, 'available', 4, 0, NULL, 'Modern two-bedroom apartment with contemporary design.'),
-(7, 'Penthouse', 5000.00, 'available', 6, 0, NULL, 'Exquisite penthouse offering breathtaking city skyline.'),
-(8, 'Studio', 1200.00, 'available', 2, 0, NULL, 'Cozy studio apartment perfect for individuals or couples.');
+INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `apartmentStatus`, `maxOccupants`, `numOccupants`, `apartmentPictures`, `apartmentDescription`) VALUES
+(1, 'Studio', 1200.00, '20 sqm', 'LB468, Nasipit, Talamban, Cebu', 'unavailable', 2, 2, 'uploads/apartment/ap-1/pic-1.jpg', 'Cozy studio apartment with modern amenities.'),
+(2, '1 Bedroom', 1500.00, '30 sqm', 'LB469, Nasipit, Talamban, Cebu', 'unavailable', 3, 3, 'uploads/apartment/ap-1/pic-1.jpg', 'Spacious one-bedroom apartment with scenic views.'),
+(3, '2 Bedroom', 2000.00, '50 sqm', '0', 'available', 4, 0, 'uploads/apartment/ap-1/pic-1.jpg', '0'),
+(4, '3 Bedroom', 2500.00, '80 sqm', '0', 'available', 5, 0, 'uploads/apartment/ap-1/pic-1.jpg', '0'),
+(5, '1 Bedroom', 1600.00, '35 sqm', 'LB484, Nasipit, Talamban, Cebu', 'available', 3, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Charming one-bedroom apartment in a quiet neighborhood.'),
+(6, '2 Bedroom', 2100.00, '60 sqm', 'LB483, Nasipit, Talamban, Cebu', 'available', 4, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Modern two-bedroom apartment with contemporary design.'),
+(7, 'Penthouse', 5000.00, '120 sqm', 'LB482, Nasipit, Talamban, Cebu', 'available', 6, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Exquisite penthouse offering breathtaking city skyline.'),
+(8, 'Studio', 1200.00, '25 sqm', 'LB481, Nasipit, Talamban, Cebu', 'available', 2, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Cozy studio apartment perfect for individuals or couples.');
 
 -- --------------------------------------------------------
 
@@ -138,28 +140,35 @@ CREATE TABLE `request` (
   `emailAddress` varchar(50) NOT NULL,
   `requestDate` date NOT NULL,
   `requestBin` varchar(255) NOT NULL,
-  `requestStatus` enum('Pending','Approved','Rejected') DEFAULT 'Pending'
+  `requestStatus` enum('Pending','Approved','Rejected') DEFAULT 'Pending',
+  `termsOfStay` varchar(10) DEFAULT NULL,
+  `startDate` date DEFAULT NULL,
+  `endDate` date DEFAULT NULL,
+  `billingPeriod` varchar(11) DEFAULT NULL,
+  `occupants` int(11) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `gender` enum('Male','Female','Prefer not to say') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `request`
 --
 
-INSERT INTO `request` (`request_ID`, `apartmentNumber`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `phoneNumber`, `emailAddress`, `requestDate`, `requestBin`, `requestStatus`) VALUES
-(1, 1, 'Elgen', 'Arinasa', 'Mar', '2005-03-21', '6969696969', 'elgenelgen@gmail.com', '2024-07-04', '/uploads/request/23103613.jpg', 'Pending'),
-(2, 2, 'Klyde', 'Perante', 'Jemar', '1111-11-11', '111111', 'klyde@a', '2024-07-04', 'uploads/request/23103613.jpg', 'Pending'),
-(3, 3, 'Carl', 'Omega', 'Alias', '2222-02-22', '222222222', 'alias314@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-02 233356.png', 'Pending'),
-(4, 4, 'Shawn', 'Cuime', 'J', '3333-03-31', '3333333', 'shawn2@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-03 234828.png', 'Pending'),
-(5, 5, 'Shawn', 'Veloso', 'Clifford', '5555-05-05', '2342341', 'shv@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-03 143157.png', 'Pending'),
-(6, 6, 'Nil', 'Alvarez', 'Benedict', '2411-11-24', '124235', 'alv@a', '2024-07-04', '../../tms3/App/uploads/request/Screenshot 2024-07-03 234828.png', 'Pending'),
-(7, 8, 'asdf', 'adfg', 'asdg', '0000-00-00', '6969696969', 'email@email.com', '2024-07-04', '../../App/uploads/request/Screenshot 2024-07-03 143157.png', 'Pending'),
-(8, 1, 'John', 'Cena', '', '1141-12-12', '1111111', 'jc@gmail.com', '2024-07-04', '../../App/uploads/request/johncena.jpg', 'Pending'),
-(9, 4, 'John', 'Wick', '', '1212-12-12', '1241245124', 'a@a', '2024-07-04', '../../uploads/request/johnwick.jpg', 'Pending'),
-(10, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '/uploads/request/johncena.jpg', 'Pending'),
-(11, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../uploads/request/johncena.jpg', 'Pending'),
-(12, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../App/uploads/request/johncena.jpg', 'Pending'),
-(13, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../tms3/App/uploads/request/johncena.jpg', 'Pending'),
-(14, 3, 'Shawn', 'Mayol', 'Cuime', '2004-03-19', '09298089931', 'email@gmail.com', '2024-07-04', '../../tms3/App/uploads/request/23103613.jpg', 'Pending');
+INSERT INTO `request` (`request_ID`, `apartmentNumber`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `phoneNumber`, `emailAddress`, `requestDate`, `requestBin`, `requestStatus`, `termsOfStay`, `startDate`, `endDate`, `billingPeriod`, `occupants`, `message`, `gender`) VALUES
+(1, 1, 'Elgen', 'Arinasa', 'Mar', '2005-03-21', '6969696969', 'elgenelgen@gmail.com', '2024-07-04', '/uploads/request/23103613.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 2, 'Klyde', 'Perante', 'Jemar', '1111-11-11', '111111', 'klyde@a', '2024-07-04', 'uploads/request/23103613.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, 'Carl', 'Omega', 'Alias', '2222-02-22', '222222222', 'alias314@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-02 233356.png', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 4, 'Shawn', 'Cuime', 'J', '3333-03-31', '3333333', 'shawn2@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-03 234828.png', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 5, 'Shawn', 'Veloso', 'Clifford', '5555-05-05', '2342341', 'shv@gmail.com', '2024-07-04', '../../uploads/request/Screenshot 2024-07-03 143157.png', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 6, 'Nil', 'Alvarez', 'Benedict', '2411-11-24', '124235', 'alv@a', '2024-07-04', '../../tms3/App/uploads/request/Screenshot 2024-07-03 234828.png', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 8, 'asdf', 'adfg', 'asdg', '0000-00-00', '6969696969', 'email@email.com', '2024-07-04', '../../App/uploads/request/Screenshot 2024-07-03 143157.png', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 1, 'John', 'Cena', '', '1141-12-12', '1111111', 'jc@gmail.com', '2024-07-04', '../../App/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 4, 'John', 'Wick', '', '1212-12-12', '1241245124', 'a@a', '2024-07-04', '../../uploads/request/johnwick.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../App/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../tms3/App/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 3, 'Shawn', 'Mayol', 'Cuime', '2004-03-19', '09298089931', 'email@gmail.com', '2024-07-04', '../../tms3/App/uploads/request/23103613.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

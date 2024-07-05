@@ -22,7 +22,7 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Dashboard</h1>
+      <h1 class="h1">Dashboard</h1>
     </div>
 
     <div class="row">
@@ -64,7 +64,7 @@
 
     <!-- Apartments Available Card -->
     <div class="col-md-4 mb-4">
-        <a href="apartments-available.php" class="card-link">
+        <a href="?page=admin.apartments" class="card-link">
             <div class="card text-white bg-warning hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-house-door" style="margin-right: 10px;"></i> Apartments Available</h5>

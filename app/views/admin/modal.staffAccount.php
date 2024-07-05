@@ -74,23 +74,23 @@ if ($loggedInUserID) {
                             <!-- Display staff information fetched from database -->
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" value="<?= $username ?>">
+                                <input type="text" class="form-control py-2" id="username" name="username" value="<?= $username ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name:</label>
-                                <input type="text" class="form-control" id="fullName" value="<?= $fullName ?>" readonly>
+                                <input type="text" class="form-control py-2" id="fullName" value="<?= $fullName ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="dateOfBirth" class="form-label">Date of Birth:</label>
-                                <input type="text" class="form-control" id="dateOfBirth" value="<?= $dateOfBirth ?>" readonly>
+                                <input type="text" class="form-control py-2" id="dateOfBirth" value="<?= $dateOfBirth ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="emailAddress" class="form-label">Email Address:</label>
-                                <input type="email" class="form-control" id="emailAddress" name="emailAddress" value="<?= $emailAddress ?>">
+                                <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" value="<?= $emailAddress ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="phoneNumber" class="form-label">Phone Number:</label>
-                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?= $phoneNumber ?>">
+                                <input type="text" class="form-control py-2" id="phoneNumber" name="phoneNumber" value="<?= $phoneNumber ?>">
                             </div>
                             <div>
                                 <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#changePasswordModal" data-bs-dismiss="modal" type="button">Change Password</button>
