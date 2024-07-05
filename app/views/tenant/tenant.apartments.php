@@ -1,10 +1,9 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Apartments</h1>
+        <h1 class="h2">Apartments</h1>
     </div>
-    
-    <?php
 
+    <?php
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -19,7 +18,7 @@
 
     if ($loggedInUserID) {
         // Fetch the tenant_id based on logged-in user ID
-        $query = "SELECT tenant_id FROM user WHERE user_ID = ?";
+        $query = "SELECT tenant_ID FROM user WHERE user_ID = ?";
         $stmt = $pdo->prepare($query);
         $stmt->execute([$loggedInUserID]);
         $tenantID = $stmt->fetchColumn();
@@ -31,7 +30,7 @@
     if ($tenantID) {
         // Fetch apartment data for the logged-in tenant
         $sql = "
-            SELECT a.*
+            SELECT a.*, l.*
             FROM apartment a
             JOIN lease l ON a.apartmentNumber = l.apartmentNumber
             WHERE l.tenant_ID = :tenantID
@@ -54,7 +53,7 @@
                         <p class="card-text">Type: <?= htmlspecialchars($row['apartmentType']) ?></p>
                     </div>
                     <div>
-                        <p class="card-text">Rent per Month: PHP<?= htmlspecialchars($row['rentPerMonth']) ?></p>
+                        <p class="card-text">Rent: PHP<?= htmlspecialchars($row['rentPerMonth']) ?></p>
                     </div>
                     <div>
                         <p class="card-text">Max Occupants: <?= htmlspecialchars($row['maxOccupants']) ?></p>
@@ -64,6 +63,15 @@
                     </div>
                     <div>
                         <p class="card-text">Description: <?= htmlspecialchars($row['description']) ?></p>
+                    </div>
+                    <div>
+                        <p class="card-text">Billing Period: <?= htmlspecialchars($row['billingPeriod'])?></p>
+                    </div>
+                    <div>
+                        <p class="card-text">Lease Start Date: <?= htmlspecialchars($row['startDate']) ?></p>
+                    </div>
+                    <div>
+                        <p class="card-text">Lease End Date: <?= htmlspecialchars($row['endDate']) ?></p>
                     </div>
                 </div>
             </div>
