@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2024 at 12:51 PM
+-- Generation Time: Jul 05, 2024 at 08:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,9 +33,8 @@ CREATE TABLE `apartment` (
   `rentPerMonth` decimal(10,2) NOT NULL,
   `apartmentDimensions` varchar(50) DEFAULT NULL,
   `apartmentAddress` varchar(255) DEFAULT NULL,
-  `apartmentStatus` enum('available','unavailable') DEFAULT 'available',
   `maxOccupants` int(11) DEFAULT NULL,
-  `numOccupants` int(11) DEFAULT 0,
+  `apartmentStatus` enum('Available','Occupied','Maintenance','Hidden') DEFAULT 'Hidden',
   `apartmentPictures` varchar(255) DEFAULT NULL,
   `apartmentDescription` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,15 +43,22 @@ CREATE TABLE `apartment` (
 -- Dumping data for table `apartment`
 --
 
-INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `apartmentStatus`, `maxOccupants`, `numOccupants`, `apartmentPictures`, `apartmentDescription`) VALUES
-(1, 'Studio', 1200.00, '20 sqm', 'LB468, Nasipit, Talamban, Cebu', 'unavailable', 2, 2, 'uploads/apartment/ap-1/pic-1.jpg', 'Cozy studio apartment with modern amenities.'),
-(2, '1 Bedroom', 1500.00, '30 sqm', 'LB469, Nasipit, Talamban, Cebu', 'unavailable', 3, 3, 'uploads/apartment/ap-1/pic-1.jpg', 'Spacious one-bedroom apartment with scenic views.'),
-(3, '2 Bedroom', 2000.00, '50 sqm', '0', 'available', 4, 0, 'uploads/apartment/ap-1/pic-1.jpg', '0'),
-(4, '3 Bedroom', 2500.00, '80 sqm', '0', 'available', 5, 0, 'uploads/apartment/ap-1/pic-1.jpg', '0'),
-(5, '1 Bedroom', 1600.00, '35 sqm', 'LB484, Nasipit, Talamban, Cebu', 'available', 3, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Charming one-bedroom apartment in a quiet neighborhood.'),
-(6, '2 Bedroom', 2100.00, '60 sqm', 'LB483, Nasipit, Talamban, Cebu', 'available', 4, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Modern two-bedroom apartment with contemporary design.'),
-(7, 'Penthouse', 5000.00, '120 sqm', 'LB482, Nasipit, Talamban, Cebu', 'available', 6, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Exquisite penthouse offering breathtaking city skyline.'),
-(8, 'Studio', 1200.00, '25 sqm', 'LB481, Nasipit, Talamban, Cebu', 'available', 2, 0, 'uploads/apartment/ap-1/pic-1.jpg', 'Cozy studio apartment perfect for individuals or couples.');
+INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `maxOccupants`, `apartmentStatus`, `apartmentPictures`, `apartmentDescription`) VALUES
+(1, 'Studio', 1200.00, '20 sqm', 'LB468, Nasipit, Talamban, Cebu', 2, 'Available', '../../uploads/apartment/pic-1.jpg', 'Cozy studio apartment with modern amenities.'),
+(2, '1 Bedroom', 1500.00, '30 sqm', 'LB469, Nasipit, Talamban, Cebu', 3, 'Occupied', '../../uploads/apartment/pic-1.jpg', 'Spacious one-bedroom apartment with scenic views.'),
+(3, '2 Bedroom', 2000.00, '50 sqm', '0', 4, 'Available', '../../uploads/apartment/pic-1.jpg', '0'),
+(4, '3 Bedroom', 2500.00, '80 sqm', '0', 5, 'Available', '../../uploads/apartment/pic-1.jpg', '0'),
+(5, '1 Bedroom', 1600.00, '35 sqm', 'LB484, Nasipit, Talamban, Cebu', 3, 'Available', '../../uploads/apartment/pic-1.jpg', 'Charming one-bedroom apartment in a quiet neighborhood.'),
+(6, '2 Bedroom', 2100.00, '60 sqm', 'LB483, Nasipit, Talamban, Cebu', 4, 'Available', '../../uploads/apartment/pic-1.jpg', 'Modern two-bedroom apartment with contemporary design.'),
+(7, 'Penthouse', 5000.00, '120 sqm', 'LB482, Nasipit, Talamban, Cebu', 6, 'Hidden', '../../uploads/apartment/pic-1.jpg', 'Exquisite penthouse offering breathtaking city skyline.'),
+(8, 'Studio', 1200.00, '25 sqm', 'LB481, Nasipit, Talamban, Cebu', 2, 'Maintenance', '../../uploads/apartment/pic-1.jpg', 'Cozy studio apartment perfect for individuals or couples.'),
+(9, '3 Bedroomasdf', 20000.00, '50 sqm', '0', 1, 'Hidden', '../../uploads/apartment/pic-1.jpg', 'asdf'),
+(10, 'Mansion', 100.00, '100 sqm', '0', 10, 'Hidden', '../../uploads/apartment/johnwick.jpg', '0'),
+(11, 'Studio', 2000.00, '50 sqm', 'LALALALALA', 2, 'Hidden', '../../uploads/apartment/studio.jpg', 'asdjhf aksdfh jashd f aksdhjfkajdh sfklaakjd shfkdj'),
+(12, '2 Bedroom', 2000.00, '50 sqm', '0', 2, 'Occupied', '../../uploads/apartment/studio.jpg', 'a'),
+(13, '3 Bedrooma', 2000.00, '50 sqmaa', '0', 2, 'Occupied', '../../uploads/apartment/studio.jpg', 'new'),
+(14, '3 Bedroom', 2000.00, '50 sqmaa', '0', 2, 'Occupied', '../../uploads/apartment/johncena.jpg', 'a'),
+(15, 'Mansion ni Bro', 20000.00, '50 sqm', 'Somewhere in Cebu City', 4, 'Occupied', '../../uploads/apartment/johncena.jpg', 'Balay ni Lance Cerenio');
 
 -- --------------------------------------------------------
 
@@ -356,7 +362,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `apartment`
 --
 ALTER TABLE `apartment`
-  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `bill`

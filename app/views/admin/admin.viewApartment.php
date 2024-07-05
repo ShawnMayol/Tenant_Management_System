@@ -74,7 +74,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-4">
-                <img src="<?php echo $apartment['apartmentPictures']; ?>" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
+                <div class="position-relative">
+                    <img src="<?php echo substr($apartment['apartmentPictures'], 6); ?>" style="width: 100%;" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto mt-3">
+                    <form action="handlers/admin/updateApartmentPicture.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-8 ms-4">
+                                <label for="uploadImageInput" class="form-label">Change Apartment Picture:</label>
+                                <input class="form-control py-1" type="file" id="uploadImageInput" name="apartmentImage" accept="image/*" aria-describedby="fileHelp">
+                                <!-- <div id="fileHelp" class="form-text">Choose an image file to update the apartment picture.</div> -->
+                            </div>
+                            <div class="col-md-3 mt-4">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm py-1" style="width: 100%; margin-top: 9px;">Change</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="col-lg-6 col-md-12">
                 <h3><?php echo $apartment['apartmentType']; ?></h3>
@@ -84,27 +100,78 @@
                 <p><strong>Max Occupants:</strong> <?php echo $apartment['maxOccupants']; ?></p>
                 <p><strong>Address:</strong> <?php echo $apartment['apartmentAddress']; ?></p>
                 <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
-                <h3>Availability</h3><hr>
-                <?php 
-                    switch($apartment['apartmentStatus']) {
-                        case 'available':
-                            echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
-                            break;
-                            
-                        case 'unavailable':
-                            echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently unavailable <br>
-                            Will be available by ' . date('m-d-Y') . '</div>';
-                            break;
-                        default:
-                            echo 'unknown status';
-                    }
-                ?>
+                <h3>Availability</h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php 
+                        switch($apartment['apartmentStatus']) {
+                            case 'Available':
+                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                break;
+                                
+                            case 'Occupied':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Maintenance':
+                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Hidden':
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view </div>';
+                                break;
+                            default:
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Uknown apartment status </div>';
+                        }
+                    ?>
+                        <div class="container">
+                            <form action="handlers/admin/updateApartmentStatus.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post">
+                                <div class="row">
+                                    <div class="col-md-9 mt-3">
+                                        <label for="statusSelect" class="form-label">Change Availability Status:</label>
+                                        <select class="form-select" id="statusSelect" name="statusSelect">
+                                            <?php
+                                            $statusOptions = ['available', 'occupied', 'maintenance', 'hidden'];
+                                            foreach ($statusOptions as $option) {
+                                                $selected = ($option === $apartmentStatus) ? 'selected' : '';
+                                                echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mt-3 text-center pt-4">
+                                        <button type="submit" class="btn btn-outline-secondary px-4" style="margin-top: 6px;">Change</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        
+
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>  
 </main>
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#changeImageButton').click(function() {
+        $('#uploadImageInput').click(); // Trigger click on hidden file input
+    });
 
+    $('#uploadImageInput').change(function() {
+        var file = this.files[0];
+        if (file) {
+            // Handle the selected file here (e.g., display preview, upload to server)
+            console.log('Selected file:', file);
+        }
+    });
+});
+</script>
 <script>
     (function () {
         'use strict'

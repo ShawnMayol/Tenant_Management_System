@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="light">
 
 <?php
     session_start();
@@ -49,7 +49,15 @@
 
     <?php
     // Fetch apartment data from the database
-    $sql = "SELECT apartmentNumber, apartmentType, rentPerMonth, apartmentPictures, apartmentStatus FROM apartment ORDER BY apartmentStatus";
+    $sql = "SELECT 
+                apartmentNumber, 
+                apartmentType, 
+                rentPerMonth, 
+                apartmentPictures, 
+                apartmentStatus 
+            FROM apartment 
+            WHERE apartmentStatus <> 'Hidden'
+            ORDER BY apartmentStatus, apartmentType";
     $result = $conn->query($sql);
 
     $apartments = [];
@@ -97,25 +105,48 @@
     function createApartmentCard(apartment) {
         // Determine the status message
         let statusMessage = '';
-        if (apartment.apartmentStatus === 'available') {
-            statusMessage = '<div class="p-3 mb-2 text-success-emphasis text-end">Available</div>';
-        } else if (apartment.apartmentStatus === 'unavailable') {
+        if (apartment.apartmentStatus === 'Available') {
+            statusMessage = '<div class="p-2 mb-2 text-success-emphasis text-end">Available</div>';
+        } else if (apartment.apartmentStatus === 'Occupied') {
             // Assuming you want the date the apartment will be available
             let availableDate = new Date();
             availableDate.setMonth(availableDate.getMonth() + 1); // Example: setting available date to one month later
-            statusMessage = `<div class="p-3 mb-2 text-danger-emphasis text-end">Available by ${availableDate.toISOString().split('T')[0]}</div>`;
-            statusMessage = `<div class="p-3 mb-2 text-danger-emphasis text-end">Unavailable</div>`;
+            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Available by ${availableDate.toISOString().split('T')[0]}</div>`;
+            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Occupied</div>`;
+        } else if (apartment.apartmentStatus === 'Maintenance') {
+            // Assuming you want the date the apartment will be available
+            let afterMaintenance = new Date();
+            afterMaintenance.setMonth(afterMaintenance.getMonth() + 1); // Example: setting available date to one month later
+            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Available by ${afterMaintenance.toISOString().split('T')[0]}</div>`;
+            statusMessage = `<div class="p-2 mb-2 text-warning-emphasis text-end">Under Maintenance</div>`;
         } else {
             statusMessage = 'unknown status';
         }
 
-        const cardBgClass = apartment.apartmentStatus === 'available' ? 'bg-success-subtle' : 'bg-danger-subtle';
+        let cardBgClass;
+
+        switch (apartment.apartmentStatus) {
+            case 'Available':
+                cardBgClass = 'bg-success-subtle';
+                break;
+            case 'Occupied':
+                cardBgClass = 'bg-danger-subtle';
+                break;
+            case 'Maintenance':
+                cardBgClass = 'bg-warning-subtle';
+                break;
+            default:
+                console.error('Unknown apartment status');
+                // Default background class or handle error gracefully
+                cardBgClass = 'bg-secondary-subtle'; // Example fallback class
+                break;
+        }
 
         return `
             <div class="col-md-4 mb-4">
                 <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
                     <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
-                        <img src="../../${apartment.apartmentPictures}" class="card-img-top" alt="${apartment.apartmentType}">
+                        <img src="${apartment.apartmentPictures}"  style="object-fit: cover; height: 250px;" class="card-img-top" alt="${apartment.apartmentType}">
                         <div class="card-body">
                             <div class="container">
                                 <div class="row">

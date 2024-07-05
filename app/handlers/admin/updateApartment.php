@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     // Bind parameters
-    $stmt->bind_param('sdsdsdi', $apartmentType, $rentPerMonth, $apartmentDimensions, $apartmentAddress, $maxOccupants, $apartmentDescription, $apartmentNumber);
+    $stmt->bind_param('sdssdsi', $apartmentType, $rentPerMonth, $apartmentDimensions, $apartmentAddress, $maxOccupants, $apartmentDescription, $apartmentNumber);
     
     // Execute statement
     if ($stmt->execute()) {

@@ -76,7 +76,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12 mb-4">
-                    <img src="../../<?php echo $apartment['apartmentPictures']; ?>" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
+                    <img src="<?php echo $apartment['apartmentPictures']; ?>" style="width: 100%;" class="img-fluid shadow" alt="<?php echo $apartment['apartmentType']; ?>">
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <h1><?php echo $apartment['apartmentType']; ?></h1>
@@ -89,12 +89,16 @@
                     <h3>Availability</h3><hr>
                     <?php 
                         switch($apartment['apartmentStatus']) {
-                            case 'available':
+                            case 'Available':
                                 echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
                                 break;
                                 
-                            case 'unavailable':
-                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently unavailable <br>
+                            case 'Occupied':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Maintenance':
+                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance <br>
                                 Will be available by ' . date('m-d-Y') . '</div>';
                                 break;
                             default:

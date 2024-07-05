@@ -45,7 +45,9 @@
             <div class="row">
                 <!-- Image column -->
                 <div class="col-lg-5 mb-4">
-                    <img src="../../assets/src/img/apartment-img-template-1.jpg" class="img-fluid shadow" alt="Apartment Image">
+                    <img src="../../uploads/apartment/ap-1/pic-1.jpg" class="img-fluid shadow" alt="Apartment Image">
+                    <h2 class="pt-4">Apartment Information</h2>
+                    <hr>
                 </div>
                     
                 <!-- Form column -->
