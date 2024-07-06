@@ -132,7 +132,7 @@
                                         <label for="statusSelect" class="form-label">Change Availability Status:</label>
                                         <select class="form-select" id="statusSelect" name="statusSelect">
                                             <?php
-                                            $statusOptions = ['available', 'occupied', 'maintenance', 'hidden'];
+                                            $statusOptions = ['available', 'maintenance', 'hidden'];
                                             foreach ($statusOptions as $option) {
                                                 $selected = ($option === $apartmentStatus) ? 'selected' : '';
                                                 echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';

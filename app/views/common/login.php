@@ -44,13 +44,13 @@
 
     <?php include('../../core/themes.php') ?>
 
-    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
+    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center bg-dark-subtle border-bottom">
         <a class="navbar-brand logo" href="landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid" style="max-height: 50px;">
         </a>
     </nav>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="log-in">
             <?php 
                 $page = isset($_GET['login']['page']) ? $_GET['login']['page'] : 'login.formInput'; 

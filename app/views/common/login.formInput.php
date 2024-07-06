@@ -1,6 +1,6 @@
 <!-- Login Form -->
  <?php unset($_SESSION['emailForgot']); ?>
-<form action="../../handlers/common/loginHandler.php" method="POST" class="text-center" id="loginForm">
+<form action="../../handlers/common/loginHandler.php" method="POST" class="text-center mt-5" id="loginForm">
     <br><br><br>
     <h1 class="h3 mb-3 fw-normal">Login</h1>
     <br>

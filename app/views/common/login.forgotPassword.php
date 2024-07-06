@@ -6,7 +6,7 @@
         unset($_SESSION['error']);
     }
 ?>
-<form action="../../handlers/common/forgotPassword.php" method="POST" class="text-center" id="forgotPasswordForm">
+<form action="../../handlers/common/forgotPassword.php" method="POST" class="text-center mt-5" id="forgotPasswordForm">
     <br><br><br>
     <h1 class="h3 mb-3 fw-normal">Forgot Password?</h1>
     <br>

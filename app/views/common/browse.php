@@ -17,11 +17,11 @@
 
     <link rel="stylesheet" href="../../assets/dist/css/bootstrap.min.css">
     <link href="../../assets/src/css/themes.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
 <style>
     .glass-navbar {
-        background: rgba(0, 0, 0, 0.3); /* White background with 70% opacity */
         backdrop-filter: blur(0.5px); /* Blur effect */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     }
@@ -40,6 +40,19 @@
     /*change the number below to scale to the appropriate size*/ 
     .thumbnail:hover { 
         transform: scale(1.01); 
+    }
+    .sidebar .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+        .sidebar .offcanvas-body .form-label,
+        .sidebar .offcanvas-body .form-select,
+        .sidebar .offcanvas-body .btn {
+            width: 100%;
+    }
+        .form-control:focus {
+        box-shadow: none;
     }
 </style>
 
@@ -69,128 +82,204 @@
     $conn->close();
     ?>
 
-    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
+<nav class="navbar navbar-light fixed-top justify-content-center align-items-center bg-dark-subtle border-bottom">
         <a class="navbar-brand logo" href="landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid">
         </a>
     </nav>
 
-    <main class="container-xl container mt-3 pt-3 px-0">
 
-        <div class="container pb-4" style="padding-top: 65px; ">
-            <div class="text-center">
-                <span class="">
-                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to Home Page">Home</a> / 
-                    <span class="text-secondary">Browse</span>
-                </span>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="sidebar position-fixed border border-end ms-3 col-md-3 col-lg-2 p-0 bg-body shadow" style="margin-top: 95px;">
+        <div class="offcanvas-md bg-dark-subtle offcanvas-end bg-body" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="sidebarMenuLabel">Filters</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </div>
-        
-    <div class="container">
-        <div class="row mb-3">
-            <div class="col-12">
-                <input type="text" class="form-control" id="filterInput" placeholder="Filter apartments...">
+            <div class="offcanvas-body p-3">
+                <form id="filterForm">
+                    <div class="mb-3">
+                        <label for="priceRange" class="form-label">Price Range</label>
+                        <select class="form-select" id="priceRange">
+                            <option value="">All</option>
+                            <option value="1000-3000">₱1,000 - ₱3,000</option>
+                            <option value="3000-6000">₱3,000 - ₱6,000</option>
+                            <option value="6000-9000">₱6,000 - ₱9,000</option>
+                            <option value="9000-10000">₱9,000+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status">
+                            <option value="">All</option>
+                            <option value="Available">Available</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sortBy" class="form-label">Sort By</label>
+                        <select class="form-select" id="sortBy">
+                            <option value="rentAsc">Rent (Low to High)</option>
+                            <option value="rentDesc">Rent (High to Low)</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="applyFilters">Apply</button>
+                </form>
             </div>
-        </div>
-        <div class="row" id="apartmentGrid">
-            <!-- Apartment cards will be dynamically inserted here -->
         </div>
     </div>
-</main>
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="container pt-3" style="margin-top: 80px;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 id="apartmentCount" class="h2">Showing 0 apartments</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="col-md-2 input-group">
+                            <input type="text" class="form-control" id="filterInput" placeholder="Search Apartment Type..." oninput="searchApartments()">
+                            <span class="input-group-text">
+                                <i class="bi bi-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="apartmentGrid">
+                <!-- Apartment cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
 
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const apartments = <?php echo json_encode($apartments); ?>;
+window.apartments = <?php echo json_encode($apartments); ?>;
+document.addEventListener('DOMContentLoaded', function() {
+    applyFilters(); // Initial load of apartments
 
-    function createApartmentCard(apartment) {
-        // Determine the status message
-        let statusMessage = '';
-        if (apartment.apartmentStatus === 'Available') {
-            statusMessage = '<div class="p-2 mb-2 text-success-emphasis text-end">Available</div>';
-        } else if (apartment.apartmentStatus === 'Occupied') {
-            // Assuming you want the date the apartment will be available
-            let availableDate = new Date();
-            availableDate.setMonth(availableDate.getMonth() + 1); // Example: setting available date to one month later
-            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Available by ${availableDate.toISOString().split('T')[0]}</div>`;
-            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Occupied</div>`;
-        } else if (apartment.apartmentStatus === 'Maintenance') {
-            // Assuming you want the date the apartment will be available
-            let afterMaintenance = new Date();
-            afterMaintenance.setMonth(afterMaintenance.getMonth() + 1); // Example: setting available date to one month later
-            statusMessage = `<div class="p-2 mb-2 text-danger-emphasis text-end">Available by ${afterMaintenance.toISOString().split('T')[0]}</div>`;
-            statusMessage = `<div class="p-2 mb-2 text-warning-emphasis text-end">Under Maintenance</div>`;
-        } else {
-            statusMessage = 'unknown status';
+    document.getElementById('applyFilters').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent form submission (button default behavior)
+        applyFilters(); // Trigger filtering function when Apply Filters button is clicked
+    });
+
+    document.getElementById('filterInput').addEventListener('input', function() {
+        searchApartments(); // Trigger search function when user types in search box
+    });
+});
+
+function applyFilters() {
+    // Get filter values
+    const priceRange = document.getElementById('priceRange').value;
+    const status = document.getElementById('status').value;
+    const sortBy = document.getElementById('sortBy').value;
+
+    // Fetch filtered data
+    fetchApartments(priceRange, status, sortBy);
+}
+
+function fetchApartments(priceRange, status, sortBy) {
+    fetch(`../../handlers/common/fetchApartments.php?priceRange=${priceRange}&status=${status}&sortBy=${sortBy}`)
+        .then(response => response.json())
+        .then(data => {
+            const apartmentGrid = document.getElementById('apartmentGrid');
+            apartmentGrid.innerHTML = data.map(createApartmentCard).join('');
+            updateApartmentCount(data.length); // Update count based on fetched data
+        })
+        .catch(error => {
+            console.error('Error fetching apartments:', error);
+        });
+}
+
+function updateApartmentCount(count) {
+            const apartmentCountElement = document.getElementById('apartmentCount');
+            apartmentCountElement.textContent = `Showing ${count} apartment${count !== 1 ? 's' : ''}`;
         }
 
-        let cardBgClass;
+function createApartmentCard(apartment) {
+    let statusMessage = '';
+    if (apartment.apartmentStatus === 'Available') {
+        statusMessage = '<div class="p-2 mb-2 text-success-emphasis text-end">Available</div>';
+    } else if (apartment.apartmentStatus === 'Occupied') {
+        statusMessage = '<div class="p-2 mb-2 text-danger-emphasis text-end">Occupied</div>';
+    } else if (apartment.apartmentStatus === 'Maintenance') {
+        statusMessage = '<div class="p-2 mb-2 text-warning-emphasis text-end">Maintenance</div>';
+    } else {
+        statusMessage = 'Unknown status';
+    }
 
-        switch (apartment.apartmentStatus) {
-            case 'Available':
-                cardBgClass = 'bg-success-subtle';
-                break;
-            case 'Occupied':
-                cardBgClass = 'bg-danger-subtle';
-                break;
-            case 'Maintenance':
-                cardBgClass = 'bg-warning-subtle';
-                break;
-            default:
-                console.error('Unknown apartment status');
-                // Default background class or handle error gracefully
-                cardBgClass = 'bg-secondary-subtle'; // Example fallback class
-                break;
-        }
+    let cardBgClass;
+    switch (apartment.apartmentStatus) {
+        case 'Available':
+            cardBgClass = 'bg-success-subtle';
+            break;
+        case 'Occupied':
+            cardBgClass = 'bg-danger-subtle';
+            break;
+        case 'Maintenance':
+            cardBgClass = 'bg-warning-subtle';
+            break;
+        default:
+            cardBgClass = 'bg-secondary-subtle';
+            break;
+    }
 
-        return `
-            <div class="col-md-4 mb-4">
-                <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
-                    <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
-                        <img src="${apartment.apartmentPictures}"  style="object-fit: cover; height: 250px;" class="card-img-top" alt="${apartment.apartmentType}">
-                        <div class="card-body">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h5 class="card-title">${apartment.apartmentType}</h5>
-                                        <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        ${statusMessage}
-                                    </div>
+    return `
+        <div class="col-md-4 mb-4">
+            <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
+                <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
+                    <img src="${apartment.apartmentPictures}" style="object-fit: cover; height: 250px;" class="card-img-top" alt="${apartment.apartmentType}">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="card-title">${apartment.apartmentType}</h5>
+                                    <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
+                                </div>
+                                <div class="col-md-6">
+                                    ${statusMessage}
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             </div>
-        `;
-    }
+        </div>
+    `;
+}
 
-    function loadApartments() {
-        const apartmentGrid = document.getElementById('apartmentGrid');
-        apartmentGrid.innerHTML = apartments.map(createApartmentCard).join('');
-    }
-
-    document.addEventListener('DOMContentLoaded', loadApartments);
+function searchApartments() {
+            const searchValue = document.getElementById('filterInput').value.toLowerCase();
+            const filteredApartments = apartments.filter(apartment => apartment.apartmentType.toLowerCase().includes(searchValue));
+            const apartmentGrid = document.getElementById('apartmentGrid');
+            apartmentGrid.innerHTML = filteredApartments.map(createApartmentCard).join('');
+            updateApartmentCount(filteredApartments.length);
+        }
 </script>
+
+
+
     <script>
         // Function to handle scroll event
-        window.addEventListener('scroll', function() {
-            var banner = document.getElementById('banner');
-            var navbar = document.getElementsByClassName('glass-navbar')[0]; // Select the first element
+        // window.addEventListener('scroll', function() {
+        //     var banner = document.getElementById('banner');
+        //     var navbar = document.getElementsByClassName('glass-navbar')[0]; // Select the first element
 
-            if (window.scrollY > 80) {
-                banner.style.maxHeight = '35px'; // Adjusted size when scrolled down
-                // navbar.style.background = 'none'; // Remove background when scrolled down
-                navbar.style.backdropFilter = 'none'; // Remove backdrop filter when scrolled down
-                navbar.style.boxShadow = 'none'; // Remove box shadow when scrolled down
-            } else {
-                banner.style.maxHeight = '50px'; // Default size when not scrolled down
-                navbar.style.background = 'rgba(0, 0, 0, 0.3)'; // Default background color
-                navbar.style.backdropFilter = 'blur(0.5px)'; // Restore backdrop filter when not scrolled down
-                navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'; // Restore box shadow when not scrolled down
-            }
-        });
+        //     if (window.scrollY > 80) {
+        //         banner.style.maxHeight = '35px'; // Adjusted size when scrolled down
+        //         // navbar.style.background = 'none'; // Remove background when scrolled down
+        //         navbar.style.backdropFilter = 'none'; // Remove backdrop filter when scrolled down
+        //         navbar.style.boxShadow = 'none'; // Remove box shadow when scrolled down
+        //     } else {
+        //         banner.style.maxHeight = '50px'; // Default size when not scrolled down
+        //         navbar.style.background = 'rgba(0, 0, 0, 0.3)'; // Default background color
+        //         navbar.style.backdropFilter = 'blur(0.5px)'; // Restore backdrop filter when not scrolled down
+        //         navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'; // Restore box shadow when not scrolled down
+        //     }
+        // });
     </script>
 </body>
 </html>

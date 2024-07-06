@@ -58,7 +58,7 @@
         $conn->close();
     ?>
 
-    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
+    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center bg-dark-subtle border-bottom">
         <a class="navbar-brand logo" href="landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid">
         </a>
@@ -156,7 +156,7 @@
         </div>    
     </main>
     <script>
-        // Function to handle scroll event
+        // // Function to handle scroll event
         window.addEventListener('scroll', function() {
             var banner = document.getElementById('banner');
             var navbar = document.getElementsByClassName('glass-navbar')[0]; // Select the first element

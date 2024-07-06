@@ -73,7 +73,7 @@
         $conn->close();
     ?>
 
-    <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
+    <nav class="navbar navbar-light fixed-top bg-dark-subtle border-bottom justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="../../views/common/landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid">
         </a>
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="mt-4">
-                        <a href="../../views/common/apartment.php?apartment=<?php echo $apartmentNumber; ?>#makeRequest" class="btn btn-secondary shadow">Edit</a>
+                        <a href="../../views/common/apartment.php?apartment=<?php echo $apartmentNumber; ?>#makeRequest" class="btn btn-secondary shadow">Back</a>
                     </div>
                 </div>
                     

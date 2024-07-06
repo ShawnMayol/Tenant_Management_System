@@ -35,7 +35,7 @@
 </head>
 
 <body>
-    <?php include('../../core/loading.php'); ?>
+    <?php //include('../../core/loading.php'); ?>
 
     <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="landing.php">

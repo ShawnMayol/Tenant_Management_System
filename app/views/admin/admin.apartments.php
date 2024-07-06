@@ -28,10 +28,6 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h1">Apartments</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <!-- <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div> -->
             <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 hover-white">
                 <a href="" class="text-secondary" id="addApartmentButton" data-bs-toggle="modal" data-bs-target="#addApartmentModal" title="Add apartment" style="text-decoration: none;">
                     <i class="bi bi-plus-square icon-adjust m-1"></i><span class="m-1">Add Apartment</span>
