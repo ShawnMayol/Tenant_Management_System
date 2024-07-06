@@ -51,8 +51,9 @@
         .sidebar .offcanvas-body .btn {
             width: 100%;
     }
-        .form-control:focus {
+    .form-control:focus, .form-select:focus{
         box-shadow: none;
+        border-color: darkgray;
     }
 </style>
 
@@ -126,7 +127,6 @@
                             <option value="rentDesc">Rent (High to Low)</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary w-100" id="applyFilters">Apply</button>
                 </form>
             </div>
         </div>
@@ -157,107 +157,113 @@
 
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-window.apartments = <?php echo json_encode($apartments); ?>;
-document.addEventListener('DOMContentLoaded', function() {
-    applyFilters(); // Initial load of apartments
+    window.apartments = <?php echo json_encode($apartments); ?>;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        applyFilters(); // Initial load of apartments
 
-    document.getElementById('applyFilters').addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent form submission (button default behavior)
-        applyFilters(); // Trigger filtering function when Apply Filters button is clicked
-    });
+        // Bind applyFilters() to change event of each select element
+        document.getElementById('priceRange').addEventListener('change', applyFilters);
+        document.getElementById('status').addEventListener('change', applyFilters);
+        document.getElementById('sortBy').addEventListener('change', applyFilters);
 
-    document.getElementById('filterInput').addEventListener('input', function() {
-        searchApartments(); // Trigger search function when user types in search box
-    });
-});
-
-function applyFilters() {
-    // Get filter values
-    const priceRange = document.getElementById('priceRange').value;
-    const status = document.getElementById('status').value;
-    const sortBy = document.getElementById('sortBy').value;
-
-    // Fetch filtered data
-    fetchApartments(priceRange, status, sortBy);
-}
-
-function fetchApartments(priceRange, status, sortBy) {
-    fetch(`../../handlers/common/fetchApartments.php?priceRange=${priceRange}&status=${status}&sortBy=${sortBy}`)
-        .then(response => response.json())
-        .then(data => {
-            const apartmentGrid = document.getElementById('apartmentGrid');
-            apartmentGrid.innerHTML = data.map(createApartmentCard).join('');
-            updateApartmentCount(data.length); // Update count based on fetched data
-        })
-        .catch(error => {
-            console.error('Error fetching apartments:', error);
+        document.getElementById('applyFilters').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission (button default behavior)
+            applyFilters(); // Trigger filtering function when Apply Filters button is clicked
         });
-}
 
-function updateApartmentCount(count) {
-            const apartmentCountElement = document.getElementById('apartmentCount');
-            apartmentCountElement.textContent = `Showing ${count} apartment${count !== 1 ? 's' : ''}`;
+        document.getElementById('filterInput').addEventListener('input', function() {
+            searchApartments(); // Trigger search function when user types in search box
+        });
+    });
+
+    function applyFilters() {
+        // Get filter values
+        const priceRange = document.getElementById('priceRange').value;
+        const status = document.getElementById('status').value;
+        const sortBy = document.getElementById('sortBy').value;
+
+        // Fetch filtered data
+        fetchApartments(priceRange, status, sortBy);
+    }
+
+    function fetchApartments(priceRange, status, sortBy) {
+        fetch(`../../handlers/common/fetchApartments.php?priceRange=${priceRange}&status=${status}&sortBy=${sortBy}`)
+            .then(response => response.json())
+            .then(data => {
+                const apartmentGrid = document.getElementById('apartmentGrid');
+                apartmentGrid.innerHTML = data.map(createApartmentCard).join('');
+                updateApartmentCount(data.length); // Update count based on fetched data
+            })
+            .catch(error => {
+                console.error('Error fetching apartments:', error);
+            });
+    }
+
+    function updateApartmentCount(count) {
+        const apartmentCountElement = document.getElementById('apartmentCount');
+        apartmentCountElement.textContent = `Showing ${count} apartment${count !== 1 ? 's' : ''}`;
+    }
+
+    function createApartmentCard(apartment) {
+        let statusMessage = '';
+        if (apartment.apartmentStatus === 'Available') {
+            statusMessage = '<div class="p-2 mb-2 text-success-emphasis text-end">Available</div>';
+        } else if (apartment.apartmentStatus === 'Occupied') {
+            statusMessage = '<div class="p-2 mb-2 text-danger-emphasis text-end">Occupied</div>';
+        } else if (apartment.apartmentStatus === 'Maintenance') {
+            statusMessage = '<div class="p-2 mb-2 text-warning-emphasis text-end">Maintenance</div>';
+        } else {
+            statusMessage = 'Unknown status';
         }
 
-function createApartmentCard(apartment) {
-    let statusMessage = '';
-    if (apartment.apartmentStatus === 'Available') {
-        statusMessage = '<div class="p-2 mb-2 text-success-emphasis text-end">Available</div>';
-    } else if (apartment.apartmentStatus === 'Occupied') {
-        statusMessage = '<div class="p-2 mb-2 text-danger-emphasis text-end">Occupied</div>';
-    } else if (apartment.apartmentStatus === 'Maintenance') {
-        statusMessage = '<div class="p-2 mb-2 text-warning-emphasis text-end">Maintenance</div>';
-    } else {
-        statusMessage = 'Unknown status';
-    }
+        let cardBgClass;
+        switch (apartment.apartmentStatus) {
+            case 'Available':
+                cardBgClass = 'bg-success-subtle';
+                break;
+            case 'Occupied':
+                cardBgClass = 'bg-danger-subtle';
+                break;
+            case 'Maintenance':
+                cardBgClass = 'bg-warning-subtle';
+                break;
+            default:
+                cardBgClass = 'bg-secondary-subtle';
+                break;
+        }
 
-    let cardBgClass;
-    switch (apartment.apartmentStatus) {
-        case 'Available':
-            cardBgClass = 'bg-success-subtle';
-            break;
-        case 'Occupied':
-            cardBgClass = 'bg-danger-subtle';
-            break;
-        case 'Maintenance':
-            cardBgClass = 'bg-warning-subtle';
-            break;
-        default:
-            cardBgClass = 'bg-secondary-subtle';
-            break;
-    }
-
-    return `
-        <div class="col-md-4 mb-4">
-            <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
-                <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
-                    <img src="${apartment.apartmentPictures}" style="object-fit: cover; height: 250px;" class="card-img-top" alt="${apartment.apartmentType}">
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h5 class="card-title">${apartment.apartmentType}</h5>
-                                    <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
-                                </div>
-                                <div class="col-md-6">
-                                    ${statusMessage}
+        return `
+            <div class="col-md-4 mb-4">
+                <div class="card bg-transparent thumbnail shadow ${cardBgClass}">
+                    <a href="apartment.php?apartment=${apartment.apartmentNumber}" style="text-decoration: none;">
+                        <img src="${apartment.apartmentPictures}" style="object-fit: cover; height: 250px;" class="card-img-top" alt="${apartment.apartmentType}">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 class="card-title">${apartment.apartmentType}</h5>
+                                        <p class="card-text">₱${Number(apartment.rentPerMonth).toFixed(2)} / month</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        ${statusMessage}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
-    `;
-}
+        `;
+    }
 
-function searchApartments() {
-            const searchValue = document.getElementById('filterInput').value.toLowerCase();
-            const filteredApartments = apartments.filter(apartment => apartment.apartmentType.toLowerCase().includes(searchValue));
-            const apartmentGrid = document.getElementById('apartmentGrid');
-            apartmentGrid.innerHTML = filteredApartments.map(createApartmentCard).join('');
-            updateApartmentCount(filteredApartments.length);
-        }
+    function searchApartments() {
+        const searchValue = document.getElementById('filterInput').value.toLowerCase();
+        const filteredApartments = apartments.filter(apartment => apartment.apartmentType.toLowerCase().includes(searchValue));
+        const apartmentGrid = document.getElementById('apartmentGrid');
+        apartmentGrid.innerHTML = filteredApartments.map(createApartmentCard).join('');
+        updateApartmentCount(filteredApartments.length);
+    }
 </script>
 
 

@@ -191,6 +191,7 @@
                         <div class="mb-3">
                             <label for="gender" class="form-label">Gender*</label>
                             <select class="form-select py-2" id="gender" name="gender" required>
+                                <option value="">Select gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Prefer not to say">Prefer not to say</option>
@@ -203,7 +204,7 @@
                         <hr>
                         <div class="mb-3">
                             <label for="emailAddress" class="form-label">Email Address*</label>
-                            <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="example@domain.com" required>
+                            <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="juandelacruz@domain.com" required>
                         </div>
                         <div class="mb-3">
                             <label for="phoneNumber" class="form-label">Phone Number*</label>
@@ -212,8 +213,10 @@
                         <br>
                         <!-- Valid documents upload -->
                         <h2>Valid Documents</h2>
-                        <p>Upload a picture or scan of your <a href="#" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
+                        <p>Upload a picture or scan of your <a href="#" data-toggle="modal" data-target="#validDocumentsModal" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
                         <hr>
+
+                        
                         <div class="mb-3">
                             <label for="documentImage" class="form-label">Valid Documents*</label>
                             <input type="file" class="form-control py-2" id="documentImage" name="documentImage" accept="image/*" required>
@@ -234,7 +237,7 @@
                 </div>
             </div>
         </div>
-
+        <?php include 'modal.validDocuments.php'; ?>
     </main>
     <script>
         // Function to handle scroll event
@@ -264,5 +267,9 @@
         });
     </script>
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
