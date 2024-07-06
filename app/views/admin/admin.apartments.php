@@ -11,12 +11,35 @@
     .thumbnail:hover { 
         transform: scale(1.01); 
     }
+    .icon-adjust {
+        position: relative;
+        top: -1.5px;
+    }
+
+    .hover-white:hover .text-secondary,
+    .hover-white:hover .bi {
+        color: white !important;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h1">Apartments</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <!-- <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            </div> -->
+            <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 hover-white">
+                <a href="" class="text-secondary" id="addApartmentButton" data-bs-toggle="modal" data-bs-target="#addApartmentModal" title="Add apartment" style="text-decoration: none;">
+                    <i class="bi bi-plus-square icon-adjust m-1"></i><span class="m-1">Add Apartment</span>
+                </a>
+            </button>
+        </div>
+    </div>
+    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -24,12 +47,12 @@
                 </div>
                 <div class="col-auto h2 pe-5 mt-1">
                     <a href="" id="addApartmentButton" data-bs-toggle="modal" data-bs-target="#addApartmentModal" title="Add apartment" style="text-decoration: none;">
-                        <i class="bi bi-plus-square text-light"></i>
+                        <i class="bi bi-plus-square text-secondary"></i>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <?php include ('core/database.php') ?>
     <?php include ('views/admin/modal.addApartment.php'); ?>
     <?php

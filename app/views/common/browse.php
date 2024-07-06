@@ -80,7 +80,7 @@
         <div class="container pb-4" style="padding-top: 65px; ">
             <div class="text-center">
                 <span class="">
-                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to landing page">Home</a> / 
+                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to Home Page">Home</a> / 
                     <span class="text-secondary">Browse</span>
                 </span>
             </div>

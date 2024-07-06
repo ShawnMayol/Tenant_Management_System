@@ -47,19 +47,19 @@
 
 <body>
 
-    <?php 
-        include ('core/themes.php'); 
-        include ('core/icons.php'); 
+  <?php 
+      include ('core/themes.php'); 
+      include ('core/icons.php'); 
 
-        $role = $_SESSION['role'] ?? 'tenant';
-        $dashboardPage = match ($role) {
-            'admin' => 'index.php?page=admin.dashboard',
-            'manager' => 'index.php?page=manager.dashboard',
-            'tenant' => 'index.php?page=tenant.dashboard',
-        };
-    ?>
+      $role = $_SESSION['role'] ?? 'tenant';
+      $dashboardPage = match ($role) {
+          'admin' => 'index.php?page=admin.dashboard',
+          'manager' => 'index.php?page=manager.dashboard',
+          'tenant' => 'index.php?page=tenant.dashboard',
+      };
+  ?>
 
-  <header class="navbar sticky-top bg-dark-subtle flex-md-nowrap p-0 shadow">
+  <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="<?= htmlspecialchars($dashboardPage) ?>">
         <img src="assets/src/svg/c.svg" alt="Company Logo" style="width: 100%; height: 80%">
     </a>
@@ -99,7 +99,7 @@
             $conn->close();
         ?>
 
-        <li class="nav-item text-nowrap d-none d-md-flex align-items-center">
+        <li class="nav-item text-nowrap d-none d-md-flex align-items-center text-white">
             <div class="navbar-nav">
                 <span class="px-2"><?= htmlspecialchars($username) ?></span>
             </div>
@@ -118,26 +118,28 @@
     switch ($_SESSION['role']) {
       case 'admin':
         $sideBar = 'views/admin/admin.sidebar';
-        $dashboard = 'views/admin/admin.dashboard';
+        $page = 'views/admin/admin.dashboard';
         break;
       case 'manager':
         $sideBar = 'views/manager/manager.sidebar';
-        $dashboard = 'views/manager/manager.dashboard';
+        $page = 'views/manager/manager.dashboard';
         break;
       case 'tenant':
         $sideBar = 'views/tenant/tenant.sidebar';
-        $dashboard = 'views/tenant/tenant.dashboard';
+        $page = 'views/tenant/tenant.dashboard';
         break;
       default:
       echo ('error');
     }
     
     include $sideBar . '.php';
-
-    // Check if a specific page is requested, override $dashboard if needed
+    
+    // Check if a specific page is requested, override $page if needed
     if (isset($_GET['page'])) {
-        $dashboard = $_GET['page']; 
-        include 'views/' .  $role . '/' . $dashboard . '.php'; 
+      $page = $_GET['page']; 
+      include 'views/' .  $role . '/' . $page . '.php'; 
+    } else {
+      include $page . '.php';
     }
 
   }
@@ -153,7 +155,6 @@
     integrity="sha384-eI7PSr3L1XLISH8JdDII5YN/njoSsxfbrkCTnJrzXt+ENP5MOVBxD+l6sEG4zoLp"
     crossorigin="anonymous"></script>
   <script src="assets/src/js/dashboard.js"></script>
-  <script src="assets/src/js/loading.js"></script>
 
 </body>
 

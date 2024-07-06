@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="light">
 <?php
   session_start();
 
-// Debugging: Check session values
-//   print_r($_SESSION);
-//   print_r($_GET);
-
+    // Debugging: Check session values
+    //   print_r($_SESSION);
+    //   print_r($_GET);
+    //   print_r($_POST);
 ?>
 <head>
     <script src="../../assets/dist/js/color-modes.js"></script>
@@ -33,6 +33,9 @@
             color: #6c757d; /* Neutral gray for text color */
             cursor: not-allowed; /* Show disabled cursor */
         }
+        html {
+            scroll-behavior: smooth !important;
+        }
     </style>
 </head>
 <body class="bg-body-tertiary">
@@ -41,18 +44,18 @@
 
     <?php
     // Fetch apartment data based on apartmentNumber
-    if (isset($_GET['apartment'])) {
-        $apartmentNumber = $_GET['apartment'];
-    } else {
-        echo "Apartment number is not specified.";
-    }
-    $sql = "SELECT * FROM apartment WHERE apartmentNumber = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $apartmentNumber);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $apartment = $result->fetch_assoc();
-    $conn->close();
+        if (isset($_GET['apartment'])) {
+            $apartmentNumber = $_GET['apartment'];
+        } else {
+            echo "Apartment number is not specified.";
+        }
+        $sql = "SELECT * FROM apartment WHERE apartmentNumber = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $apartmentNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $apartment = $result->fetch_assoc();
+        $conn->close();
     ?>
 
     <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
@@ -66,8 +69,8 @@
         <div class="container" style="padding-top: 10px; padding-bottom: 25px;">
             <div class="text-center">
                 <span class="">
-                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to landing page">Home</a> / 
-                    <a href="../../views/common/browse.php" class="text-decoration-none text-secondary" title="Back to browse apartments">Browse</a> / 
+                    <a href="../../views/common/landing.php" class="text-decoration-none text-secondary" title="Back to Home Page">Home</a> / 
+                    <a href="../../views/common/browse.php" class="text-decoration-none text-secondary" title="Back to Browse Apartments">Browse</a> / 
                     <span class="text-secondary"><?php echo $apartment['apartmentType']; ?></span>
                 </span>
             </div>
@@ -107,10 +110,9 @@
                     ?>
                     
                     <div class="mt-5">
-                        <h3>Make a Request</h3>
+                        <h3 id="makeRequest">Make a Request</h3>
                         <hr>
-                        <form action="../../views/tenant/leaseProposal.php" method="POST">
-                            <input type="hidden" name="apartmentNumber" value="<?php echo $apartmentNumber; ?>">
+                        <form action="../../views/tenant/leaseProposal.php?apartment=<?php echo $apartmentNumber; ?>" method="POST">
                             <div class="mb-3">
                                 <label for="termsOfStay" class="form-label">Term of Stay*</label>
                                 <select class="form-select" id="termsOfStay" name="termsOfStay" required onchange="setEndDateMin()">
@@ -172,40 +174,6 @@
             }
         });
     </script>
-        <script>
-        function setEndDateMin() {
-            var termsOfStay = document.getElementById('termsOfStay').value;
-            var endDateInput = document.getElementById('endDate');
-
-            // Get current date in YYYY-MM-DD format
-            var today = new Date();
-            var todayFormatted = today.toISOString().split('T')[0];
-
-            // Calculate minimum date based on termsOfStay
-            var minDate;
-            if (termsOfStay === 'short') {
-                // Set minimum date to 1 month from today
-                var oneMonthLater = new Date();
-                oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
-                minDate = oneMonthLater.toISOString().split('T')[0];
-            } else if (termsOfStay === 'long') {
-                // Set minimum date to 6 months from today
-                var sixMonthsLater = new Date();
-                sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
-                minDate = sixMonthsLater.toISOString().split('T')[0];
-            }
-
-            // Set min attribute of the endDate input
-            endDateInput.setAttribute('min', minDate);
-
-            // Reset the value to ensure it's within the new min/max range
-            endDateInput.value = minDate;
-        }
-
-        // Call setEndDateMin initially to set initial min/max based on default selection
-        window.addEventListener('load', setEndDateMin);
-        document.getElementById('termsOfStay').addEventListener('change', setEndDateMin);
-    </script>
     <script>
         // Select all form inputs
         const formInputs = document.querySelectorAll('input, select, textarea');
@@ -235,16 +203,47 @@
         // Call loadFormData on page load
         window.addEventListener('load', loadFormData);
 
-        // Example: Clear localStorage on form submit
-        const form = document.querySelector('form');
+        // Clear localStorage on form submit
+        // const form = document.querySelector('form');
 
-        form.addEventListener('submit', function() {
-            localStorage.clear(); // Clear all stored form data
-        });
-
-
-        
-    </script>
+        // form.addEventListener('submit', function() {
+        //     localStorage.clear(); // Clear all stored form data
+        // });
+        </script>
+        <script>
+            function setEndDateMin() {
+                var termsOfStay = document.getElementById('termsOfStay').value;
+                var endDateInput = document.getElementById('endDate');
+    
+                // Get current date in YYYY-MM-DD format
+                var today = new Date();
+                var todayFormatted = today.toISOString().split('T')[0];
+    
+                // Calculate minimum date based on termsOfStay
+                var minDate;
+                if (termsOfStay === 'short') {
+                    // Set minimum date to 1 month from today
+                    var oneMonthLater = new Date();
+                    oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
+                    minDate = oneMonthLater.toISOString().split('T')[0];
+                } else if (termsOfStay === 'long') {
+                    // Set minimum date to 6 months from today
+                    var sixMonthsLater = new Date();
+                    sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+                    minDate = sixMonthsLater.toISOString().split('T')[0];
+                }
+    
+                // Set min attribute of the endDate input
+                endDateInput.setAttribute('min', minDate);
+    
+                // Reset the value to ensure it's within the new min/max range
+                endDateInput.value = minDate;
+            }
+    
+            // Call setEndDateMin initially to set initial min/max based on default selection
+            window.addEventListener('load', setEndDateMin);
+            document.getElementById('termsOfStay').addEventListener('change', setEndDateMin);
+        </script>
     
 
 
