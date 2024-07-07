@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
 <?php
   session_start();
