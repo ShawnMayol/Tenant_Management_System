@@ -1,5 +1,5 @@
 <?php 
-    include('handlers/admin/cardsHandler.php');
+    include('handlers/tenant/tenantCardsHandler.php');
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -26,19 +26,20 @@
     </div>
 
     <div class="row">
-    <!-- Pending Rent Requests Card -->
+    <!-- Amount of Leased Apartments -->
     <div class="col-md-4 mb-4">
         <a href="index.php?page=admin.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-clock" style="margin-right: 10px;"></i> Pending Rent Requests</h5>
-                    <p class="card-text display-4"><?php echo $totalRequestsPending; ?></p>
+                    <h5 class="card-title"><i class="bi bi-house-door" style="margin-right: 10px;"></i> Apartments</h5>
+                    <p class="card-text display-4"><?php echo $amountApartment; ?></p>
                 </div>
             </div>
         </a>
     </div>
 
-    <!-- Pending Payments Card -->
+    <!-- TEMPORARY - IS NOT DYNAMIC -->
+    <!-- Pending Payments -->
     <div class="col-md-4 mb-4">
         <a href="pending-payments.php" class="card-link">
             <div class="card text-white bg-primary hover-card">
@@ -50,13 +51,14 @@
         </a>
     </div>
 
-    <!-- Overdue Payments Card -->
+    <!-- TEMPORARY - IS NOT DYNAMIC -->
+    <!-- Outstanding Balance -->
     <div class="col-md-4 mb-4">
         <a href="overdue-payments.php" class="card-link">
             <div class="card text-white bg-danger hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-exclamation-triangle" style="margin-right: 10px;"></i> Overdue Payments</h5>
-                    <p class="card-text display-4">0</p>
+                    <h5 class="card-title"><i class="bi bi-exclamation-triangle" style="margin-right: 10px;"></i> Outstanding Balance</h5>
+                    <p class="card-text display-4">₱0.00</p>
                 </div>
             </div>
         </a>
