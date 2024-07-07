@@ -42,36 +42,22 @@
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             ?>
             <div class="card mb-3">
-                <div class="card-body">
-                    <div>
-                        <img src="<?= htmlspecialchars($row['apartmentPictures']) ?>" alt="Apartment Image">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="a<?= htmlspecialchars($row['apartmentPictures']) ?>" style="width: 100%;" class="img-fluid shadow" alt="<?= htmlspecialchars($row['apartmentType']) ?>">
                     </div>
-                    <div>
-                        <h5 class="card-title">Apartment <?= htmlspecialchars($row['apartmentNumber']) ?></h5>
-                    </div>
-                    <div>
-                        <p class="card-text">Type: <?= htmlspecialchars($row['apartmentType']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Rent: PHP<?= htmlspecialchars($row['rentPerMonth']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Max Occupants: <?= htmlspecialchars($row['maxOccupants']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Current Occupants: <?= htmlspecialchars($row['numOccupants']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Description: <?= htmlspecialchars($row['description']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Billing Period: <?= htmlspecialchars($row['billingPeriod'])?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Lease Start Date: <?= htmlspecialchars($row['startDate']) ?></p>
-                    </div>
-                    <div>
-                        <p class="card-text">Lease End Date: <?= htmlspecialchars($row['endDate']) ?></p>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><strong>Type:</strong> <?= htmlspecialchars($row['apartmentType']) ?></p>
+                            <p class="card-text"><strong>Dimensions:</strong> <?= htmlspecialchars($row['apartmentDimensions']) ?></p>
+                            <p class="card-text"><strong>Address:</strong> <?= htmlspecialchars($row['apartmentAddress']) ?></p>
+                            <p class="card-text"><strong>Rent:</strong> PHP<?= htmlspecialchars($row['rentPerMonth']) ?></p>
+                            <p class="card-text"><strong>Max Occupants:</strong> <?= htmlspecialchars($row['maxOccupants']) ?></p>
+                            <p class="card-text"><strong>Description:</strong> <?= htmlspecialchars($row['apartmentDescription']) ?></p>
+                            <p class="card-text"><strong>Billing Period:</strong> <?= htmlspecialchars($row['billingPeriod']) ?></p>
+                            <p class="card-text"><strong>Lease Start Date:</strong> <?= htmlspecialchars($row['startDate']) ?></p>
+                            <p class="card-text"><strong>Lease End Date:</strong> <?= htmlspecialchars($row['endDate']) ?></p>
+                        </div>
                     </div>
                 </div>
             </div>
