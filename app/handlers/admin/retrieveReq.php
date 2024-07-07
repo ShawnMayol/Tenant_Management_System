@@ -1,21 +1,10 @@
 <?php
 include ('../../core/database.php');
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "tms";
-
-// // Create connection
-// $conn = new mysqli($servername, $username, $password, $dbname);
-
-// // Check connection
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
 
 // SQL query to fetch clients
 $sql = "SELECT CONCAT(firstName,' ',lastName) AS 'Name', 
-dateOfBirth, emailAddress, phoneNumber, requestBin,request_ID, requestDate FROM request";  // Adjust the table name if necessary
+dateOfBirth, emailAddress, phoneNumber, requestBin,request_ID, 
+requestDate,  apartmentNumber, termsOfStay, startDate, endDate FROM request";  // Adjust the table name if necessary
 $result = $conn->query($sql);
 
 $request = array();

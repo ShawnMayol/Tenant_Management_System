@@ -38,7 +38,6 @@
         echo '<tr>';
         echo '<th>#</th>';
         echo '<th>Name</th>';
-        echo '<th>Date of Birth</th>';
         echo '<th>Phone Number</th>';
         echo '<th>Email</th>';
         echo '<th>Deposit</th>';
@@ -53,7 +52,6 @@
             echo '<tr>';
             echo '<td>' . $count++ . '</td>';
             echo '<td>' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
-            echo '<td>' . $row['dateOfBirth'] . '</td>';
             echo '<td>' . $row['phoneNumber'] . '</td>';
             echo '<td>' . $row['emailAddress'] . '</td>';
             echo '<td>$' . number_format($row['deposit'], 2) . '</td>';
