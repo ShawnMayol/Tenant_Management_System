@@ -4,7 +4,8 @@ include ('../../core/database.php');
 // SQL query to fetch clients
 $sql = "SELECT CONCAT(firstName,' ',lastName) AS 'Name', 
 dateOfBirth, emailAddress, phoneNumber, requestBin,request_ID, 
-requestDate,  apartmentNumber, termsOfStay, startDate, endDate FROM request";  // Adjust the table name if necessary
+requestDate,  apartmentNumber, termsOfStay, startDate, endDate, 
+note, firstName, lastName, middleName FROM request WHERE requestStatus = 'Pending'" ;  // Adjust the table name if necessary
 $result = $conn->query($sql);
 
 $request = array();

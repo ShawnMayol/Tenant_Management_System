@@ -32,21 +32,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if image file is a actual image or fake image
     $check = getimagesize($_FILES["apartmentImage"]["tmp_name"]);
     if ($check === false) {
-        die("File is not an image.");
         $uploadOk = 0;
+        die("File is not an image.");
     }
 
     // Check file size
     if ($_FILES["apartmentImage"]["size"] > 99999999) {
-        die("Sorry, your file is too large.");
         $uploadOk = 0;
+        die("Sorry, your file is too large.");
     }
 
     // Allow certain file formats
     $allowedExtensions = array("jpg", "jpeg", "png");
     if (!in_array($imageFileType, $allowedExtensions)) {
-        die("Sorry, only JPG, JPEG, & PNG");
         $uploadOk = 0;
+        die("Sorry, only JPG, JPEG, & PNG");
     }
 
     // Check if $uploadOk is set to 0 by an error
