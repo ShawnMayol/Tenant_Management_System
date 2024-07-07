@@ -89,7 +89,7 @@
                             <div><?= htmlspecialchars($row['apartmentAddress']) ?></div><br>
                             <div class="d-flex justify-content-between">
                                 <div><?= htmlspecialchars($row['apartmentDimensions']) ?></div>
-                                <div><strong><?= htmlspecialchars($row['rentPerMonth']) ?> /Month</strong></div>
+                                <div><strong>₱<?= htmlspecialchars($row['rentPerMonth']) ?> / Month</strong></div>
                             </div>
                         </div>
                     </div>
