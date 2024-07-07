@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apartmentNumber = sanitize($_POST['apartmentNumber']);
     
     // Handling file upload
-    $uploadDir = '../../uploads/request/';
+    $uploadDir = './uploads/request/';
     $uploadFile = $uploadDir . basename($_FILES['documentImage']['name']);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
@@ -95,4 +95,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $conn->close();
-?>
+
