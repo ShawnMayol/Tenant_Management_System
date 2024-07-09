@@ -98,7 +98,7 @@
                 </a>
             </li>
 
-            <?php include('views/admin/modal.staffAccount.php'); ?>
+            <?php include('views/tenant/modal.tenantAccount.php'); ?>
             <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">
