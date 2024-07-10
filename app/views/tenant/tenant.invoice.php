@@ -11,8 +11,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Apartment Address</th>
+                                <th>Invoice #</th>
                                 <th>Date Issued</th>
                                 <th>Due Date</th>
                                 <th>Action</th> <!-- Added for the View button -->
@@ -23,8 +22,7 @@
                             $counter = 1;
                             foreach ($invoices as $invoice): ?>
                                 <tr>
-                                    <td><?php echo $counter++; ?></td>
-                                    <td><?php echo $invoice['apartmentAddress']; ?></td>
+                                    <td><?php echo $invoice['invoice_ID']; ?></td>
                                     <td><?php echo $invoice['dateIssued']; ?></td>
                                     <td><?php echo $invoice['dueDate']; ?></td>
                                     <td>
