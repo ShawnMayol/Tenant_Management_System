@@ -30,7 +30,6 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <?php include ('core/database.php') ?>
-    <?php include ('views/admin/modal.addApartment.php'); ?>
     <?php
     // Fetch apartment data from the database
     $sql = "SELECT 
@@ -40,6 +39,7 @@
                 apartmentPictures, 
                 apartmentStatus 
             FROM apartment
+            WHERE apartmentStatus <> 'Hidden'
             ORDER BY rentPerMonth";
     $result = $conn->query($sql);
 
@@ -133,7 +133,7 @@
         });
 
         document.getElementById('filterInput').addEventListener('input', function() {
-            searchApartments(); // Trigger search function when user types in search box
+            searchApartments();
         });
     });
 
@@ -148,7 +148,7 @@
     }
 
     function fetchApartments(priceRange, status, sortBy) {
-        fetch(`handlers/admin/fetchApartments.php?priceRange=${priceRange}&status=${status}&sortBy=${sortBy}`)
+        fetch(`handlers/manager/fetchApartments.php?priceRange=${priceRange}&status=${status}&sortBy=${sortBy}`)
             .then(response => response.json())
             .then(data => {
                 window.apartments = data.apartments; // Update the global apartments variable
