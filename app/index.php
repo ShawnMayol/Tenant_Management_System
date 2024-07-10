@@ -113,7 +113,7 @@
   <?php
   // Check if the session role is set
   if (isset($_SESSION['role'])) {
-    
+
     // Assign the appropriate sidebar and default dashboard based on the user role
     switch ($_SESSION['role']) {
       case 'admin':
