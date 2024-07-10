@@ -19,6 +19,8 @@ $fullName = "";
 $emailAddress = "";
 $phoneNumber = "";
 $dateOfBirth = "";
+$picDirectory = "uploads/staff/placeholder.jpg"; // Default picture
+$userRole = "";
 
 // Check if user is logged in
 if ($loggedInUserID) {
@@ -29,7 +31,9 @@ if ($loggedInUserID) {
                             ' ', s.lastName) AS fullName, 
                      s.phoneNumber, 
                      s.emailAddress, 
-                     s.dateOfBirth
+                     s.dateOfBirth,
+                     u.picDirectory,
+                     u.userRole
               FROM user u
               LEFT JOIN staff s ON u.staff_ID = s.staff_ID
               WHERE u.user_ID = $loggedInUserID";
@@ -43,6 +47,8 @@ if ($loggedInUserID) {
             $phoneNumber = $row['phoneNumber'];
             $emailAddress = $row['emailAddress'];
             $dateOfBirth = date('l, F j, Y', strtotime($row['dateOfBirth']));
+            $picDirectory = $row['picDirectory'] ?? "uploads/staff/placeholder.jpg"; // Use default if null
+            $userRole = $row['userRole'];
         }
     } else {
         echo "No staff information found.";
@@ -56,7 +62,7 @@ if ($loggedInUserID) {
 <div class="modal fade" id="staffAccountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="handlers/admin/staffUpdateAccount.php" method="POST">
+            <form action="handlers/admin/staffUpdateAccount.php" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="accountModalLabel">My Account</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -64,10 +70,14 @@ if ($loggedInUserID) {
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <!-- Placeholder for staff's picture -->
-                            <img src="uploads\staff\placeholder.jpg" class="img-fluid mb-2" alt="Staff Picture">
+                            <?php $picDirectory = substr($picDirectory, 6); ?>
+                            <img src="<?php echo $picDirectory; ?>" class="img-fluid mb-2" alt="Staff Picture">
                             <div>
-                                <button class="btn btn-outline-primary">Change Picture</button>
+                                <label for="uploadProfilePic" class="form-label">Change Picture:</label>
+                                <input class="form-control py-1" type="file" id="uploadProfilePic" name="profilePic" accept="image/*" aria-describedby="fileHelp">
+                            </div>
+                            <div class="mt-2">
+                                <strong>Role:</strong> <?php echo $userRole; ?>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -103,6 +113,7 @@ if ($loggedInUserID) {
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+
             </form>
         </div>
     </div>
