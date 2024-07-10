@@ -1,6 +1,7 @@
 <style>
   .sidebar, .offcanvas-md {
     z-index: 9999;
+    /* display: none; */
   }
   .selected {
     background-color: rgba(0, 123, 255, 0.1); /* Subtle glass-like background */
@@ -75,7 +76,7 @@
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'tenant.payments' ? '#credit-card-fill' : '#credit-card'; ?>" />
                   </svg>
-                  Payments
+                  Transactions
                 </a>
               </li>
               <li class="nav-item">
