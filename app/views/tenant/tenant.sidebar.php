@@ -22,19 +22,22 @@
 </style>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const logoutLink = document.getElementById('logout-link');
-        const logoutIcon = document.getElementById('logout-icon');
-
-        logoutLink.addEventListener('mouseenter', function() {
-            logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-open');
-        });
-
-        logoutLink.addEventListener('mouseleave', function() {
-            logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-closed');
-        });
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.getElementById('logout-link');
+    const logoutIcon = document.getElementById('logout-icon');
+    
+    logoutLink.addEventListener('mouseenter', function() {
+      logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-open');
     });
+    
+    logoutLink.addEventListener('mouseleave', function() {
+      logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-closed');
+    });
+  });
 </script>
+
+<?php include('views/common/modal.account.php'); ?>
+<?php include('views/common/modal.changePassword.php'); ?>
 
 <div class="container-fluid">
     <div class="row">
@@ -90,7 +93,7 @@
 
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#staffAccountModal">
+                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#accountModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
                         <use xlink:href="#person-gear" />
                     </svg>

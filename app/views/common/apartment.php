@@ -116,8 +116,8 @@
                             <div class="mb-3">
                                 <label for="termsOfStay" class="form-label">Term of Stay*</label>
                                 <select class="form-select" id="termsOfStay" name="termsOfStay" required onchange="setEndDateMin()">
-                                    <option value="Short">Short term (< 6 months)</option>
-                                    <option value="Long">Long term (>= 6 months)</option>
+                                    <option value="short">Short term (< 6 months)</option>
+                                    <option value="long">Long term (>= 6 months)</option>
                                 </select>
                             </div>
                             <div class="mb-3">
