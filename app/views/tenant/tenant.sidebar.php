@@ -1,7 +1,6 @@
 <style>
-  .sidebar, .offcanvas-md {
-    z-index: 9999;
-    /* display: none; */
+  .sidebar {
+    display: none;
   }
   .selected {
     background-color: rgba(0, 123, 255, 0.1); /* Subtle glass-like background */
