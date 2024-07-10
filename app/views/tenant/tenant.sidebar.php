@@ -101,7 +101,7 @@
                 </a>
             </li>
 
-            <?php include('views/common/modal.account.php'); ?>
+            <?php include('views/tenant/modal.tenantAccount.php'); ?>
             <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">
