@@ -28,10 +28,10 @@
     <div class="row">
     <!-- Pending Rent Requests Card -->
     <div class="col-md-4 mb-4">
-        <a href="index.php?page=admin.requests" class="card-link">
+        <a href="index.php?page=manager.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-clock" style="margin-right: 10px;"></i> Pending Rent Requests</h5>
+                    <h5 class="card-title"><i class="bi bi-clock" style="margin-right: 10px;"></i>Pending Rent Requests</h5>
                     <p class="card-text display-4"><?php echo $totalRequestsPending; ?></p>
                 </div>
             </div>
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Apartments Available Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="?page=admin.apartments" class="card-link">
             <div class="card text-white bg-warning hover-card">
                 <div class="card-body">
@@ -72,10 +72,10 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 
     <!-- Total Tenants Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="index.php?page=admin.tenants" class="card-link">
             <div class="card text-white bg-secondary hover-card">
                 <div class="card-body">
@@ -84,10 +84,10 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 
     <!-- Payments this month Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="payments-this-month.php" class="card-link">
             <div class="card text-white bg-success hover-card">
                 <div class="card-body">
@@ -96,7 +96,7 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
     <hr>
 </div>
 

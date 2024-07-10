@@ -73,7 +73,7 @@
                     echo '<tr>';
                     echo '<td>' . $count++ . '</td>';
                     echo '<td><a href="?page=admin.viewManager&staff_id=' . $row['staff_ID'] . '" style="text-decoration: none;">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</a></td>';
-                    echo '<td>' . (!empty($row['activityDescription']) ? $row['activityDescription'] . ' at ' . $row['activityTimestamp'] : 'No activity') . '</td>';
+                    echo '<td>' . (!empty($row['activityDescription']) ? $row['activityDescription'] . ' at ' . (new DateTime($row['activityTimestamp']))->format('F j, Y, g:i A') : 'No activity') . '</td>';
                     echo '<td><span class="badge ' . $statusClass . '">' . $row['staffStatus'] . '</span></td>';
                     echo '</tr>';
                 }

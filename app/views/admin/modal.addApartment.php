@@ -35,7 +35,7 @@
                             <option value="">Select</option>
                             <option value="Available">Available</option>
                             <option value="Occupied" hidden>Occupied</option>
-                            <option value="Maintenance">Maintenance</option>
+                            <option value="Maintenance" hidden>Maintenance</option>
                             <option value="Hidden">Hidden</option>
                         </select>
                     </div>

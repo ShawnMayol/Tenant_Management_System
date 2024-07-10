@@ -78,89 +78,40 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="container">
             <div class="row">
-                <div class="col-auto ps-2 pe-3">
+                <!-- <div class="col-auto ps-2 pe-3">
                     <a href="?page=admin.staff" class="icon-wrapper" style="text-decoration: none;">
                         <i class="bi bi-arrow-left-circle text-secondary h2 icon-default"></i>
                         <i class="bi bi-arrow-left-circle-fill text-secondary h2 icon-hover"></i>
                     </a>
-                </div>
+                </div> -->
                 <div class="col">
-                    <h1 class="h1 m-0"><?php echo htmlspecialchars($manager['lastName'] . ', ' . $manager['firstName'] . ' ' . $manager['middleName']); ?></h1>
+                    <h1 class="h1 m-0"><?php echo htmlspecialchars($manager['firstName'] . '\'s Activity Log '); ?></h1>
                 </div>
-                <div class="col-auto pe-5">
-                    <a href="#" title="Fire this manager" class="icon-wrapper" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#confirmFireModal">
+                <!-- <div class="col-auto pe-5">
+                    <a href="#" title="Fire this manager" class="icon-wrapper" style="text-decoration: none;">
                         <div class="link">
                             <i class="bi bi-person-x text-danger h2 icon-default-2"></i>
                         </div>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
 
-    <?php include 'views/admin/modal.confirmFire.php'; ?>
 
     <div class="container mt-4">
         <div class="row">
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-12 mt-3">
-                            <div class="position-relative">
-                                <?php $picDirectory = substr($user['picDirectory'], 6); ?>
-                                <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($manager['lastName'] . ', ' . $manager['firstName'] . ' ' . $manager['middleName']); ?>">
+                                      
 
-                            </div>
-                        </div>
-                        <div class="col-lg-7 col-md-12 mt-4">
-                            <p><strong>Username: </strong><?php echo htmlspecialchars($user['username']); ?></p>
-                            <p><strong>Phone Number: </strong><?php echo htmlspecialchars($manager['phoneNumber']); ?></p>
-                            <p><strong>Email Address: </strong><?php echo htmlspecialchars($manager['emailAddress']); ?></p>
-                            <p><strong>Date of Birth: </strong><?php echo htmlspecialchars($manager['dateOfBirth']); ?></p>
-                            <p><strong>Age: </strong>
-                                <?php
-                                // Calculate age based on date of birth
-                                if ($manager['dateOfBirth']) {
-                                    $dob = new DateTime($manager['dateOfBirth']);
-                                    $now = new DateTime();
-                                    $age = $dob->diff($now)->y;
-                                    echo $age;
-                                } else {
-                                    echo "N/A";
-                                }
-                                ?>
-                            </p>
-                            <?php
-                            $status = htmlspecialchars($manager['staffStatus']);
-                            $statusClass = '';
-
-                            switch ($status) {
-                                case 'Active':
-                                    $statusClass = 'bg-success text-light';
-                                    break;
-                                case 'Inactive':
-                                    $statusClass = 'bg-secondary text-dark';
-                                    break;
-                                case 'Fired':
-                                    $statusClass = 'bg-danger text-light';
-                                    break;
-                                default:
-                                    $statusClass = 'bg-light text-dark'; // Default or handle other statuses as needed
-                            }
-                            ?>
-                            <p><strong>Status: </strong><span class="badge <?php echo $statusClass; ?>"><?php echo $status; ?></span></p>
-                        </div>
-                    </div>
-                </div>                        
-
-                <div class="col-lg-6">
-                    <h3>Activity Log</h3>
-                    <hr>
+                <div class="col-lg-12">
+                    <!-- <h3>Activity Log</h3>
+                    <hr> -->
 
                     <div class="list-group">
                         <?php foreach ($activities as $activity): ?>
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <small class="mb-1"><?php echo htmlspecialchars($activity['activityDescription']); ?></small>
+                                <h5 class="mb-1"><?php echo htmlspecialchars($activity['activityDescription']); ?></h5>
                                 <small>
                                     <?php
                                         $datetime = new DateTime($activity['activityTimestamp']);

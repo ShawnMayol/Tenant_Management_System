@@ -48,7 +48,7 @@ if (isset($_GET['apartment']) && isset($_POST['statusSelect'])) {
         $activityStmt->close();
 
         // Redirect back to manager.viewApartment page with apartment number as query parameter
-        header('Location: ../../index.php?page=admin.viewApartment&apartment=' . $apartmentNumber);
+        header('Location: ../../index.php?page=manager.viewApartment&apartment=' . $apartmentNumber);
         exit();
     } else {
         // Handle error

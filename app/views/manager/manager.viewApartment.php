@@ -31,7 +31,7 @@
 </style>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " data-theme="<?php echo $theme; ?>">
-<?php include ('core/database.php') ?>
+    <?php include ('core/database.php') ?>
     <?php
     // Fetch apartment data based on apartmentNumber
     if (isset($_GET['apartment'])) {
@@ -64,7 +64,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-auto ps-2 pe-3">
-                    <a href="?page=admin.apartments" class="icon-wrapper" style="text-decoration: none;">
+                    <a href="?page=manager.apartments" class="icon-wrapper" style="text-decoration: none;">
                         <i class="bi bi-arrow-left-circle text-secondary h2 icon-default"></i>
                         <i class="bi bi-arrow-left-circle-fill text-secondary h2 icon-hover"></i>
                     </a>
@@ -72,18 +72,17 @@
                 <div class="col">
                     <h1 class="h1 m-0"><?php echo $apartment['apartmentType']; ?></h1>
                 </div>
-                <div class="col-auto pe-5">
+                <!-- <div class="col-auto pe-5">
                     <a href="#" title="Edit this apartment" class="icon-wrapper" style="text-decoration: none;">
                         <div class="link">
                             <i class="bi bi-pencil-square text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i>
                         </div>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
     <br>
-    <?php include ('modal.updateApartment.php'); ?>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-4">
@@ -93,14 +92,13 @@
                 <div class="d-grid gap-2 col-12 mx-auto mt-3">
                     <form action="handlers/admin/updateApartmentPicture.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post" enctype="multipart/form-data">
                         <div class="row">
-                            <div class="col-md-8 ms-4">
+                            <!-- <div class="col-md-8 ms-4">
                                 <label for="uploadImageInput" class="form-label">Change Apartment Picture:</label>
                                 <input class="form-control py-1" type="file" id="uploadImageInput" name="apartmentImage" accept="image/*" aria-describedby="fileHelp">
-                                <!-- <div id="fileHelp" class="form-text">Choose an image file to update the apartment picture.</div> -->
                             </div>
                             <div class="col-md-3 mt-4">
                                 <button type="submit" class="btn btn-outline-secondary btn-sm py-1" style="width: 100%; margin-top: 9px;">Change</button>
-                            </div>
+                            </div> -->
                         </div>
                     </form>
                 </div>
@@ -115,9 +113,11 @@
                 <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
                 <h3>Availability</h3>
                 <hr>
+
+
                 <div class="row">
                     <div class="col-md-12">
-                    <?php 
+                        <?php 
                             $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
                             $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
                             
@@ -140,13 +140,13 @@
                         ?>
                         <?php if ($apartment['apartmentStatus'] !== 'Occupied'): ?>
                         <div class="container mb-5">
-                            <form action="handlers/admin/updateApartmentStatus.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post">
+                            <form action="handlers/manager/updateApartmentStatus.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post">
                                 <div class="row">
                                     <div class="col-md-9 mt-3">
                                         <label for="statusSelect" class="form-label">Change Availability Status:</label>
                                         <select class="form-select" id="statusSelect" name="statusSelect" onchange="toggleAvailableByInput()">
                                             <?php
-                                                $statusOptions = ['Available', 'Maintenance', 'Hidden'];
+                                                $statusOptions = ['Available', 'Maintenance'];
                                                 foreach ($statusOptions as $option) {
                                                     $selected = ($option === $apartmentStatus) ? 'selected' : '';
                                                     echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';
@@ -207,7 +207,6 @@
                                 toggleAvailableByInput();
                             }); 
                         </script>
-
                     </div>
                 </div>
                 

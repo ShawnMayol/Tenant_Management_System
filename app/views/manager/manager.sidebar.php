@@ -55,41 +55,41 @@
             ?>
 
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.dashboard' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.dashboard">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.dashboard' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.dashboard">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.dashboard' ? '#house-fill' : '#house'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.dashboard' ? '#house-fill' : '#house'; ?>" />
                   </svg>
                   Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.requests' ? 'selected' : 'highlight'; ?>" aria-current="page" href="?page=admin.requests">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.requests' ? 'selected' : 'highlight'; ?>" aria-current="page" href="?page=manager.requests">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.requests' ? '#file-earmark-fill' : '#file-earmark'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.requests' ? '#file-earmark-fill' : '#file-earmark'; ?>" />
                   </svg>
                   Requests
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.apartments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.apartments">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.apartments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.apartments">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.apartments' ? '#building-fill' : '#building'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.apartments' ? '#building-fill' : '#building'; ?>" />
                   </svg>
                   Apartments
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.tenants' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.tenants">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.tenants' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.tenants">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.tenants' ? '#people-fill' : '#people'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.tenants' ? '#people-fill' : '#people'; ?>" />
                   </svg>
                   Tenants
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.payments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.payments">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.payments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.payments">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.payments' ? '#credit-card-fill' : '#credit-card'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.payments' ? '#credit-card-fill' : '#credit-card'; ?>" />
                   </svg>
                   Payments
                 </a>
@@ -102,19 +102,19 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.staff' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.staff">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.viewLogs' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.viewLogs&staff_id=<?php echo htmlspecialchars($_SESSION['staff_id']); ?>">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.staff' ? '#file-code-fill' : '#file-code'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.viewLogs' ? '#calendar-range-fill' : '#calendar-range'; ?>" />
                   </svg>
-                  Managers
+                  Activity Log
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.analytics' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.analytics">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.report' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.report">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.analytics' ? '#bar-chart-line-fill' : '#bar-chart-line'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'manager.report' ? '#clipboard-fill' : '#clipboard'; ?>" />
                   </svg>
-                  Analytics
+                  Report
                 </a>
               </li>
             </ul>

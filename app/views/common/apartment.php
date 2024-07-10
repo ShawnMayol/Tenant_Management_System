@@ -91,23 +91,26 @@
                     <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
                     <h3>Availability</h3><hr>
                     <?php 
-                        switch($apartment['apartmentStatus']) {
-                            case 'Available':
-                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
-                                break;
-                                
-                            case 'Occupied':
-                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied <br>
-                                Will be available by ' . date('m-d-Y') . '</div>';
-                                break;
-                            case 'Maintenance':
-                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance <br>
-                                Will be available by ' . date('m-d-Y') . '</div>';
-                                break;
-                            default:
-                                echo 'unknown status';
-                        }
-                    ?>
+                            $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
+                            $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
+                            
+                            switch($apartment['apartmentStatus']) {
+                                case 'Available':
+                                    echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                    break;
+                                case 'Occupied':
+                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied<br>Will be available by ' . $leaseEndDate . '</div>';
+                                    break;
+                                case 'Maintenance':
+                                    echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance<br>Will be available by ' . $availableBy . '</div>';
+                                    break;
+                                case 'Hidden':
+                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
+                                    break;
+                                default:
+                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
+                            }
+                        ?>
                     
                     <div class="mt-5">
                         <h3 id="makeRequest">Make a Request</h3>

@@ -45,6 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if the user is a staff member
             if (!empty($user['staff_ID'])) {
+                $_SESSION['staff_id'] = $user['staff_ID'];
+
                 // Update staffStatus to 'Active' in the staff table
                 $updateStatusSql = "UPDATE staff SET staffStatus = 'Active' WHERE staff_ID = ?";
                 $updateStatusStmt = $conn->prepare($updateStatusSql);
