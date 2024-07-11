@@ -106,7 +106,7 @@
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'admin.staff' ? '#file-code-fill' : '#file-code'; ?>" />
                   </svg>
-                  Managers
+                  Staff
                 </a>
               </li>
               <li class="nav-item">

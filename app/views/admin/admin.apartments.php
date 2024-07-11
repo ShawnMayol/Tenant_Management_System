@@ -110,6 +110,22 @@
         
     </div>
 
+
+    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="h1">Apartments</h1>
+                </div>
+                <div class="col-auto h2 pe-5 mt-1">
+                    <a href="" id="addApartmentButton" data-bs-toggle="modal" data-bs-target="#addApartmentModal" title="Add apartment" style="text-decoration: none;">
+                        <i class="bi bi-plus-square text-secondary"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
     <div class="container">
         
         <div class="row" id="apartmentGrid">

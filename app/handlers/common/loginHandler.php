@@ -25,11 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = sanitizeInput($_POST['password']);
 
     // Query to fetch user details based on username
-    $query = "SELECT * FROM user WHERE username = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    $query = "SELECT * FROM user WHERE username = '$username'";
+    $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         // User found, fetch user data
@@ -39,33 +36,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (password_verify($password, $user['password'])) {
             // Password is correct, start session and store user data
             session_start();
+            unset($_GET['login']['page']);
             $_SESSION['user_id'] = $user['user_ID'];
             $role = strtolower($user['userRole']);
             $_SESSION['role'] = $role;
-
-            // Check if the user is a staff member
-            if (!empty($user['staff_ID'])) {
-                $_SESSION['staff_id'] = $user['staff_ID'];
-
-                // Update staffStatus to 'Active' in the staff table
-                $updateStatusSql = "UPDATE staff SET staffStatus = 'Active' WHERE staff_ID = ?";
-                $updateStatusStmt = $conn->prepare($updateStatusSql);
-                $updateStatusStmt->bind_param("i", $user['staff_ID']);
-                $updateStatusStmt->execute();
-
-                // Log the login activity for staff members
-                $activityDescription = "Login";
-                $logActivitySql = "INSERT INTO activity (staff_ID, activityDescription) VALUES (?, ?)";
-                $logActivityStmt = $conn->prepare($logActivitySql);
-                $logActivityStmt->bind_param("is", $user['staff_ID'], $activityDescription);
-                $logActivityStmt->execute();
-            }
 
             // Redirect based on user role
             if ($user['userRole'] == 'Admin') {
                 header("Location: ../../index.php?page=admin.dashboard");
                 exit();
-            } else if ($user['userRole'] == 'Manager') {
+            } else if ($user['userRole'] == 'Manager' ) {
                 header("Location: ../../index.php?page=manager.dashboard");
                 exit();
             } else if ($user['userRole'] == 'Tenant') {
@@ -90,4 +70,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
-

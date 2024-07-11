@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "You can only upload a maximum of 2 files.";
             $uploadOk = 0;
         } else {
-            $target_dir = "../../tms3/App/uploads/request/";
+            $target_dir = "../../TMSv6/App/uploads/request/";
             if (!is_dir($target_dir)) {
                 mkdir($target_dir, 0755, true);
             }

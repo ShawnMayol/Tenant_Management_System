@@ -91,26 +91,23 @@
                     <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
                     <h3>Availability</h3><hr>
                     <?php 
-                            $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
-                            $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
-                            
-                            switch($apartment['apartmentStatus']) {
-                                case 'Available':
-                                    echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
-                                    break;
-                                case 'Occupied':
-                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied<br>Will be available by ' . $leaseEndDate . '</div>';
-                                    break;
-                                case 'Maintenance':
-                                    echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance<br>Will be available by ' . $availableBy . '</div>';
-                                    break;
-                                case 'Hidden':
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
-                                    break;
-                                default:
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
-                            }
-                        ?>
+                        switch($apartment['apartmentStatus']) {
+                            case 'Available':
+                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                break;
+                                
+                            case 'Occupied':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Maintenance':
+                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            default:
+                                echo 'unknown status';
+                        }
+                    ?>
                     
                     <div class="mt-5">
                         <h3 id="makeRequest">Make a Request</h3>
@@ -119,8 +116,8 @@
                             <div class="mb-3">
                                 <label for="termsOfStay" class="form-label">Term of Stay*</label>
                                 <select class="form-select" id="termsOfStay" name="termsOfStay" required onchange="setEndDateMin()">
-                                    <option value="short">Short term (< 6 months)</option>
-                                    <option value="long">Long term (>= 6 months)</option>
+                                    <option value="Short">Short term (< 6 months)</option>
+                                    <option value="Long">Long term (>= 6 months)</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -135,9 +132,8 @@
                             <div class="mb-3">
                                 <label for="billingPeriod" class="form-label">Billing Period*</label>
                                 <select class="form-select" id="billingPeriod" name="billingPeriod" required>
-                                    <option value="monthly">Monthly</option>
-                                    <option value="weekly" hidden>Weekly</option>
-                                    <option value="annually" hidden>Annually</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Annually" hidden>Annually</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -224,12 +220,12 @@
     
                 // Calculate minimum date based on termsOfStay
                 var minDate;
-                if (termsOfStay === 'short') {
+                if (termsOfStay === 'Short') {
                     // Set minimum date to 1 month from today
                     var oneMonthLater = new Date();
                     oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
                     minDate = oneMonthLater.toISOString().split('T')[0];
-                } else if (termsOfStay === 'long') {
+                } else if (termsOfStay === 'Long') {
                     // Set minimum date to 6 months from today
                     var sixMonthsLater = new Date();
                     sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);

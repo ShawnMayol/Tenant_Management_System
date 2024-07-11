@@ -31,34 +31,21 @@
 </style>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " data-theme="<?php echo $theme; ?>">
-<?php include ('core/database.php') ?>
+    <?php include ('core/database.php') ?>
     <?php
-    // Fetch apartment data based on apartmentNumber
-    if (isset($_GET['apartment'])) {
-        $apartmentNumber = $_GET['apartment'];
-    } else {
-        echo "Apartment number is not specified.";
-        exit();
-    }
-
-    // Prepare SQL statement to fetch apartment details
-    $sql = "SELECT * FROM apartment WHERE apartmentNumber = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $apartmentNumber);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $apartment = $result->fetch_assoc();
-
-    // Prepare SQL statement to fetch the current lease agreement end date
-    $lease_sql = "SELECT endDate FROM lease WHERE apartmentNumber = ? ORDER BY endDate DESC LIMIT 1";
-    $lease_stmt = $conn->prepare($lease_sql);
-    $lease_stmt->bind_param("i", $apartmentNumber);
-    $lease_stmt->execute();
-    $lease_result = $lease_stmt->get_result();
-    $lease = $lease_result->fetch_assoc();
-
-    // Close the database connection
-    $conn->close();
+        // Fetch apartment data based on apartmentNumber
+        if (isset($_GET['apartment'])) {
+            $apartmentNumber = $_GET['apartment'];
+        } else {
+            echo "Apartment number is not specified.";
+        }
+        $sql = "SELECT * FROM apartment WHERE apartmentNumber = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $apartmentNumber);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $apartment = $result->fetch_assoc();
+        $conn->close();
     ?>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="container">
@@ -117,46 +104,41 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
-                    <?php 
-                            $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
-                            $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
-                            
-                            switch($apartment['apartmentStatus']) {
-                                case 'Available':
-                                    echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
-                                    break;
-                                case 'Occupied':
-                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied<br>Will be available by ' . $leaseEndDate . '</div>';
-                                    break;
-                                case 'Maintenance':
-                                    echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance<br>Will be available by ' . $availableBy . '</div>';
-                                    break;
-                                case 'Hidden':
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
-                                    break;
-                                default:
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
-                            }
-                        ?>
-                        <?php if ($apartment['apartmentStatus'] !== 'Occupied'): ?>
-                        <div class="container mb-5">
+                        <?php 
+                        switch($apartment['apartmentStatus']) {
+                            case 'Available':
+                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                break;
+                                
+                            case 'Occupied':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Maintenance':
+                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance <br>
+                                Will be available by ' . date('m-d-Y') . '</div>';
+                                break;
+                            case 'Hidden':
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view </div>';
+                                break;
+                            default:
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Uknown apartment status </div>';
+                        }
+                    ?>
+                        <div class="container">
                             <form action="handlers/admin/updateApartmentStatus.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post">
                                 <div class="row">
                                     <div class="col-md-9 mt-3">
                                         <label for="statusSelect" class="form-label">Change Availability Status:</label>
-                                        <select class="form-select" id="statusSelect" name="statusSelect" onchange="toggleAvailableByInput()">
+                                        <select class="form-select" id="statusSelect" name="statusSelect">
                                             <?php
-                                                $statusOptions = ['Available', 'Maintenance', 'Hidden'];
-                                                foreach ($statusOptions as $option) {
-                                                    $selected = ($option === $apartmentStatus) ? 'selected' : '';
-                                                    echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';
-                                                }
+                                            $statusOptions = ['available', 'maintenance', 'hidden'];
+                                            foreach ($statusOptions as $option) {
+                                                $selected = ($option === $apartmentStatus) ? 'selected' : '';
+                                                echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';
+                                            }
                                             ?>
                                         </select>
-                                    </div>
-                                    <div class="col-md-9 mt-3" id="availableByDiv" style="display: none;">
-                                        <label for="availableBy" class="form-label">Available By:</label>
-                                        <input type="date" class="form-control" id="availableBy" name="availableBy">
                                     </div>
                                     <div class="col-md-3 mt-3 text-center pt-4">
                                         <button type="submit" class="btn btn-outline-secondary px-4" style="margin-top: 6px;">Change</button>
@@ -164,49 +146,8 @@
                                 </div>
                             </form>
                         </div>
-                        <?php endif; ?>
-
-                        <script>
-                        function toggleAvailableByInput() {
-                            var statusSelect = document.getElementById('statusSelect');
-                            var availableByDiv = document.getElementById('availableByDiv');
-                            if (statusSelect.value === 'Maintenance') {
-                                availableByDiv.style.display = 'block';
-                            } else {
-                                availableByDiv.style.display = 'none';
-                            }
-                        }
-
-                        // Initial check to display the availableBy field if the page loads with Maintenance selected
-                        document.addEventListener('DOMContentLoaded', function() {
-                            toggleAvailableByInput();
-                        });
-                        </script>
-                        <script>
-                            function toggleAvailableByInput() {
-                                var statusSelect = document.getElementById('statusSelect');
-                                var availableByDiv = document.getElementById('availableByDiv');
-                                var availableByInput = document.getElementById('availableBy');
-
-                                if (statusSelect.value === 'Maintenance') {
-                                    availableByDiv.style.display = 'block';
-                                    // Set the minimum date for the availableBy input to today's date
-                                    var today = new Date();
-                                    var day = String(today.getDate()).padStart(2, '0');
-                                    var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
-                                    var year = today.getFullYear();
-                                    availableByInput.min = year + '-' + month + '-' + day;
-                                } else {
-                                    availableByDiv.style.display = 'none';
-                                    availableByInput.value = ''; // Clear the date input
-                                }
-                            }
-
-                            // Call the function on page load to set the initial state
-                            document.addEventListener('DOMContentLoaded', function() {
-                                toggleAvailableByInput();
-                            }); 
-                        </script>
+                        
+                        
 
                     </div>
                 </div>

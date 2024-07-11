@@ -22,22 +22,19 @@
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const logoutLink = document.getElementById('logout-link');
-    const logoutIcon = document.getElementById('logout-icon');
-    
-    logoutLink.addEventListener('mouseenter', function() {
-      logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-open');
-    });
-    
-    logoutLink.addEventListener('mouseleave', function() {
-      logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-closed');
-    });
-  });
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoutLink = document.getElementById('logout-link');
+        const logoutIcon = document.getElementById('logout-icon');
 
-<?php include('views/common/modal.account.php'); ?>
-<?php include('views/common/modal.changePassword.php'); ?>
+        logoutLink.addEventListener('mouseenter', function() {
+            logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-open');
+        });
+
+        logoutLink.addEventListener('mouseleave', function() {
+            logoutIcon.querySelector('.door-icon').setAttribute('xlink:href', '#door-closed');
+        });
+    });
+</script>
 
 <div class="container-fluid">
     <div class="row">
@@ -78,22 +75,28 @@
                   Payments
                 </a>
               </li>
+            </ul>
+
+            <h6
+              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+              <span>tenant</span>
+            </h6>
+            <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.invoice' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.invoice">
-                    <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <use xlink:href="<?php echo $currentPage === 'tenant.invoice' ? '#file-earmark-text-fill' : '#file-earmark-text'; ?>" />
-                    </svg>
-                    Invoice
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.analytics' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.analytics">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'tenant.analytics' ? '#bar-chart-line-fill' : '#bar-chart-line'; ?>" />
+                  </svg>
+                  Analytics
                 </a>
               </li>
-
             </ul>
 
             <hr class="my-3">
 
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#accountModal">
+                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#staffAccountModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
                         <use xlink:href="#person-gear" />
                     </svg>
@@ -101,7 +104,7 @@
                 </a>
             </li>
 
-            <?php include('views/tenant/modal.tenantAccount.php'); ?>
+            <?php include('views/admin/modal.staffAccount.php'); ?>
             <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">

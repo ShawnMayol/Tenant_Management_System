@@ -24,7 +24,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Index | C-Apartments</title>
+  <title>Dashboard | C-Apartments</title>
   <link rel="icon" href="assets/src/svg/c-logo.svg">
 
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -76,23 +76,27 @@
         </button>
       </li>
 
-      <?php
-        include 'core/database.php';
+        <?php
+            include 'core/database.php';
 
-        // Retrieve user data from session
-        $loggedInUserID = $_SESSION['user_id'] ?? null;
-        $username = "";
-        $picDirectory = "uploads/staff/placeholder.jpg"; 
+            // Retrieve user data from session
+            $loggedInUserID = $_SESSION['user_id'] ?? null;
+            $username = "";
 
-        $query = "SELECT username, picDirectory FROM user WHERE user_ID = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $loggedInUserID);
-        $stmt->execute();
-        $stmt->bind_result($username, $picDirectory);
-        $stmt->fetch();
-        $stmt->close();
-
-        $conn->close();
+            // Check if user is logged in
+            if ($loggedInUserID) {
+                // Query to fetch the username based on logged-in user ID
+                $query = "SELECT username FROM user WHERE user_ID = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('i', $loggedInUserID);
+                $stmt->execute();
+                $stmt->bind_result($username);
+                $stmt->fetch();
+                $stmt->close();
+            } else {
+                echo "User not logged in.";
+            }
+            $conn->close();
         ?>
 
         <li class="nav-item text-nowrap d-none d-md-flex align-items-center text-white">
@@ -100,8 +104,7 @@
                 <span class="px-2"><?= htmlspecialchars($username) ?></span>
             </div>
             <a href="#" id="accountPictureTrigger" data-bs-toggle="modal" data-bs-target="#staffAccountModal">
-              <?php $picDirectory = substr($picDirectory, 6); ?>
-              <img src="<?php echo $picDirectory; ?>" class="img-fluid rounded-circle" style="width: 32px; height: 32px; object-fit: cover;" alt="Account Picture">
+                <img src="uploads\staff\placeholder.jpg" class="img-fluid rounded-circle" style="width: 32px; height: 32px;" alt="Account Picture">
             </a>
         </li>
     </ul>
@@ -110,7 +113,7 @@
   <?php
   // Check if the session role is set
   if (isset($_SESSION['role'])) {
-
+    
     // Assign the appropriate sidebar and default dashboard based on the user role
     switch ($_SESSION['role']) {
       case 'admin':

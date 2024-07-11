@@ -34,9 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $requestDate = date('Y-m-d');
     $requestStatus = 'Pending';
     $apartmentNumber = sanitize($_POST['apartmentNumber']);
-    
+
     // Handling file upload
-    $uploadDir = '../../uploads/request/';
+    $uploadDir = __DIR__ . '/../../App/uploads/request/';
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true); // Create the directory if it does not exist
+    }
+
     $uploadFile = $uploadDir . basename($_FILES['documentImage']['name']);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
@@ -51,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check file size (5MB max)
-    if ($_FILES['documentImage']['size'] > 99999999) {
+    if ($_FILES['documentImage']['size'] > 5000000) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
@@ -68,30 +72,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (move_uploaded_file($_FILES['documentImage']['tmp_name'], $uploadFile)) {
             $requestBin = $uploadFile;
+
+            // Insert data into database
+            $sql = "INSERT INTO request (apartmentNumber, firstName, middleName, lastName, dateOfBirth, phoneNumber, emailAddress, requestDate, requestBin, requestStatus, termsOfStay, startDate, endDate, billingPeriod, occupants, note, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("isssssssssssssiss", $apartmentNumber, $firstName, $middleName, $lastName, $dateOfBirth, $phoneNumber, $emailAddress, $requestDate, $requestBin, $requestStatus, $termsOfStay, $startDate, $endDate, $billingPeriod, $numOccupants, $message, $gender);
+
+                if ($stmt->execute()) {
+                    echo "Request submitted successfully.";
+                    // Redirect to the apartment details page
+                    header("Location: ../../views/tenant/requestPending.php");
+                    exit();
+                } else {
+                    echo "Error: " . $stmt->error;
+                }
+                $stmt->close();
+            } else {
+                echo "Error preparing statement: " . $conn->error;
+            }
         } else {
             echo "Sorry, there was an error uploading your file.";
-            $uploadOk = 0;
         }
     }
-
-    if ($uploadOk == 1) {
-        // Insert data into database
-        $sql = "INSERT INTO request (apartmentNumber, firstName, middleName, lastName, dateOfBirth, phoneNumber, emailAddress, requestDate, requestBin, requestStatus, termsOfStay, startDate, endDate, billingPeriod, occupants, message, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("isssssssssssssiss", $apartmentNumber, $firstName, $middleName, $lastName, $dateOfBirth, $phoneNumber, $emailAddress, $requestDate, $requestBin, $requestStatus, $termsOfStay, $startDate, $endDate, $billingPeriod, $numOccupants, $message, $gender);
-
-        if ($stmt->execute()) {
-            echo "Request submitted successfully.";
-            // Redirect to the apartment details page
-            header("Location: ../../views/tenant/requestPending.php");
-            exit();
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-    }
-    
-    $stmt->close();
 }
 
 $conn->close();

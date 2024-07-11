@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2024 at 08:32 PM
+-- Generation Time: Jul 05, 2024 at 08:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,63 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity`
---
-
-CREATE TABLE `activity` (
-  `activity_ID` int(11) NOT NULL,
-  `staff_ID` int(11) NOT NULL,
-  `activityDescription` text NOT NULL,
-  `activityTimestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `activity`
---
-
-INSERT INTO `activity` (`activity_ID`, `staff_ID`, `activityDescription`, `activityTimestamp`) VALUES
-(1, 1, 'User account creation', '2024-07-10 14:45:26'),
-(2, 2, 'User account creation', '2024-07-10 14:46:44'),
-(3, 3, 'User account creation', '2024-07-10 14:46:46'),
-(4, 4, 'User account creation', '2024-07-10 14:46:48'),
-(5, 1, 'Logout', '2024-07-10 14:41:14'),
-(6, 1, 'Login', '2024-07-10 14:42:54'),
-(7, 2, 'Login', '2024-07-10 14:47:46'),
-(8, 2, 'Logout', '2024-07-10 14:56:05'),
-(9, 1, 'Logout', '2024-07-10 15:09:28'),
-(10, 2, 'Login', '2024-07-10 15:09:34'),
-(11, 2, 'Logout', '2024-07-10 15:12:11'),
-(12, 1, 'Login', '2024-07-10 15:12:18'),
-(13, 1, 'Logout', '2024-07-10 15:14:07'),
-(14, 3, 'Login', '2024-07-10 15:14:16'),
-(15, 3, 'Login', '2024-07-10 15:15:48'),
-(16, 3, 'Logout', '2024-07-10 15:15:51'),
-(17, 4, 'Login', '2024-07-10 15:16:01'),
-(18, 4, 'Logout', '2024-07-10 15:16:42'),
-(19, 1, 'Login', '2024-07-10 15:16:47'),
-(20, 1, 'Logout', '2024-07-10 15:43:23'),
-(21, 2, 'Login', '2024-07-10 15:43:28'),
-(22, 2, 'Login', '2024-07-10 16:30:27'),
-(23, 2, 'Logout', '2024-07-10 17:12:00'),
-(24, 2, 'Login', '2024-07-10 17:12:09'),
-(25, 2, 'Logout', '2024-07-10 17:29:39'),
-(26, 2, 'Login', '2024-07-10 17:29:48'),
-(27, 2, 'Changed apartment 16 status to Maintenance', '2024-07-10 17:41:00'),
-(28, 2, 'Changed apartment 16 status to Available', '2024-07-10 17:40:44'),
-(29, 2, 'Changed apartment 16 status to Maintenance', '2024-07-10 17:39:00'),
-(30, 2, 'Changed apartment 16 status to Available', '2024-07-10 17:46:22'),
-(31, 2, 'Logout', '2024-07-10 17:47:38'),
-(32, 1, 'Login', '2024-07-10 17:47:43'),
-(33, 1, 'Changed apartment 16 status to Hidden', '2024-07-10 17:57:02'),
-(34, 1, 'Changed apartment 16 status to Maintenance', '2024-07-10 17:58:31'),
-(35, 1, 'Changed apartment 16 status to Available', '2024-07-10 17:58:34'),
-(36, 1, 'Changed apartment 9 status to Hidden', '2024-07-10 18:01:22'),
-(37, 1, 'Changed apartment 17 status to Maintenance', '2024-07-10 18:22:29'),
-(38, 1, 'Logout', '2024-07-10 18:29:04');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `apartment`
 --
 
@@ -92,7 +35,6 @@ CREATE TABLE `apartment` (
   `apartmentAddress` varchar(255) DEFAULT NULL,
   `maxOccupants` int(11) DEFAULT NULL,
   `apartmentStatus` enum('Available','Occupied','Maintenance','Hidden') DEFAULT 'Hidden',
-  `availableBy` date DEFAULT NULL,
   `apartmentPictures` varchar(255) DEFAULT NULL,
   `apartmentDescription` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -101,24 +43,22 @@ CREATE TABLE `apartment` (
 -- Dumping data for table `apartment`
 --
 
-INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `maxOccupants`, `apartmentStatus`, `availableBy`, `apartmentPictures`, `apartmentDescription`) VALUES
-(1, 'Studio', 1200.00, '20 sqm', 'LB468, Nasipit, Talamban, Cebu', 2, 'Available', NULL, '../../uploads/apartment/apartment2.jpg', 'Cozy studio apartment with modern amenities.'),
-(2, '10 Bedrooms', 1500.00, '30 sqm', 'LB469, Nasipit, Talamban, Cebu', 3, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Spacious one-bedroom apartment with scenic views.'),
-(3, '2 Bedroom', 2000.00, '50 sqm', 'Talamban, Cebu City', 2, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'A good 2 bedroom apartment.'),
-(4, '3 Bedroom', 2500.00, '80 sqm', 'Cebu City, Philippines', 5, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Very nice place and cheap'),
-(5, '1 Bedroom', 1600.00, '35 sqm', 'LB484, Nasipit, Talamban, Cebu', 3, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Charming one-bedroom apartment in a quiet neighborhood.'),
-(6, '2 Bedroom', 2100.00, '60 sqm', 'LB483, Nasipit, Talamban, Cebu', 4, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Modern two-bedroom apartment with contemporary design.'),
-(7, 'Penthouse', 5000.00, '120 sqm', 'LB482, Nasipit, Talamban, Cebu', 6, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Exquisite penthouse offering breathtaking city skyline.'),
-(8, 'Studio', 1200.00, '25 sqm', 'LB481, Nasipit, Talamban, Cebu', 2, 'Available', NULL, '../../uploads/apartment/pic-1.jpg', 'Cozy studio apartment perfect for individuals or couples.'),
-(9, '3 Bedroom', 9000.00, '50 sqm', 'Cebu City, Philippines', 3, 'Hidden', NULL, '../../uploads/apartment/pic-1.jpg', 'A lofty 3 bedroom apartment.'),
-(10, 'Studio', 3000.00, '100 sqm', 'Cebu City, Philippines', 10, 'Available', NULL, '../../uploads/apartment/studio.jpg', 'Lorem Ipsum'),
-(11, 'Studio', 2000.00, '50 sqm', 'LALALALALA', 2, 'Available', NULL, '../../uploads/apartment/studio.jpg', 'asdjhf aksdfh jashd f aksdhjfkajdh sfklaakjd shfkdj'),
-(12, '2 Bedroom', 2000.00, '50 sqm', '0', 2, 'Available', NULL, '../../uploads/apartment/studio.jpg', 'a'),
-(13, '3 Bedroom', 2000.00, '50 sqm', 'USC - Talamban, Nasipit, Cebu', 2, 'Available', NULL, '../../uploads/apartment/studio.jpg', 'Brand new 3 bedroom Apartment, cheap and affordable !'),
-(14, '3 Bedroom', 2000.00, '50 sqmaa', 'Cybergalaxy, Milkyway', 2, 'Available', NULL, '../../uploads/apartment/2bedroom2.jpg', 'Somewhere in planet Nemek'),
-(15, 'Penthouse', 8000.00, '50 sqm', 'Somewhere in Cebu City', 4, 'Available', NULL, '../../uploads/apartment/penthouse.jpg', 'Balay ni Lance Cerenio'),
-(16, '1 Bedroom', 1000.00, '20 sqm', 'USC - Talamban, Nasipit, Cebu', 1, 'Available', NULL, '../../uploads/apartment/apartment.jpg', 'Cheap and affordable 1 bedroom apartment for individuals.'),
-(17, '2 Bedroom', 8000.00, '25 sqm', 'Talamban, Cebu City', 3, 'Maintenance', '2024-08-10', '../../uploads/apartment/2bedroom.jpg', 'A nice 2 bedroom apartment.');
+INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `maxOccupants`, `apartmentStatus`, `apartmentPictures`, `apartmentDescription`) VALUES
+(1, 'Studio', 1200.00, '20 sqm', 'LB468, Nasipit, Talamban, Cebu', 2, 'Available', '../../uploads/apartment/pic-1.jpg', 'Cozy studio apartment with modern amenities.'),
+(2, '1 Bedroom', 1500.00, '30 sqm', 'LB469, Nasipit, Talamban, Cebu', 3, 'Occupied', '../../uploads/apartment/pic-1.jpg', 'Spacious one-bedroom apartment with scenic views.'),
+(3, '2 Bedroom', 2000.00, '50 sqm', '0', 4, 'Available', '../../uploads/apartment/pic-1.jpg', '0'),
+(4, '3 Bedroom', 2500.00, '80 sqm', '0', 5, 'Available', '../../uploads/apartment/pic-1.jpg', '0'),
+(5, '1 Bedroom', 1600.00, '35 sqm', 'LB484, Nasipit, Talamban, Cebu', 3, 'Available', '../../uploads/apartment/pic-1.jpg', 'Charming one-bedroom apartment in a quiet neighborhood.'),
+(6, '2 Bedroom', 2100.00, '60 sqm', 'LB483, Nasipit, Talamban, Cebu', 4, 'Available', '../../uploads/apartment/pic-1.jpg', 'Modern two-bedroom apartment with contemporary design.'),
+(7, 'Penthouse', 5000.00, '120 sqm', 'LB482, Nasipit, Talamban, Cebu', 6, 'Hidden', '../../uploads/apartment/pic-1.jpg', 'Exquisite penthouse offering breathtaking city skyline.'),
+(8, 'Studio', 1200.00, '25 sqm', 'LB481, Nasipit, Talamban, Cebu', 2, 'Maintenance', '../../uploads/apartment/pic-1.jpg', 'Cozy studio apartment perfect for individuals or couples.'),
+(9, '3 Bedroomasdf', 20000.00, '50 sqm', '0', 1, 'Hidden', '../../uploads/apartment/pic-1.jpg', 'asdf'),
+(10, 'Mansion', 100.00, '100 sqm', '0', 10, 'Hidden', '../../uploads/apartment/johnwick.jpg', '0'),
+(11, 'Studio', 2000.00, '50 sqm', 'LALALALALA', 2, 'Hidden', '../../uploads/apartment/studio.jpg', 'asdjhf aksdfh jashd f aksdhjfkajdh sfklaakjd shfkdj'),
+(12, '2 Bedroom', 2000.00, '50 sqm', '0', 2, 'Occupied', '../../uploads/apartment/studio.jpg', 'a'),
+(13, '3 Bedrooma', 2000.00, '50 sqmaa', '0', 2, 'Occupied', '../../uploads/apartment/studio.jpg', 'new'),
+(14, '3 Bedroom', 2000.00, '50 sqmaa', '0', 2, 'Occupied', '../../uploads/apartment/johncena.jpg', 'a'),
+(15, 'Mansion ni Bro', 20000.00, '50 sqm', 'Somewhere in Cebu City', 4, 'Occupied', '../../uploads/apartment/johncena.jpg', 'Balay ni Lance Cerenio');
 
 -- --------------------------------------------------------
 
@@ -234,14 +174,7 @@ INSERT INTO `request` (`request_ID`, `apartmentNumber`, `firstName`, `lastName`,
 (11, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (12, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../App/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (13, 4, 'ja', 'asdf', 'adf', '1111-11-11', '6969696969', 'email@email.com', '2024-07-04', '../../tms3/App/uploads/request/johncena.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 3, 'Shawn', 'Mayol', 'Cuime', '2004-03-19', '09298089931', 'email@gmail.com', '2024-07-04', '../../tms3/App/uploads/request/23103613.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 5, 'Shawn', 'Cerenio', 'Majorenos', '3231-01-21', '09298089931', 'lancegwapo@gmail.com', '2024-07-06', '../../uploads/request/johncena.jpg', 'Pending', 'short', '2024-07-06', '2024-08-06', 'monthly', 1, 'Is there aircon and wifi?', ''),
-(18, 6, 'Elgen', 'Arinasa', 'Mar', '2005-03-10', '6969696969', 'elgeneglenegln@gmail.com', '2024-07-06', '../../uploads/request/Acer_Wallpaper_03_3840x2400.jpg', 'Pending', 'short', '2024-07-06', '2024-08-06', 'monthly', 1, 'Is there aircon and wifi?', 'Male'),
-(19, 3, 'Shawn', 'Mayol', 'Jurgen', '2004-03-19', '6969696969', 'shawn@gmail.com', '2024-07-06', '../../uploads/request/Acer_Wallpaper_01_3840x2400.jpg', 'Pending', 'long', '2024-07-06', '2025-01-06', 'monthly', 2, 'Looking for good neighborhood.', 'Female'),
-(20, 6, 'Lance', 'Cerenio', 'Majorenos', '9122-09-01', '12345678910', 'lancegwapo@gmail.com', '2024-07-06', '../../uploads/request/Acer_Wallpaper_03_3840x2400.jpg', 'Pending', 'short', '2024-07-06', '2024-08-06', 'monthly', 1, 'Please accept me', 'Prefer not to say'),
-(21, 2, 'John', 'Newman', '', '1007-09-20', '12345678910', 'jhon@gmail.com', '2024-07-06', '../../uploads/request/Acer_Wallpaper_05_3840x2400.jpg', 'Pending', 'short', '2024-07-06', '2024-08-06', 'monthly', 1, 'Hi', 'Male'),
-(22, 1, 'John', 'Newman', '', '2001-09-07', '09876541234', 'newman@gmail.com', '2024-07-06', '../../uploads/request/Acer_Wallpaper_02_3840x2400.jpg', 'Pending', 'long', '2024-07-08', '2025-01-06', 'monthly', 1, 'Hello, what are the commodities that comes with this apartment? ', 'Prefer not to say'),
-(23, 4, 'Jane', 'Doe', '', '2003-05-19', '09298889921', 'janedoe@gmail.com', '2024-07-10', '../../uploads/request/lease.jpg', 'Pending', 'long', '2024-07-11', '2025-01-10', 'monthly', 5, 'Please contact me ASAP. I really need this apartment.', 'Female');
+(14, 3, 'Shawn', 'Mayol', 'Cuime', '2004-03-19', '09298089931', 'email@gmail.com', '2024-07-04', '../../tms3/App/uploads/request/23103613.jpg', 'Pending', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -257,19 +190,20 @@ CREATE TABLE `staff` (
   `dateOfBirth` date DEFAULT NULL,
   `phoneNumber` varchar(20) NOT NULL,
   `emailAddress` varchar(255) NOT NULL,
-  `staffStatus` enum('Active','Inactive','Fired') NOT NULL DEFAULT 'Active',
-  `staffRole` varchar(255) NOT NULL
+  `staffStatus` enum('Active','Inactive') NOT NULL DEFAULT 'Active',
+  `staffRole` varchar(255) NOT NULL,
+  `picDirectory` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_ID`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `phoneNumber`, `emailAddress`, `staffStatus`, `staffRole`) VALUES
-(1, 'Lance', 'Cerenio', 'Gwapo', '1980-01-01', '09298089931', 'lance@gmail.com', 'Inactive', 'Admin'),
-(2, 'Carl', 'Omega', 'Alias', '1985-03-15', '234-567-8901', 'carl@gmail.com', 'Inactive', 'Manager'),
-(3, 'Klyde', 'Perante', 'Jemar', '1982-08-20', '345-678-9012', 'manager2@gmail.com', 'Inactive', 'Manager'),
-(4, 'Shawn', 'Mayol', 'Jurgen', '1975-11-10', '456-789-0123', 'shawn@gmail.com', 'Inactive', 'Manager');
+INSERT INTO `staff` (`staff_ID`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `phoneNumber`, `emailAddress`, `staffStatus`, `staffRole`, `picDirectory`) VALUES
+(1, 'Lance', 'Cerenio', 'Gwapo', '1980-01-01', '09690969696', 'lance@gmail.com', 'Active', 'Admin', NULL),
+(2, 'Carl', 'Omega', 'Alias', '1985-03-15', '234-567-8901', 'carl@gmail.com', 'Active', 'Manager', NULL),
+(3, 'Klyde', 'Perante', 'Jemar', '1982-08-20', '345-678-9012', 'klyde@gmail.com', 'Active', 'Manager', NULL),
+(4, 'Shawn', 'Mayol', 'Jurgen', '1975-11-10', '456-789-0123', 'shawn@gmail.com', 'Active', 'Manager', NULL);
 
 -- --------------------------------------------------------
 
@@ -326,35 +260,27 @@ CREATE TABLE `user` (
   `staff_ID` int(11) DEFAULT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `userRole` enum('Admin','Manager','Tenant') NOT NULL,
-  `picDirectory` varchar(255) DEFAULT NULL
+  `userRole` enum('Admin','Manager','Tenant') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_ID`, `tenant_ID`, `staff_ID`, `username`, `password`, `userRole`, `picDirectory`) VALUES
-(1, NULL, 1, 'Admin', '$2y$10$hIzSVZMiVRvrzaP3E6pcuO48j5TehF4ObDvHsfuyM.aKHSR9Ke5wa', 'Admin', '../../uploads/staff/admin.jpg'),
-(2, NULL, 2, 'Carl Omega', '$2y$10$eS6heJGqoSJJRFhO9Zh/L.lHLTau7knx81bZIkO4/e9xzDGQyeDN6', 'Manager', '../../uploads/staff/carl.jpg'),
-(3, NULL, 3, 'Manager2', '$2y$10$RAMot11zqtARio3dWfUjH.fIVEMPHl7.b1q.OfYrxGbEKNiowP0Ea', 'Manager', '../../uploads/staff/manager2.jpg'),
-(4, NULL, 4, 'manager3', '$2y$10$oR1b.6P8qT6OfgOsXAhheO1wXQ98GhQliLmk9Ywd0x5EYwL6fjyeC', 'Manager', '../../uploads/staff/manager3.jpg'),
-(5, 1, NULL, 'John', '$2y$10$hifAqpO.2lcKfbs.tLm.HugdByCU6S.UVDDq4HSZp1JJQXv9.B3jm', 'Tenant', '../../uploads/tenant/placeholder.jpg'),
-(6, 2, NULL, 'Jane', '$2y$10$T0FlqBFlZH8ytA57asIrzet34SNOAYucGixgQoiRDBt0I.1L/RHtG', 'Tenant', '../../uploads/tenant/placeholder.jpg'),
-(7, 3, NULL, 'michael.johnson.3', '$2y$10$SLVd3o1YqzWLCGfRZI4U..CKiniLO9h1M1DZ6CFld.h/z/XvrgpaS', 'Tenant', '../../uploads/tenant/placeholder.jpg'),
-(8, 4, NULL, 'emily.davis.4', '$2y$10$FI4izAoxPqB76NzHxbEsnuOD9AmUB23gi1dpCtcwmScHRJ9Mp7Vue', 'Tenant', '../../uploads/tenant/placeholder.jpg'),
-(9, 5, NULL, 'robert.brown.5', '$2y$10$iqOheV0QIqFciV9.mWtsl.R2GKaNoNaziwfRAZzdODxh4Kn3m6e.e', 'Tenant', '../../uploads/tenant/placeholder.jpg');
+INSERT INTO `user` (`user_ID`, `tenant_ID`, `staff_ID`, `username`, `password`, `userRole`) VALUES
+(1, NULL, 1, 'Admin', '$2y$10$hIzSVZMiVRvrzaP3E6pcuO48j5TehF4ObDvHsfuyM.aKHSR9Ke5wa', 'Admin'),
+(2, NULL, 2, 'manager1', '$2y$10$gDFFafLJErXytYKfC4C0eO1r.Lqr4jZEU.QnWTZNVRzOCNqyeAFcW', 'Manager'),
+(3, NULL, 3, 'manager2', '$2y$10$VvRQYv27EUDMhqE/nAi1I.amqqR/MIkCE8QclUrlkkCV/5ajycDGO', 'Manager'),
+(4, NULL, 4, 'manager3', '$2y$10$oR1b.6P8qT6OfgOsXAhheO1wXQ98GhQliLmk9Ywd0x5EYwL6fjyeC', 'Manager'),
+(5, 1, NULL, 'John', '$2y$10$hifAqpO.2lcKfbs.tLm.HugdByCU6S.UVDDq4HSZp1JJQXv9.B3jm', 'Tenant'),
+(6, 2, NULL, 'Jane', '$2y$10$T0FlqBFlZH8ytA57asIrzet34SNOAYucGixgQoiRDBt0I.1L/RHtG', 'Tenant'),
+(7, 3, NULL, 'michael.johnson.3', '$2y$10$SLVd3o1YqzWLCGfRZI4U..CKiniLO9h1M1DZ6CFld.h/z/XvrgpaS', 'Tenant'),
+(8, 4, NULL, 'emily.davis.4', '$2y$10$FI4izAoxPqB76NzHxbEsnuOD9AmUB23gi1dpCtcwmScHRJ9Mp7Vue', 'Tenant'),
+(9, 5, NULL, 'robert.brown.5', '$2y$10$iqOheV0QIqFciV9.mWtsl.R2GKaNoNaziwfRAZzdODxh4Kn3m6e.e', 'Tenant');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `activity`
---
-ALTER TABLE `activity`
-  ADD PRIMARY KEY (`activity_ID`),
-  ADD KEY `staff_ID` (`staff_ID`);
 
 --
 -- Indexes for table `apartment`
@@ -433,16 +359,10 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `activity`
---
-ALTER TABLE `activity`
-  MODIFY `activity_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
 -- AUTO_INCREMENT for table `apartment`
 --
 ALTER TABLE `apartment`
-  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `bill`
@@ -472,7 +392,7 @@ ALTER TABLE `lease`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `request_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `request_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -501,12 +421,6 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `activity`
---
-ALTER TABLE `activity`
-  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`staff_ID`) REFERENCES `staff` (`staff_ID`);
 
 --
 -- Constraints for table `bill`
