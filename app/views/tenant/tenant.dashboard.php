@@ -1,5 +1,6 @@
 <?php 
-    include('handlers/admin/cardsHandler.php');
+    include('handlers/tenant/tenantCardsHandler.php');
+    include('handlers/tenant/retrieveAnnouncement.php');
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -98,3 +99,30 @@
         </a>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Announcements</h5>
+            </div>
+            <div class="card-body">
+                <?php if (!empty($announcements)): ?>
+                    <ul class="list-group">
+                        <?php foreach ($announcements as $announcement): ?>
+                            <li class="list-group-item">
+                                <h5><?php echo $announcement['title']; ?></h5>
+                                <p><?php echo $announcement['content']; ?></p>
+                                <small>Posted by <?php echo $announcement['staff_name']; ?> on <?php echo date('F j, Y, g:i a', strtotime($announcement['created_at'])); ?></small>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p>No announcements available.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
