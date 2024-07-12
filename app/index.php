@@ -24,7 +24,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Index | C-Apartments</title>
+  <title>C-Apartments | Tenant Management System</title>
   <link rel="icon" href="assets/src/svg/c-logo.svg">
 
   <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
