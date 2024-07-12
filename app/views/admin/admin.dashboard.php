@@ -91,7 +91,7 @@
         <a href="payments-this-month.php" class="card-link">
             <div class="card text-white bg-success hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-cash" style="margin-right: 10px;"></i> Payments this month</h5>
+                    <h5 class="card-title"><i class="bi bi-cash" style="margin-right: 10px;"></i> Active Managers</h5>
                     <p class="card-text display-4">0</p>
                 </div>
             </div>

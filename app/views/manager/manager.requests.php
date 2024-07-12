@@ -55,8 +55,8 @@
     </div>
     
     <div class="container">
-        <h1 class="h4"><i class="bi bi-pin-angle-fill h6"></i> Pinned</h1>
         <div class="table-responsive">
+            <h1 class="h4"><i class="bi bi-pin-angle-fill h5"></i> Pinned</h1>
             <table id="pinnedTable" class="table table-striped table-hover">
             <thead class="h5">
             <tr>
@@ -140,10 +140,9 @@
             $conn->close();
             ?>
         </div>
-        <hr>
     </div>
-
-    <div class="container">
+    <hr>
+    <div class="container mt-4 pt-2">
         <div class="table-responsive">
             <?php
             // Include database connection file

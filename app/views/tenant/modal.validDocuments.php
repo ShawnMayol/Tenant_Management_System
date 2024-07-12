@@ -8,7 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <h6>Personal Identity</h6>
-                    <p>You need to submit one (1) form of identity verification documentation listed below for each household member. Note that expired IDs are acceptable.</p>
+                    <p>You need to submit one (1) form of identity verification documentation listed below prove your identity. Note that expired IDs are acceptable.</p>
                     <ul>
                         <li>Passport</li>
                         <li>Driver’s License</li>
@@ -26,7 +26,7 @@
                     </ul>
                     
                     <h6>Proof of Income</h6>
-                    <p>You need to submit one (1) form of income documentation listed below for every household member who is 18 years or older and is receiving income.</p>
+                    <p>You need to submit one (1) form of income documentation listed below to prove your income.</p>
                     <ul>
                         <li>Paystubs</li>
                         <li>Social Security benefits award letter</li>
@@ -35,7 +35,7 @@
                     </ul>
                     
                     <h6>Additional Documents</h6>
-                    <p>You need to submit one (1) form of documentation listed below help with your lease agreement.</p>
+                    <p>You need to submit one (1) form of documentation listed below to assist with your rent application.</p>
                     <ul>
                         <li>Rental History</li>
                         <li>Credit History</li>
