@@ -7,7 +7,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6>Identity</h6>
+                    <h6>Personal Identity</h6>
                     <p>You need to submit one (1) form of identity verification documentation listed below for each household member. Note that expired IDs are acceptable.</p>
                     <ul>
                         <li>Passport</li>
@@ -25,7 +25,7 @@
                         <li>Piece of mail with name and address</li>
                     </ul>
                     
-                    <h6>Income</h6>
+                    <h6>Proof of Income</h6>
                     <p>You need to submit one (1) form of income documentation listed below for every household member who is 18 years or older and is receiving income.</p>
                     <ul>
                         <li>Paystubs</li>
@@ -34,16 +34,16 @@
                         <li>2020 IRS Tax Return (e.g., 1040, 1040EZ)</li>
                     </ul>
                     
-                    <h6>Monthly Rent Amount</h6>
-                    <p>You need to submit one (1) form of documentation listed below to verify your monthly rent.</p>
+                    <h6>Additional Documents</h6>
+                    <p>You need to submit one (1) form of documentation listed below help with your lease agreement.</p>
                     <ul>
-                        <li>Formal lease</li>
-                        <li>Rent Receipt</li>
-                        <li>Landlord statement</li>
+                        <li>Rental History</li>
+                        <li>Credit History</li>
+                        <li>Reference Letter</li>
                     </ul>
                     
-                    <h6>Utility Arrears</h6>
-                    <p>If you are asking for help to pay utility arrears, you need to submit a copy of your gas and/or electric bill.</p>
+                    <!-- <h6></h6>
+                    <p>Ensure you complete the rental application form accurately and thoroughly. Provide all requested information and double-check for any errors or omissions before submitting.</p> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

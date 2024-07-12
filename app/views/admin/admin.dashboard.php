@@ -22,12 +22,12 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h1">Dashboard</h1>
+      <h1 class="h1">Admin Dashboard</h1>
     </div>
 
     <div class="row">
     <!-- Pending Rent Requests Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="index.php?page=admin.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
@@ -36,10 +36,10 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 
     <!-- Pending Payments Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="pending-payments.php" class="card-link">
             <div class="card text-white bg-primary hover-card">
                 <div class="card-body">
@@ -48,10 +48,10 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 
     <!-- Overdue Payments Card -->
-    <div class="col-md-4 mb-4">
+    <!-- <div class="col-md-4 mb-4">
         <a href="overdue-payments.php" class="card-link">
             <div class="card text-white bg-danger hover-card">
                 <div class="card-body">
@@ -60,7 +60,7 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> -->
 
     <!-- Apartments Available Card -->
     <div class="col-md-4 mb-4">

@@ -83,7 +83,7 @@
     $conn->close();
     ?>
 
-<nav class="navbar navbar-light fixed-top justify-content-center align-items-center bg-dark-subtle border-bottom">
+<nav class="navbar navbar-light fixed-top justify-content-center align-items-center bg-dark-subtle shadow">
         <a class="navbar-brand logo" href="landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid">
         </a>

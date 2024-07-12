@@ -41,15 +41,16 @@
 
     <nav class="navbar navbar-light fixed-top justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="../../views/common/landing.php">
-            <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid" style="max-height: 80px;">
+            <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid" style="max-height: 50px;">
         </a>
     </nav>
     
     <div class="container center-screen">
         <div>
-            <h1 class="h3 pt-3 mb-3 fw-normal">REQUEST SUBMITTED</h1>
+            <h1 class="h3 pt-3 mb-1 fw-normal">Thank You For Choosing C-Apartments!</h1>
             <div class="container py-3">
                 <div>
+                    <p>Your request has been submitted.</p>
                     <p>Please keep your phone and email active for notifications. Thank you.</p>
                 </div>
                 <div>

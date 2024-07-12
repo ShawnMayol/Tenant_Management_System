@@ -70,7 +70,7 @@
     <div class="container pb-3 border-bottom">
         <div class="row">
             <div class="col-md-5 d-flex align-items-end">
-                <h1 id="apartmentCount" class="h4">Showing 0 of 0 apartments</h1> 
+                <h1 id="apartmentCount" class="h4">Showing 0 apartments</h1> 
             </div>
             <div class="col-md-7 text-end">
                 <form id="filterForm" class="row">
@@ -163,7 +163,7 @@
 
     function updateApartmentCount(currentCount, totalCount) {
         const apartmentCountElement = document.getElementById('apartmentCount');
-        apartmentCountElement.textContent = `Showing ${currentCount} of ${totalCount} apartment${totalCount !== 1 ? 's' : ''}`;
+        apartmentCountElement.textContent = `Showing ${currentCount} apartments`;
     }
 
     function createApartmentCard(apartment) {

@@ -70,6 +70,7 @@
                   Requests
                 </a>
               </li>
+
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.apartments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.apartments">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
@@ -95,6 +96,7 @@
                 </a>
               </li>
             </ul>
+              
 
             <h6
               class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">

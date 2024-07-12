@@ -28,7 +28,7 @@
 
     // Fetch total number of pending requests
     $totalRequestsPending = 0;
-    $sql = "SELECT COUNT(*) as totalRequestsPending FROM request WHERE requestStatus = 'Pending'";
+    $sql = "SELECT COUNT(*) as totalRequestsPending FROM request WHERE requestStatus IN ('Pending', 'Pinned')";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->execute();
         $stmt->bind_result($totalRequestsPending);

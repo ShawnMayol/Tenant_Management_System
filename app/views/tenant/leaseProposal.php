@@ -73,7 +73,7 @@
         $conn->close();
     ?>
 
-    <nav class="navbar navbar-light fixed-top bg-dark-subtle border-bottom justify-content-center align-items-center glass-navbar">
+    <nav class="navbar navbar-light fixed-top bg-dark-subtle shadow justify-content-center align-items-center glass-navbar">
         <a class="navbar-brand logo" href="../../views/common/landing.php">
             <img id="banner" src="../../assets/src/svg/c.svg" alt="Website Logo" class="img-fluid">
         </a>
@@ -105,24 +105,27 @@
                             <p><?php echo $apartment['apartmentAddress']; ?></p>
                         </div>
                         <div class="col-md-6">
-                            <?php 
-                                switch($apartment['apartmentStatus']) {
-                                    case 'Available':
-                                        echo '<div class="py-4 rounded mt-3 bg-success-subtle text-success-emphasis text-center">Available</div>';
-                                        break;
-                                        
-                                    case 'Occupied':
-                                        echo '<div class="py-4 rounded mt-3 bg-danger-subtle text-danger-emphasis text-center">Occupied<br>
-                                        Will be available by ' . date('m-d-Y') . '</div>';
-                                        break;
-                                    case 'Maintenance':
-                                        echo '<div class="py-4 rounded mt-3 bg-warning-subtle text-warning-emphasis text-center">Under Maintenance<br>
-                                        Will be available by ' . date('m-d-Y') . '</div>';
-                                        break;
-                                    default:
-                                        echo 'unknown status';
-                                }
-                            ?>
+                        <?php 
+                            $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
+                            $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
+                            
+                            switch($apartment['apartmentStatus']) {
+                                case 'Available':
+                                    echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                    break;
+                                case 'Occupied':
+                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded text-center">Occupied<br>Available by ' . $leaseEndDate . '</div>';
+                                    break;
+                                case 'Maintenance':
+                                    echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded text-center">Under maintenance<br>Available by ' . $availableBy . '</div>';
+                                    break;
+                                case 'Hidden':
+                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
+                                    break;
+                                default:
+                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
+                            }
+                        ?>
                         </div>
                     </div>
                     <h2 class="pt-4">Request Information</h2>
@@ -170,57 +173,71 @@
                     <hr>
                     <!-- Tenant details form -->
                     <form action="../../handlers/tenant/requestHandler.php" method="POST" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="firstName" class="form-label">First Name*</label>
-                                <input type="text" class="form-control py-2" id="firstName" name="firstName" placeholder="First Name" required>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="middleName" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control py-2" id="middleName" name="middleName" placeholder="Middle Name">
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="lastName" class="form-label">Last Name*</label>
-                                <input type="text" class="form-control py-2" id="lastName" name="lastName" placeholder="Last Name" required>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="firstName" class="form-label">First Name*</label>
+                            <input type="text" class="form-control py-2" id="firstName" name="firstName" placeholder="First Name" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                            <input type="date" class="form-control py-2" id="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyyy" required>
+                        <div class="col-md-4 mb-3">
+                            <label for="middleName" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control py-2" id="middleName" name="middleName" placeholder="Middle Name">
                         </div>
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">Gender*</label>
-                            <select class="form-select py-2" id="gender" name="gender" required>
-                                <option value="">Select gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Prefer not to say">Prefer not to say</option>
-                            </select>
+                        <div class="col-md-4 mb-3">
+                            <label for="lastName" class="form-label">Last Name*</label>
+                            <input type="text" class="form-control py-2" id="lastName" name="lastName" placeholder="Last Name" required>
                         </div>
-                        <br>
-                        <!-- Contact information -->
-                        <h2>Contact Information</h2>
-                        <p>Enter your contact information so that we may be able to get back to you.</p>
-                        <hr>
-                        <div class="mb-3">
-                            <label for="emailAddress" class="form-label">Email Address*</label>
-                            <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="juandelacruz@domain.com" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number*</label>
-                            <input type="tel" class="form-control py-2" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
-                        </div>
-                        <br>
-                        <!-- Valid documents upload -->
-                        <h2>Valid Documents</h2>
-                        <p>Upload a picture or scan of your <a href="#" data-toggle="modal" data-target="#validDocumentsModal" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
-                        <hr>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateOfBirth" class="form-label">Date of Birth*</label>
+                        <input type="date" class="form-control py-2" id="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyyy" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label">Gender*</label>
+                        <select class="form-select py-2" id="gender" name="gender" required>
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <br>
+                    <!-- Contact information -->
+                    <h2>Contact Information</h2>
+                    <p>Enter your contact information so that we may be able to get back to you.</p>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="emailAddress" class="form-label">Email Address*</label>
+                        <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="juandelacruz@domain.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber" class="form-label">Phone Number*</label>
+                        <input type="tel" class="form-control py-2" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
+                    </div>
+                    <br>
+                    <!-- Valid documents upload -->
+                    <h2>Valid Documents</h2>
+                    <p>Upload a picture or scan of your <a href="#" data-toggle="modal" data-target="#validDocumentsModal" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
+                    <hr>
 
-                        
-                        <div class="mb-3">
-                            <label for="documentImage" class="form-label">Valid Documents*</label>
-                            <input type="file" class="form-control py-2" id="documentImage" name="documentImage" accept="image/*" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="identificationPic" class="form-label">Personal Identification*</label>
+                        <input type="file" class="form-control py-2" id="identificationPic" name="identificationPic" accept="image/*" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="addressPic" class="form-label">Address/Residency*</label>
+                        <input type="file" class="form-control py-2" id="addressPic" name="addressPic" accept="image/*" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="incomePic" class="form-label">Proof of Income*</label>
+                        <input type="file" class="form-control py-2" id="incomePic" name="incomePic" accept="image/*" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="othersPic" class="form-label">Additional Documents*</label>
+                        <input type="file" class="form-control py-2" id="othersPic" name="othersPic" accept="image/*" required>
+                    </div>
                         
                         <!-- Hidden fields -->
                         <input type="hidden" name="apartmentNumber" value="<?php echo htmlspecialchars($_GET['apartment']); ?>">
@@ -232,7 +249,7 @@
                         <input type="hidden" name="message" value="<?php echo htmlspecialchars($_POST['message']); ?>">
                         
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary shadow mt-2">Submit Tenant Information</button>
+                        <button type="submit" class="btn btn-primary shadow mt-2 mb-5">Submit Tenant Information</button>
                     </form>
                 </div>
             </div>

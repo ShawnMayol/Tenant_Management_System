@@ -86,14 +86,14 @@ if ($loggedInUserID) {
                                 <label for="username" class="form-label">Username:</label>
                                 <input type="text" class="form-control py-2" id="username" name="username" value="<?= $username ?>">
                             </div>
-                            <div class="mb-3">
+                            <!-- <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name:</label>
                                 <input type="text" class="form-control py-2" id="fullName" value="<?= $fullName ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="dateOfBirth" class="form-label">Date of Birth:</label>
                                 <input type="text" class="form-control py-2" id="dateOfBirth" value="<?= $dateOfBirth ?>" readonly>
-                            </div>
+                            </div> -->
                             <div class="mb-3">
                                 <label for="emailAddress" class="form-label">Email Address:</label>
                                 <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" value="<?= $emailAddress ?>">
