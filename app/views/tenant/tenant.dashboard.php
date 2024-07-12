@@ -23,24 +23,22 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">Dashboard</h1>
+      <h1 class="h2">Announcements</h1>
     </div>
 
+<!-- 
     <div class="row">
-    <!-- Amount of Leased Apartments -->
     <div class="col-md-4 mb-4">
         <a href="index.php?page=admin.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-house-door" style="margin-right: 10px;"></i> Apartments</h5>
-                    <p class="card-text display-4"><?php echo $amountApartment; ?></p>
+                    <p class="card-text display-4"></p>
                 </div>
             </div>
         </a>
     </div>
 
-    <!-- TEMPORARY - IS NOT DYNAMIC -->
-    <!-- Pending Payments -->
     <div class="col-md-4 mb-4">
         <a href="pending-payments.php" class="card-link">
             <div class="card text-white bg-primary hover-card">
@@ -52,8 +50,6 @@
         </a>
     </div>
 
-    <!-- TEMPORARY - IS NOT DYNAMIC -->
-    <!-- Outstanding Balance -->
     <div class="col-md-4 mb-4">
         <a href="overdue-payments.php" class="card-link">
             <div class="card text-white bg-danger hover-card">
@@ -64,13 +60,12 @@
             </div>
         </a>
     </div>
-</div>
+</div> -->
 
 <div class="row">
     <div class="col-md-12 mb-4">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title">Announcements</h5>
             </div>
             <div class="card-body">
                 <?php if (!empty($announcements)): ?>

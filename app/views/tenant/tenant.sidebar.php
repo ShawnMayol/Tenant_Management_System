@@ -1,4 +1,7 @@
 <style>
+  .sidebar {
+    /* display: none; */
+  }
   .selected {
     background-color: rgba(0, 123, 255, 0.1); /* Subtle glass-like background */
     border-radius: 5px;
@@ -56,7 +59,7 @@
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'tenant.dashboard' ? '#house-fill' : '#house'; ?>" />
                   </svg>
-                  Dashboard
+                  Announcements
                 </a>
               </li>
               <li class="nav-item">
@@ -64,7 +67,7 @@
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'tenant.apartments' ? '#building-fill' : '#building'; ?>" />
                   </svg>
-                  Apartments
+                  Apartment
                 </a>
               </li>
               <li class="nav-item">
@@ -80,7 +83,7 @@
                     <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                         <use xlink:href="<?php echo $currentPage === 'tenant.bill' ? '#credit-card-fill' : '#credit-card'; ?>" />
                     </svg>
-                    Transactions
+                    Transaction History
                 </a>
               </li>
             </ul>

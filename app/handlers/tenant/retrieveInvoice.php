@@ -3,13 +3,9 @@ include ('core/database.php'); // Ensure this file includes your database connec
 
 // Validate session user ID
 $loggedInUserID = $_SESSION['user_id'] ?? null;
-if (!$loggedInUserID) {
-    die("Session user ID not found.");
-}
 
 // Query to fetch invoices with associated apartment details based on user ID
-$sql = "SELECT  i.invoice_ID, f.rent, f.tax, f.maintenance, f.totalAmount, i.dueDate, l.apartmentNumber, a.apartmentAddress, 
-                t.phoneNumber, t.emailAddress, t.firstName, t.middleName, t.lastName, ROUND(((f.rent + f.maintenance) * 0.05), 2) AS legitTax, i.dateIssued
+$sql = "SELECT  *, ROUND(((f.rent + f.maintenance) * 0.05), 2) AS legitTax
         FROM invoice i
         JOIN fees f ON i.fee_ID = f.fee_ID
         JOIN lease l ON f.lease_ID = l.lease_ID
@@ -20,12 +16,11 @@ $sql = "SELECT  i.invoice_ID, f.rent, f.tax, f.maintenance, f.totalAmount, i.due
         ORDER BY i.dueDate DESC";
 
 $result = $conn->query($sql);
-
-$invoices = [];
+$invoice = [];
 if ($result) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $invoices[] = $row;
+            $invoice[] = $row;
         }
     } else {
         echo "No invoices found.";
@@ -36,6 +31,5 @@ if ($result) {
 
 $conn->close();
 
-// Return invoices array for inclusion in tenant.invoice.php
-return $invoices;
+return $invoice;
 ?>
