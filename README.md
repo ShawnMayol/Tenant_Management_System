@@ -3,11 +3,11 @@ Admin & Manager Credentials
 Username: admin
 Password: admin
 
-Username: manager1
-Password: manager1password
+Username: carl
+Password: man1
 
-Username: manager2
-Password: manager2password
+Username: klyde
+Password: man2
 
 Username: manager3
 Password: manager3password
