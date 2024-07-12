@@ -200,7 +200,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                 <!-- <p>Personal information of the requestee.</p> -->
                 <hr>
                 <!-- Tenant details form -->
-                <form action="../../handlers/tenant/requestHandler.php" method="POST" enctype="multipart/form-data">
+                <form action="?page=manager.leaseAgreement&request_id=<?php echo $requestID; ?>" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="firstName" class="form-label">First Name</label>
@@ -274,9 +274,14 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                         <?php endif; ?>
                     </div>
 
+                    <?php include 'views/manager/modal.rejectRequest.php'; ?>
 
-
-                    <button class="btn btn-primary mb-5" type="submit" name="submit" value="submit">Proceed to Lease</button>
+                    <button type="button" class="btn btn-danger mb-5" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                        Reject this Request
+                    </button>
+                    <button class="btn btn-primary mb-5" type="submit" name="submit" value="submit">
+                        Proceed to Lease Agreement
+                    </button>
                 </form>
             </div>
         </div>
