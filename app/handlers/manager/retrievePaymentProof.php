@@ -1,5 +1,5 @@
 <?php 
-include ('core/database.php');
+include('core/database.php');
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -7,15 +7,17 @@ if ($conn->connect_error) {
 
 $loggedInUserID = $_SESSION['user_id'] ?? null;
 
-// Retrieve payment proof records
+// Retrieve payment proof records along with invoice and fees data
 $sql = "SELECT *
-        FROM paymentproof
+        FROM paymentproof pp
+        LEFT JOIN invoice inv ON pp.invoice_ID = inv.invoice_ID
+        LEFT JOIN fees fe ON inv.fee_ID = fe.fee_ID
         ORDER BY 
             CASE 
-                WHEN status = 'pending' THEN 1
+                WHEN pp.status = 'pending' THEN 1
                 ELSE 2
             END,
-            uploadDate DESC";
+            pp.uploadDate DESC";
 $result = $conn->query($sql);
 
 if (!$result) {

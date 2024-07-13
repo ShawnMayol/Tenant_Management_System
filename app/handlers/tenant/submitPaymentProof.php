@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -37,9 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         // Upload file to server
         if (move_uploaded_file($_FILES["proofFile"]["tmp_name"], $targetFilePath)) {
             // Insert file path into database
-            $stmt = $conn->prepare("INSERT INTO paymentproof (invoice_ID, paymentMethod, filePath, uploadDate, status) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("issss", $invoice_ID, $paymentMethod, $targetFilePath, $uploadDate, $status);
+            $stmt = $conn->prepare("INSERT INTO paymentproof (invoice_ID, paymentMethod, imageProof, uploadDate, status) VALUES (?, ?, ?, ?, ?)");
+            if ($stmt === false) {
+                die('MySQL prepare error: ' . $conn->error);
+            }
 
+            $stmt->bind_param("issss", $invoice_ID, $paymentMethod, $targetFilePath, $uploadDate, $status);
             if ($stmt->execute()) {
                 // Success
                 echo "Comment and proof of payment uploaded successfully.";
