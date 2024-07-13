@@ -14,7 +14,7 @@
                     <label for="managerPassword" class="form-label">Enter your Password</label>
                     <input type="password" class="form-control" id="managerPassword" placeholder="Enter your password">
                 </div>
-                <input type="hidden" id="requestID" value="<?php echo $requestID; ?>"> <!-- Assuming you set $requestID in your PHP -->
+                <input type="hidden" id="requestID" value="<?php echo $requestID; ?>">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -25,31 +25,31 @@
 </div>
 
 <script>
-document.getElementById('confirmRejectButton').addEventListener('click', function() {
-    var password = document.getElementById('managerPassword').value;
-    var requestID = document.getElementById('requestID').value;
+    document.getElementById('confirmRejectButton').addEventListener('click', function() {
+        var password = document.getElementById('managerPassword').value;
+        var requestID = document.getElementById('requestID').value;
 
-    if (password) {
-        var form = document.createElement('form');
-        form.method = 'POST';
-        form.action = 'handlers/manager/rejectRequest.php';
+        if (password) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'handlers/manager/rejectRequest.php';
 
-        var inputPassword = document.createElement('input');
-        inputPassword.type = 'hidden';
-        inputPassword.name = 'managerPassword';
-        inputPassword.value = password;
+            var inputPassword = document.createElement('input');
+            inputPassword.type = 'hidden';
+            inputPassword.name = 'managerPassword';
+            inputPassword.value = password;
 
-        var inputRequestID = document.createElement('input');
-        inputRequestID.type = 'hidden';
-        inputRequestID.name = 'requestID';
-        inputRequestID.value = requestID;
+            var inputRequestID = document.createElement('input');
+            inputRequestID.type = 'hidden';
+            inputRequestID.name = 'requestID';
+            inputRequestID.value = requestID;
 
-        form.appendChild(inputPassword);
-        form.appendChild(inputRequestID);
-        document.body.appendChild(form);
-        form.submit();
-    } else {
-        alert('Please enter your password to confirm.');
-    }
-});
+            form.appendChild(inputPassword);
+            form.appendChild(inputRequestID);
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            alert('Please enter your password to confirm.');
+        }
+    });
 </script>

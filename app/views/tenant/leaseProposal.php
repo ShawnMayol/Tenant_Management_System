@@ -107,14 +107,13 @@
                         <div class="col-md-6">
                         <?php 
                             $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
-                            $leaseEndDate = !empty($lease['endDate']) ? date('F j, Y', strtotime($lease['endDate'])) : 'N/A';
                             
                             switch($apartment['apartmentStatus']) {
                                 case 'Available':
                                     echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
                                     break;
                                 case 'Occupied':
-                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded text-center">Occupied<br>Available by ' . $leaseEndDate . '</div>';
+                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded text-center">Occupied<br>Available by ' . $availableBy . '</div>';
                                     break;
                                 case 'Maintenance':
                                     echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded text-center">Under maintenance<br>Available by ' . $availableBy . '</div>';

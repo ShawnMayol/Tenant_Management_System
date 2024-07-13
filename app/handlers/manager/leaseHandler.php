@@ -1,0 +1,109 @@
+<?php
+session_start();
+include '../../core/database.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $managerPassword = $_POST['managerPassword'];
+    $requestID = $_POST['requestID'];
+
+    $apartmentNumber = $_POST['apartmentNumber'];
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $billingPeriod = $_POST['billingPeriod'];
+    $securityDeposit = $_POST['securityDeposit'];
+    $leaseStatus = 'active';
+
+    $lesseeFirstName = $_POST['lesseeFirstName'];
+    $lesseeMiddleName = $_POST['lesseeMiddleName'];
+    $lesseeLastName = $_POST['lesseeLastName'];
+    $lesseeDOB = $_POST['lesseeDOB'];
+    $lesseeGender = $_POST['lesseeGender'];
+    $lesseePhone = $_POST['lesseePhone'];
+    $lesseeEmail = $_POST['lesseeEmail'];
+
+    $occupantFirstName = $_POST['occFirstName'];
+    $occupantMiddleName = $_POST['occMiddleName'];
+    $occupantLastName = $_POST['occLastName'];
+    $occupantDOB = $_POST['occDOB'];
+    $occupantGender = $_POST['occGender'];
+    $occupantPhone = $_POST['occPhone'];
+    $occupantEmail = $_POST['occEmail'];
+
+    // Fetch manager's password hash from the database
+    $userID = $_SESSION['user_id'];
+    $sql = "SELECT staff_ID, password FROM user WHERE user_ID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->bind_result($staffID, $hashedPassword);
+    $stmt->fetch();
+    $stmt->close();
+
+    // Verify the manager's password
+    if (password_verify($managerPassword, $hashedPassword)) {
+        // Update request status to Approved
+        $status = 'Approved';
+        $stmt = $conn->prepare("UPDATE request SET requestStatus = ? WHERE request_ID = ?");
+        $stmt->bind_param("si", $status, $requestID);
+        $stmt->execute();
+        $stmt->close();
+
+        // Insert lease information
+        $stmt = $conn->prepare("INSERT INTO lease (apartmentNumber, startDate, endDate, billingPeriod, securityDeposit) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("issss", $apartmentNumber, $startDate, $endDate, $billingPeriod, $securityDeposit);
+        $stmt->execute();
+        $leaseID = $stmt->insert_id; // Get the auto-generated lease ID
+        $stmt->close();
+
+        // Update apartment status to 'Occupied' and set availableBy to end date of lease
+        $stmt = $conn->prepare("UPDATE apartment SET apartmentStatus = 'Occupied', availableBy = ? WHERE apartmentNumber = ?");
+        $stmt->bind_param("si", $endDate, $apartmentNumber);
+        $stmt->execute();
+        $stmt->close();
+
+        // Insert lessee information
+        $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType, tenantStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Lessee', 'Active')");
+        $stmt->bind_param("isssssss", $leaseID, $lesseeFirstName, $lesseeLastName, $lesseeMiddleName, $lesseeDOB, $lesseeGender, $lesseePhone, $lesseeEmail);
+        $stmt->execute();
+        $lesseeTenantID = $stmt->insert_id; // Get the auto-generated tenant ID for the lessee
+        $stmt->close();
+
+        // Insert occupants information
+        $numOccupants = count($occupantFirstName); // Number of occupants
+        for ($i = 0; $i < $numOccupants; $i++) {
+            $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType, tenantStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Occupant', 'Active')");
+            $stmt->bind_param("isssssss", $leaseID, $occupantFirstName[$i], $occupantLastName[$i], $occupantMiddleName[$i], $occupantDOB[$i], $occupantGender[$i], $occupantPhone[$i], $occupantEmail[$i]);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        // Log activity in the activity table
+        $activityDescription = "Approved lease $leaseID";
+        $insertActivitySql = "INSERT INTO activity (staff_ID, activityDescription) VALUES (?, ?)";
+        $insertActivityStmt = $conn->prepare($insertActivitySql);
+        $insertActivityStmt->bind_param("is", $staffID, $activityDescription);
+        $insertActivityStmt->execute();
+        $insertActivityStmt->close();
+?>
+        <script>
+            // alert("Lease has been successfully finalized.");
+            window.location.href = '../../index.php?page=manager.requests';
+        </script>
+<?php
+    } else {
+?>
+        <script>
+            alert("Invalid password. Please try again.");
+        </script>
+<?php
+    }
+} else {
+?>
+    <script>
+        alert("Invalid request method.");
+    </script>
+<?php
+}
+
+$conn->close();
+?>

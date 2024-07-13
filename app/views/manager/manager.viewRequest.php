@@ -91,7 +91,7 @@ $availableBy = '';
 if ($apartment['apartmentStatus'] === 'Maintenance') {
     $availableBy = $apartment['maintenanceAvailableBy'];
 } elseif ($apartment['apartmentStatus'] === 'Occupied') {
-    $availableBy = $apartment['occupiedAvailableBy'];
+    $availableBy = $apartment['maintenanceAvailableBy'];
 }
 ?>
 
