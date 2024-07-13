@@ -106,16 +106,16 @@
                 <div class="col">
                     <h1 class="h1 m-0"><?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?></h1>
                 </div>
-                <!-- <div class="col-auto pe-5">
+                <div class="col-auto pe-5">
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action 1</a></li>
-                            <li><a class="dropdown-item" href="#">Action 2</a></li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#sendAnnouncementModal">Send announcement</a></li>
+                            <li><a class="dropdown-item text-danger" href="#">Terminate Contract</a></li>
+                            <!-- <li><a class="dropdown-item" href="#">Action 2</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#sendAnnouncementModal">Send announcement</a></li> -->
                         </ul>
                     </div>
-                </div> -->
+                </div>
                 <?php //include'views/manager/modal.announcement.php'; ?>
             </div>
         </div>
@@ -124,9 +124,11 @@
 
     <div class="container mt-4">
         <div class="row">
-                            <div class="col-lg-6">
+                <div class="col-lg-6">
+                <h3>Lessee Information</h3>
+                <hr>
                         <div class="row">
-                            <div class="col-lg-5 col-md-12 mt-3">
+                            <div class="col-lg-5 col-md-12">
                                 <div class="position-relative">
                                     <?php $picDirectory = substr($user['picDirectory'], 6); ?>
                                     <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?>">

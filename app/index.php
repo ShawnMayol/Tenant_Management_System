@@ -57,7 +57,20 @@
           'manager' => 'index.php?page=manager.dashboard',
           'tenant' => 'index.php?page=tenant.dashboard',
       };
-  ?>
+      
+      $userRole = isset($_SESSION['role']) ? $_SESSION['role'] : '';
+
+      if ($userRole === 'admin') {
+          $modalTarget = '#adminAccountModal';
+      } elseif ($userRole === 'manager') {
+          $modalTarget = '#staffAccountModal';
+      } elseif ($userRole === 'tenant') {
+          $modalTarget = '#tenantModal';
+      } else {
+          $modalTarget = '#staffAccountModal'; // Default to staff modal for safety
+      }
+      ?>
+  
 
   <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="<?= htmlspecialchars($dashboardPage) ?>">
@@ -99,7 +112,7 @@
             <div class="navbar-nav">
                 <span class="px-2"><?= htmlspecialchars($username) ?></span>
             </div>
-            <a href="#" id="accountPictureTrigger" data-bs-toggle="modal" data-bs-target="#staffAccountModal">
+            <a href="#" id="accountPictureTrigger" data-bs-toggle="modal" data-bs-target="<?php echo $modalTarget; ?>">
               <?php $picDirectory = substr($picDirectory, 6); ?>
               <img src="<?php echo $picDirectory; ?>" class="img-fluid rounded-circle" style="width: 32px; height: 32px; object-fit: cover;" alt="Account Picture">
             </a>

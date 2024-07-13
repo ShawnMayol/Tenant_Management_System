@@ -101,9 +101,9 @@
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <!-- <li><a class="dropdown-item" href="#">Action 1</a></li> -->
+                            <li><a class="dropdown-item" href="#">Edit Information</a></li>
+                            <li><a class="dropdown-item" title="Reset password" href="#">Reset password</a></li>
                             <li><a href="#" title="Fire this manager" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmFireModal">Fire manager</a></li>
-                            <li><a class="dropdown-item text-danger" title="Reset password" href="#">Reset password</a></li>
                         </ul>
                     </div>
                 </div>
@@ -116,15 +116,17 @@
     <div class="container mt-4">
         <div class="row">
                 <div class="col-lg-6">
+                    <h3>Manager Information</h3>
+                    <hr>
                     <div class="row">
-                        <div class="col-lg-5 col-md-12 mt-3">
+                        <div class="col-lg-5 col-md-12">
                             <div class="position-relative">
                                 <?php $picDirectory = substr($user['picDirectory'], 6); ?>
                                 <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($manager['lastName'] . ', ' . $manager['firstName'] . ' ' . $manager['middleName']); ?>">
 
                             </div>
                         </div>
-                        <div class="col-lg-7 col-md-12 mt-4">
+                        <div class="col-lg-7 col-md-12 mt-2">
                             <p><strong>Username: </strong><?php echo htmlspecialchars($user['username']); ?></p>
                             <p><strong>Phone Number: </strong><?php echo htmlspecialchars($manager['phoneNumber']); ?></p>
                             <p><strong>Email Address: </strong><?php echo htmlspecialchars($manager['emailAddress']); ?></p>
