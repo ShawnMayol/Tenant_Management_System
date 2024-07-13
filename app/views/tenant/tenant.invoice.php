@@ -101,19 +101,26 @@
             <form action="handlers/tenant/submitPaymentProof.php" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="proofModalLabel">Send Proof of Payment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="invoice_ID" name="invoice_ID" value="<?php echo $invoice['invoice_ID']; ?>">
+                    
+                    <!-- Payment Method Select -->
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Payment Method</label>
+                        <select class="form-control" id="paymentMethod" name="paymentMethod" required>
+                            <option value="" disabled selected>What payment method was used</option>
+                            <option value="Cash">Cash</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+
                     <!-- File upload input -->
                     <div class="mb-3">
                         <label for="proofFile" class="form-label">Upload Picture</label>
-                        <input type="file" class="form-control" id="proofFile" name="proofFile">
-                    </div>
-                    <!-- Additional instructions or form fields -->
-                    <div class="mb-3">
-                        <label for="comments" class="form-label">Comments (optional)</label>
-                        <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+                        <input type="file" class="form-control" id="proofFile" name="proofFile" required>
                     </div>
                 </div>
                 <div class="modal-footer">
