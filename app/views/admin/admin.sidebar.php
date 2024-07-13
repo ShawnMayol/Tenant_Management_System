@@ -36,7 +36,7 @@
     });
 </script>
 
-<?php include('views/admin/modal.staffAccount.php'); ?>
+<?php include('views/admin/modal.adminAccount.php'); ?>
 <?php include('views/common/modal.changePassword.php'); ?>
 
 <div class="container-fluid">
@@ -131,7 +131,7 @@
 
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#staffAccountModal">
+                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#adminAccountModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
                         <use xlink:href="#person-gear" />
                     </svg>

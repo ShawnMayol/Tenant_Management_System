@@ -68,6 +68,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $lesseeTenantID = $stmt->insert_id; // Get the auto-generated tenant ID for the lessee
         $stmt->close();
 
+        // Prepare default values
+        $username = $lesseeFirstName . $lesseeLastName . $requestID; // Assuming requestID is available
+        $password = password_hash($lesseeFirstName . $lesseeLastName . $requestID, PASSWORD_DEFAULT); // Assuming requestID is available
+
+        // Insert user 
+        $sql = "INSERT INTO user (tenant_ID, username, password, userRole, picDirectory)
+                VALUES (?, ?, ?, 'Tenant', '../../uploads/tenant/placeholder.jpg')";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss", $lesseeTenantID, $username, $password);
+        $stmt->execute();
+        $stmt->close();
+
         // Insert occupants information
         $numOccupants = count($occupantFirstName); // Number of occupants
         for ($i = 0; $i < $numOccupants; $i++) {

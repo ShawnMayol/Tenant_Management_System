@@ -64,6 +64,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Update first name, middle name, last name, and date of birth
+    if (isset($_POST['firstName'])) {
+        $newFirstName = sanitizeInput($_POST['firstName']);
+        $updateFirstNameQuery = "UPDATE staff SET firstName = '$newFirstName' WHERE staff_ID IN (SELECT staff_ID FROM user WHERE user_ID = $loggedInUserID)";
+        if ($conn->query($updateFirstNameQuery) !== TRUE) {
+            echo "Error updating first name: " . $conn->error;
+        }
+    }
+
+    if (isset($_POST['middleName'])) {
+        $newMiddleName = sanitizeInput($_POST['middleName']);
+        $updateMiddleNameQuery = "UPDATE staff SET middleName = '$newMiddleName' WHERE staff_ID IN (SELECT staff_ID FROM user WHERE user_ID = $loggedInUserID)";
+        if ($conn->query($updateMiddleNameQuery) !== TRUE) {
+            echo "Error updating middle name: " . $conn->error;
+        }
+    }
+
+    if (isset($_POST['lastName'])) {
+        $newLastName = sanitizeInput($_POST['lastName']);
+        $updateLastNameQuery = "UPDATE staff SET lastName = '$newLastName' WHERE staff_ID IN (SELECT staff_ID FROM user WHERE user_ID = $loggedInUserID)";
+        if ($conn->query($updateLastNameQuery) !== TRUE) {
+            echo "Error updating last name: " . $conn->error;
+        }
+    }
+
+    if (isset($_POST['dateOfBirth'])) {
+        $newDateOfBirth = $_POST['dateOfBirth']; // Assuming date format is correct from input type="date"
+        $updateDateOfBirthQuery = "UPDATE staff SET dateOfBirth = '$newDateOfBirth' WHERE staff_ID IN (SELECT staff_ID FROM user WHERE user_ID = $loggedInUserID)";
+        if ($conn->query($updateDateOfBirthQuery) !== TRUE) {
+            echo "Error updating date of birth: " . $conn->error;
+        }
+    }
+
     // Redirect user based on role after update
     switch ($_SESSION['role']) {
         case 'admin':

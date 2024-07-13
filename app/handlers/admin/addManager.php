@@ -1,5 +1,5 @@
 <?php
-include 'core/database.php';
+include '../../core/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Insert into staff table
     $sql = "INSERT INTO staff (firstName, middleName, lastName, dateOfBirth, phoneNumber, emailAddress, staffStatus, staffRole)
-            VALUES (?, ?, ?, ?, ?, ?, 'Active', 'Manager')";
+            VALUES (?, ?, ?, ?, ?, ?, 'Inactive', 'Manager')";
     
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssss", $firstName, $middleName, $lastName, $dateOfBirth, $phoneNumber, $emailAddress);
@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $staff_ID = $stmt->insert_id;
 
         // Create user account
-        $username = strtolower($firstName . $lastName) . $staff_ID;
-        $password = password_hash('defaultpassword', PASSWORD_DEFAULT); // Default password, should be changed by user
+        $username = $firstName . $lastName . $staff_ID;
+        $password = password_hash($firstName . $lastName . $staff_ID, PASSWORD_DEFAULT);
         $userRole = 'Manager';
 
-        $sql = "INSERT INTO user (staff_ID, username, password, userRole) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO user (staff_ID, username, password, userRole, picDirectory) VALUES (?, ?, ?, ?, '../../uploads/staff/placeholder.jpg')";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("isss", $staff_ID, $username, $password, $userRole);
 
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("is", $staff_ID, $activityDescription);
             $stmt->execute();
             
-            header("Location: ../../index.php?message=Manager added successfully");
+            header("Location: ../../index.php?page=admin.staff");
             exit();
         } else {
             echo "Error: " . $stmt->error;

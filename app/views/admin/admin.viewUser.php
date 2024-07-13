@@ -110,9 +110,9 @@
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <!-- <li><a class="dropdown-item" href="#">Action 1</a></li>
-                            <li><a class="dropdown-item" href="#">Action 2</a></li> -->
-                            <li><a class="dropdown-item text-danger" href="#">Reset password</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Information</a></li>
+                            <li><a class="dropdown-item" href="#">Reset password</a></li>
+                            <li><a class="dropdown-item text-danger" href="#">Terminate Tenant</a></li>
                         </ul>
                     </div>
                 </div>

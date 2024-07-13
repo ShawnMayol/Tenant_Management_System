@@ -75,7 +75,7 @@
                     echo '<li>';
                     echo '<form method="POST" action="handlers/manager/deleteAnnouncement.php" onsubmit="return confirm(\'Are you sure you want to delete this announcement?\');" style="display:inline;">';
                     echo '<input type="hidden" name="announcementID" value="' . $row['announcement_ID'] . '">';
-                    echo '<button type="submit" class="dropdown-item">Delete Announcement</button>';
+                    echo '<button type="submit" class="dropdown-item text-danger">Delete Announcement</button>';
                     echo '</form>';
                     echo '</li>';
                             

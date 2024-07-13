@@ -54,12 +54,12 @@
 
             // Query to fetch active lessee data
             $sql = "
-            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.username
-            FROM tenant t
-            JOIN lease l ON t.lease_ID = l.lease_ID
-            JOIN user u ON t.tenant_ID = u.tenant_ID
-            WHERE t.tenantType = 'Lessee' AND l.leaseStatus = 'active'
-            ORDER BY t.lastName, t.firstName
+                SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.username
+                FROM tenant t
+                JOIN lease l ON t.lease_ID = l.lease_ID
+                LEFT JOIN user u ON t.tenant_ID = u.tenant_ID
+                WHERE t.tenantType = 'Lessee'
+                ORDER BY l.lease_ID DESC
             ";
 
             $result = $conn->query($sql);
