@@ -48,15 +48,25 @@
             <div class="input-group me-2">
                 <input type="text" class="form-control" id="filterInput" placeholder="Search name..." oninput="searchRequest()">
                 <span class="input-group-text">
-                    <i class="bi bi-search"></i>
+                    <i class="bi bi-search d-flex align-items-center"></i>
                 </span> 
             </div>
         </div>
     </div>
     
+    <style>
+    .icon-align {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -20px; 
+        margin-right: 8px; 
+    }
+</style>
     <div class="container">
         <div class="table-responsive">
-            <h1 class="h4"><i class="bi bi-pin-angle-fill h5"></i> Pinned</h1>
+            <h1 class="h4">
+                <i class="bi bi-pin-angle-fill icon-align"></i> Pinned
+            </h1>
             <table id="pinnedTable" class="table table-striped table-hover">
             <thead class="h5">
             <tr>

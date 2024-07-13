@@ -79,27 +79,85 @@
         <a href="index.php?page=admin.tenants" class="card-link">
             <div class="card text-white bg-secondary hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-people" style="margin-right: 10px;"></i> Total Tenants</h5>
-                    <p class="card-text display-4"><?php echo $totalTenantsCount; ?></p>
+                    <h5 class="card-title"><i class="bi bi-people" style="margin-right: 10px;"></i> Tenants Active</h5>
+                    <p class="card-text display-4"><?php echo $totalUsers; ?></p>
                 </div>
             </div>
         </a>
     </div>
-
-    <!-- Payments this month Card -->
+    
+    <!-- Managers Active Card -->
     <div class="col-md-4 mb-4">
-        <a href="payments-this-month.php" class="card-link">
+        <a href="?page=admin.staff" class="card-link">
             <div class="card text-white bg-success hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-cash" style="margin-right: 10px;"></i> Active Managers</h5>
-                    <p class="card-text display-4">0</p>
+                    <h5 class="card-title">
+                        <i class="bi bi-file-code" style="margin-right: 10px;"></i> Managers Active
+                    </h5>
+                    <p class="card-text display-4"><?php echo $activeManagersCount; ?></p>
                 </div>
             </div>
         </a>
     </div>
-    <hr>
-</div>
 
+</div>
+<hr>
+<h3 class="mb-3">Announcements</h3>
+    <div class="row">
+        <?php
+            // Include database connection
+            include('core/database.php');
+
+            // Query to fetch announcements with user and staff information
+            $sql = "SELECT a.*, u.picDirectory, u.userRole, s.firstName, s.lastName, s.staffRole
+                    FROM announcement a
+                    INNER JOIN user u ON a.staff_id = u.staff_ID
+                    INNER JOIN staff s ON u.staff_ID = s.staff_ID
+                    ORDER BY a.created_at DESC
+                    LIMIT 3;";
+
+            // Execute the query
+            $result = $conn->query($sql);
+
+            // Check if there are any announcements
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    // Format the timestamp into a readable format
+                    $created_at = date('l, F j, Y, h:i A', strtotime($row['created_at']));
+
+                    // Output the announcement HTML
+                    echo '<div class="col-md-12 mb-4">';
+                    echo '<div class="card">';
+                    echo '<div class="card-body d-flex">';
+                    
+                    // Display staff picture on the left side
+                    echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;" alt="Staff Picture">';
+
+                    // Announcement body with arrow pointing to the staff picture
+                    echo '<div>';
+                    echo '<h5 class="card-title mb-0">' . htmlspecialchars($row['firstName'] . ' ' . $row['lastName']) . '</h5>';
+                    echo '<p class="card-text mb-0">' . htmlspecialchars($row['staffRole']) . '</p>';
+                    echo '<p class="card-text text-muted mb-3">' . htmlspecialchars($created_at) . '</p>';
+
+                    echo '<h5 class="card-subtitle mb-3">' . htmlspecialchars($row['title']) . '</h5>';
+                    echo '<p class="card-text">' . htmlspecialchars($row['content']) . '</p>';
+                    echo '</div>';
+
+                    echo '</div>'; // .card-body
+                    echo '</div>'; // .card
+                    echo '</div>'; // .col-md-12
+                }
+            } else {
+                echo '<div class="alert alert-info">No announcements available.</div>';
+            }
+
+            // Close database connection
+            $conn->close();
+        ?>
+    </div>
+    <hr>
+    <h3 class="mb-3">Analytics</h3>        
     <!-- Dummy Graph -->
     <div class="row">
         <div class="col-md-12">

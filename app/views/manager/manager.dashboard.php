@@ -25,9 +25,9 @@
       <h1 class="h1">Manager Dashboard</h1>
     </div>
 
-    <div class="row">
+    <div class="row mt-4">
     <!-- Pending Rent Requests Card -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <a href="index.php?page=manager.requests" class="card-link">
             <div class="card text-white bg-info hover-card">
                 <div class="card-body">
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Pending Payments Card -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <a href="pending-payments.php" class="card-link">
             <div class="card text-white bg-primary hover-card">
                 <div class="card-body">
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Overdue Payments Card -->
-    <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-3">
         <a href="overdue-payments.php" class="card-link">
             <div class="card text-white bg-danger hover-card">
                 <div class="card-body">
@@ -97,9 +97,64 @@
             </div>
         </a>
     </div> -->
-    <hr>
 </div>
+<hr>
+<h3 class="mb-3">Announcements</h3>
+    <div class="row">
+        <?php
+            // Include database connection
+            include('core/database.php');
 
+            // Query to fetch announcements with user and staff information
+            $sql = "SELECT a.*, u.picDirectory, u.userRole, s.firstName, s.lastName, s.staffRole
+                    FROM announcement a
+                    INNER JOIN user u ON a.staff_id = u.staff_ID
+                    INNER JOIN staff s ON u.staff_ID = s.staff_ID
+                    ORDER BY a.created_at DESC
+                    LIMIT 3;";
+
+            // Execute the query
+            $result = $conn->query($sql);
+
+            // Check if there are any announcements
+            if ($result->num_rows > 0) {
+                // Output data of each row
+                while($row = $result->fetch_assoc()) {
+                    // Format the timestamp into a readable format
+                    $created_at = date('l, F j, Y, h:i A', strtotime($row['created_at']));
+
+                    // Output the announcement HTML
+                    echo '<div class="col-md-12 mb-4">';
+                    echo '<div class="card">';
+                    echo '<div class="card-body d-flex">';
+                    
+                    // Display staff picture on the left side
+                    echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 50px; height: 50px; object-fit: cover;" alt="Staff Picture">';
+
+                    // Announcement body with arrow pointing to the staff picture
+                    echo '<div>';
+                    echo '<h5 class="card-title mb-0">' . htmlspecialchars($row['firstName'] . ' ' . $row['lastName']) . '</h5>';
+                    echo '<p class="card-text mb-0">' . htmlspecialchars($row['staffRole']) . '</p>';
+                    echo '<p class="card-text text-muted mb-3">' . htmlspecialchars($created_at) . '</p>';
+
+                    echo '<h5 class="card-subtitle mb-3">' . htmlspecialchars($row['title']) . '</h5>';
+                    echo '<p class="card-text">' . htmlspecialchars($row['content']) . '</p>';
+                    echo '</div>';
+
+                    echo '</div>'; // .card-body
+                    echo '</div>'; // .card
+                    echo '</div>'; // .col-md-12
+                }
+            } else {
+                echo '<div class="alert alert-info">No announcements available.</div>';
+            }
+
+            // Close database connection
+            $conn->close();
+        ?>
+    </div>
+    <hr>
+    <h3 class="mb-3">Analytics</h3>
     <!-- Dummy Graph -->
     <div class="row">
         <div class="col-md-12">

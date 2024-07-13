@@ -101,6 +101,14 @@
               <span>ADMIN</span>
             </h6>
             <ul class="nav flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.announcement' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.announcement&staff_id=<?php echo htmlspecialchars($_SESSION['staff_id']); ?>">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'admin.announcement' ? '#megaphone-fill' : '#megaphone'; ?>" />
+                  </svg>
+                  Announcements
+                </a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.staff' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.staff">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">

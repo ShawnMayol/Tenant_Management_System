@@ -28,6 +28,16 @@
     .icon-wrapper:hover .icon-hover {
         display: inline;
     }
+    .custom-icon {
+        font-size: 28px; /* Adjust the size as needed */
+    }
+    .dropdown-toggle:hover {
+        cursor: pointer;
+    }
+    /* Hide the dropdown caret */
+    .dropdown-toggle::after {
+        display: none;
+    }
 </style>
 
 <?php
@@ -88,11 +98,14 @@
                     <h1 class="h1 m-0"><?php echo htmlspecialchars($manager['lastName'] . ', ' . $manager['firstName'] . ' ' . $manager['middleName']); ?></h1>
                 </div>
                 <div class="col-auto pe-5">
-                    <a href="#" title="Fire this manager" class="icon-wrapper" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#confirmFireModal">
-                        <div class="link">
-                            <i class="bi bi-person-x text-danger h2 icon-default-2"></i>
-                        </div>
-                    </a>
+                    <div class="dropdown">
+                        <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <!-- <li><a class="dropdown-item" href="#">Action 1</a></li> -->
+                            <li><a href="#" title="Fire this manager" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmFireModal">Fire manager</a></li>
+                            <li><a class="dropdown-item text-danger" title="Reset password" href="#">Reset password</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

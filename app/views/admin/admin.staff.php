@@ -25,12 +25,12 @@
             <div class="input-group me-2">
                 <input type="text" class="form-control" id="filterInput" placeholder="Search Manager..." oninput="searchManagers()">
                 <span class="input-group-text">
-                    <i class="bi bi-search"></i>
+                    <i class="bi bi-search d-flex align-items-center"></i>
                 </span> 
             </div>
             <a href="#" class="text-secondary" id="addManagerButton" data-bs-toggle="modal" data-bs-target="#addManagerModal" title="Add Manager" style="text-decoration: none;">
                 <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-1 hover-white">
-                    <span class="m-1">Add Manager</span><i class="bi bi-plus-square icon-adjust m-1"></i>
+                    <span class="m-1">Add Manager</span><i class="bi bi-plus-square icon-adjust m-1 d-flex align-items-center"></i>
                 </button>
             </a>
         </div>
@@ -38,7 +38,7 @@
     <?php include 'views/admin/modal.addManager.php'; ?>
 
     <div class="container">
-    <div class="table-responsive">
+        <div class="table-responsive">
         <?php
         // Include database connection file
         $servername = "localhost";
@@ -68,7 +68,7 @@
             )
         ) a ON s.staff_ID = a.staff_ID
         WHERE s.staffRole != 'Admin'
-        ORDER BY s.lastName, s.firstName
+        ORDER BY s.staffStatus
         ";
 
         $result = $conn->query($sql);
@@ -117,7 +117,7 @@
         ?>
 
         <!-- Pagination controls -->
-        <div class="d-flex justify-content-between">
+        <!-- <div class="d-flex justify-content-between">
             <div>
                 <select id="rowsPerPage" class="form-select">
                     <option value="10">10 rows per page</option>
@@ -146,7 +146,8 @@
                     </ul>
                 </nav>
             </div>
-        </div>
+        </div> -->
+        
     </div>
 </div>
 

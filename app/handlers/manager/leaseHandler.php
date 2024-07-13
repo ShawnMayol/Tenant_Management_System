@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->close();
 
         // Insert lessee information
-        $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType, tenantStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Lessee', 'Active')");
+        $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Lessee')");
         $stmt->bind_param("isssssss", $leaseID, $lesseeFirstName, $lesseeLastName, $lesseeMiddleName, $lesseeDOB, $lesseeGender, $lesseePhone, $lesseeEmail);
         $stmt->execute();
         $lesseeTenantID = $stmt->insert_id; // Get the auto-generated tenant ID for the lessee
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert occupants information
         $numOccupants = count($occupantFirstName); // Number of occupants
         for ($i = 0; $i < $numOccupants; $i++) {
-            $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType, tenantStatus) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Occupant', 'Active')");
+            $stmt = $conn->prepare("INSERT INTO tenant (lease_ID, firstName, lastName, middleName, dateOfBirth, gender, phoneNumber, emailAddress, tenantType) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Occupant')");
             $stmt->bind_param("isssssss", $leaseID, $occupantFirstName[$i], $occupantLastName[$i], $occupantMiddleName[$i], $occupantDOB[$i], $occupantGender[$i], $occupantPhone[$i], $occupantEmail[$i]);
             $stmt->execute();
             $stmt->close();

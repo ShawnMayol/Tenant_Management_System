@@ -104,6 +104,14 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.announcements' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.announcements&staff_id=<?php echo htmlspecialchars($_SESSION['staff_id']); ?>">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'manager.announcements' ? '#megaphone-fill' : '#megaphone'; ?>" />
+                  </svg>
+                  Announcements
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.viewLogs' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.viewLogs&staff_id=<?php echo htmlspecialchars($_SESSION['staff_id']); ?>">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'manager.viewLogs' ? '#calendar-range-fill' : '#calendar-range'; ?>" />
