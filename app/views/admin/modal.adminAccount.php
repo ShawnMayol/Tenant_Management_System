@@ -91,20 +91,20 @@ if ($loggedInUserID) {
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="firstName" class="form-label">First Name:</label>
-                                    <input type="text" class="form-control py-2" id="firstName" value="<?= $firstName ?>">
+                                    <input type="text" class="form-control py-2" name="firstName" id="firstName" value="<?= $firstName ?>">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="middleName" class="form-label">Middle Name:</label>
-                                    <input type="text" class="form-control py-2" id="middleName" value="<?= $middleName ?>">
+                                    <input type="text" class="form-control py-2" name="middleName" id="middleName" value="<?= $middleName ?>">
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="lastName" class="form-label">Last Name:</label>
-                                    <input type="text" class="form-control py-2" id="lastName" value="<?= $lastName ?>">
+                                    <input type="text" class="form-control py-2" name="lastName" id="lastName" value="<?= $lastName ?>">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="dateOfBirth" class="form-label">Date of Birth:</label>
-                                <input type="date" class="form-control py-2" id="dateOfBirth" value="<?= $dateOfBirth ?>" >
+                                <input type="date" class="form-control py-2" name="dateOfBirth" id="dateOfBirth" value="<?= $dateOfBirth ?>" >
                             </div>
                             <div class="mb-3">
                                 <label for="emailAddress" class="form-label">Email Address:</label>

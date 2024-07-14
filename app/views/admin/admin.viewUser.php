@@ -150,6 +150,25 @@
                                     }
                                     ?>
                                 </p>
+                                <?php
+                                $status = htmlspecialchars($user['userStatus']);
+                                $statusClass = '';
+
+                                switch ($status) {
+                                    case 'Online':
+                                        $statusClass = 'bg-success text-light';
+                                        break;
+                                    case 'Offline':
+                                        $statusClass = 'bg-secondary text-dark';
+                                        break;
+                                    case 'Deactivated':
+                                        $statusClass = 'bg-danger text-light';
+                                        break;
+                                    default:
+                                        $statusClass = 'bg-light text-dark'; // Default or handle other statuses as needed
+                                }
+                                ?>
+                                <p><strong>Status: </strong><span class="h6"><span class="badge <?php echo $statusClass; ?>"><?php echo $status; ?></span></span></p>
                             </div>
                         </div>
                     </div>                     
@@ -188,17 +207,17 @@
                                                 $leaseStatus = htmlspecialchars($lease['leaseStatus']);
                                                 $leaseStatusClass = '';
                                                 switch ($leaseStatus) {
-                                                    case 'active':
-                                                        $leaseStatusClass = 'bg-success text-light';
+                                                    case 'Active':
+                                                        $leaseStatusClass = 'bg-success text-light h6';
                                                         break;
-                                                    case 'expired':
-                                                        $leaseStatusClass = 'bg-secondary text-dark';
+                                                    case 'Expired':
+                                                        $leaseStatusClass = 'bg-secondary text-dark h6';
                                                         break;
-                                                    case 'terminated':
-                                                        $leaseStatusClass = 'bg-danger text-light';
+                                                    case 'Terminated':
+                                                        $leaseStatusClass = 'bg-danger text-light h6';
                                                         break;
                                                     default:
-                                                        $leaseStatusClass = 'bg-light text-dark'; // Default or handle other statuses as needed
+                                                        $leaseStatusClass = 'bg-light text-dark h6'; // Default or handle other statuses as needed
                                                 }
                                             ?>
                                             <span class="badge <?php echo $leaseStatusClass; ?>"><?php echo ucfirst($leaseStatus); ?></span>

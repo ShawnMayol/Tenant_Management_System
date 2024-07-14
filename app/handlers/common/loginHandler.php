@@ -43,15 +43,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $role = strtolower($user['userRole']);
             $_SESSION['role'] = $role;
 
+             // Check user status before updating to 'Online'
+            $checkStatusSql = "SELECT userStatus FROM user WHERE user_ID = ?";
+            $checkStatusStmt = $conn->prepare($checkStatusSql);
+            $checkStatusStmt->bind_param("i", $user['user_ID']);
+            $checkStatusStmt->execute();
+            $checkStatusResult = $checkStatusStmt->get_result();
+
+            if ($checkStatusResult->num_rows === 1) {
+                $userStatus = $checkStatusResult->fetch_assoc()['userStatus'];
+
+                if ($userStatus === 'Deactivated') {
+                    // User account is deactivated, display alert and prevent login
+                    echo '<script>alert("Your account has been deactivated. Contact Admin if you think this is a mistake.");</script>';
+                    echo '<script>setTimeout(function() { window.location.href = "../../views/common/landing.php"; }, 100);</script>';
+                    exit();
+                }   
+            }
+
+            // Update userStatus to 'Online' in the user table
+            $updateUserStatusSql = "UPDATE user SET userStatus = 'Online' WHERE user_ID = ?";
+            $updateUserStatusStmt = $conn->prepare($updateUserStatusSql);
+            $updateUserStatusStmt->bind_param("i", $user['user_ID']);
+            $updateUserStatusStmt->execute();
+
             // Check if the user is a staff member
             if (!empty($user['staff_ID'])) {
                 $_SESSION['staff_id'] = $user['staff_ID'];
-
-                // Update staffStatus to 'Active' in the staff table
-                $updateStatusSql = "UPDATE staff SET staffStatus = 'Active' WHERE staff_ID = ?";
-                $updateStatusStmt = $conn->prepare($updateStatusSql);
-                $updateStatusStmt->bind_param("i", $user['staff_ID']);
-                $updateStatusStmt->execute();
 
                 // Log the login activity for staff members
                 $activityDescription = "Login";

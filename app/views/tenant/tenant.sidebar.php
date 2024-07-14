@@ -104,7 +104,7 @@
             <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">
-              <a id="logout-link" class="nav-link d-flex align-items-center gap-2 highlight" href="handlers/common/logoutTenant.php">
+              <a id="logout-link" class="nav-link d-flex align-items-center gap-2 highlight" href="handlers/common/logout.php">
                   <svg id="logout-icon" class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                       <use xlink:href="#door-closed" class="door-icon" />
                   </svg>

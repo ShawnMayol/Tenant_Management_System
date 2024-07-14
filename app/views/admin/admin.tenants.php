@@ -76,13 +76,13 @@
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // Query to fetch active lessee data
+            // Query to fetch lessee data
             $sql = "
-            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.username
+            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.username, u.userStatus
             FROM tenant t
             JOIN lease l ON t.lease_ID = l.lease_ID
             JOIN user u ON t.tenant_ID = u.tenant_ID
-            WHERE t.tenantType = 'Lessee' AND l.leaseStatus = 'active'
+            WHERE t.tenantType = 'Lessee'
             ORDER BY l.lease_ID DESC
             ";
 
@@ -93,10 +93,10 @@
                 echo '<table class="table table-striped table-hover">';
                 echo '<thead class="h5">';
                 echo '<tr>';
-                echo '<th style="width: 10%;">#</th>';
-                echo '<th style="width: 29%;">Name</th>';
-                echo '<th style="width: 40%;">Username</th>';
-                echo '<th style="width: 21%;">Lease Status</th>';
+                echo '<th style="width: 12%;">#</th>';
+                echo '<th style="width: 35%;">Name</th>';
+                echo '<th style="width: 35%;">Status</th>';
+                echo '<th style="width: 21%;">Lease</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -105,20 +105,30 @@
                 $count = 1;
                 while ($row = $result->fetch_assoc()) {
                     // Determine the status class based on leaseStatus
-                    $statusClass = '';
-                    if ($row['leaseStatus'] === 'active') {
-                        $statusClass = 'bg-success';
-                    } elseif ($row['leaseStatus'] === 'expired') {
-                        $statusClass = 'bg-secondary';
-                    } elseif ($row['leaseStatus'] === 'terminated') {
-                        $statusClass = 'bg-danger';
+                    $leaseStatusClass = '';
+                    if ($row['leaseStatus'] === 'Active') {
+                        $leaseStatusClass = 'bg-success';
+                    } elseif ($row['leaseStatus'] === 'Expired') {
+                        $leaseStatusClass = 'bg-secondary';
+                    } elseif ($row['leaseStatus'] === 'Terminated') {
+                        $leaseStatusClass = 'bg-danger';
+                    }
+
+                    // Determine the status class based on userStatus
+                    $userStatusClass = '';
+                    if ($row['userStatus'] === 'Online') {
+                        $userStatusClass = 'bg-success';
+                    } elseif ($row['userStatus'] === 'Offline') {
+                        $userStatusClass = 'bg-secondary';
+                    } elseif ($row['userStatus'] === 'Deactivated') {
+                        $userStatusClass = 'bg-danger';
                     }
 
                     echo '<tr class="clickable-row" data-href="?page=admin.viewUser&tenant_id=' . $row['tenant_ID'] . '">';
                     echo '<td class="py-3">' . $count++ . '</td>';
                     echo '<td class="py-3">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
-                    echo '<td class="py-3">' . $row['username'] . '</td>';
-                    echo '<td class="py-3"><span class="badge ' . $statusClass . '">' . $row['leaseStatus'] . '</span></td>';
+                    echo '<td class="py-3 h6"><span class="badge ' . $userStatusClass . '">' . $row['userStatus'] . '</span></td>';
+                    echo '<td class="py-3 h6"><span class="badge ' . $leaseStatusClass . '">' . $row['leaseStatus'] . '</span></td>';
                     echo '</tr>';
                 }
 

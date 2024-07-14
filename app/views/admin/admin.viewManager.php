@@ -41,48 +41,49 @@
 </style>
 
 <?php
-    include('core/database.php');
+include('core/database.php');
 
-    if (isset($_GET['staff_id'])) {
-        $staff_id = $_GET['staff_id'];
+if (isset($_GET['staff_id'])) {
+    $staff_id = $_GET['staff_id'];
 
-        // Query manager information
-        $managerSql = "SELECT * FROM staff WHERE staff_ID = ?";
-        $managerStmt = $conn->prepare($managerSql);
-        $managerStmt->bind_param("i", $staff_id);
-        $managerStmt->execute();
-        $managerResult = $managerStmt->get_result();
-        $manager = $managerResult->fetch_assoc();
+    // Query manager information
+    $managerSql = "SELECT * FROM staff WHERE staff_ID = ?";
+    $managerStmt = $conn->prepare($managerSql);
+    $managerStmt->bind_param("i", $staff_id);
+    $managerStmt->execute();
+    $managerResult = $managerStmt->get_result();
+    $manager = $managerResult->fetch_assoc();
 
-        // Query user information (assuming there's a user associated with this staff_id)
-        $userSql = "SELECT u.*, u.picDirectory 
-                    FROM user u
-                    INNER JOIN staff s ON u.staff_ID = s.staff_ID
-                    WHERE u.staff_ID = ?";
-        $userStmt = $conn->prepare($userSql);
-        $userStmt->bind_param("i", $staff_id);
-        $userStmt->execute();
-        $userResult = $userStmt->get_result();
-        $user = $userResult->fetch_assoc();
+    // Query user information (assuming there's a user associated with this staff_id)
+    $userSql = "SELECT u.*, u.picDirectory, u.userStatus
+                FROM user u
+                INNER JOIN staff s ON u.staff_ID = s.staff_ID
+                WHERE u.staff_ID = ?";
+    $userStmt = $conn->prepare($userSql);
+    $userStmt->bind_param("i", $staff_id);
+    $userStmt->execute();
+    $userResult = $userStmt->get_result();
+    $user = $userResult->fetch_assoc();
 
-        // Query activity log for the manager
-        $activitySql = "SELECT * FROM activity WHERE staff_ID = ? ORDER BY activityTimestamp DESC LIMIT 10";
-        $activityStmt = $conn->prepare($activitySql);
-        $activityStmt->bind_param("i", $staff_id);
-        $activityStmt->execute();
-        $activityResult = $activityStmt->get_result();
-        $activities = [];
-        while ($activity = $activityResult->fetch_assoc()) {
-            $activities[] = $activity;
-        }
-
-        // Close connection
-        $conn->close();
-    } else {
-        echo "Manager staff ID is not specified.";
-        exit; // or handle the error appropriately
+    // Query activity log for the manager
+    $activitySql = "SELECT * FROM activity WHERE staff_ID = ? ORDER BY activityTimestamp DESC LIMIT 10";
+    $activityStmt = $conn->prepare($activitySql);
+    $activityStmt->bind_param("i", $staff_id);
+    $activityStmt->execute();
+    $activityResult = $activityStmt->get_result();
+    $activities = [];
+    while ($activity = $activityResult->fetch_assoc()) {
+        $activities[] = $activity;
     }
+    $status = htmlspecialchars($user['userStatus']);
+    // Close connection
+    $conn->close();
+} else {
+    echo "Manager staff ID is not specified.";
+    exit; // or handle the error appropriately
+}
 ?>
+
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" data-theme="<?php echo $theme; ?>">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -103,15 +104,24 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" href="#">Edit Information</a></li>
                             <li><a class="dropdown-item" title="Reset password" href="#">Reset password</a></li>
-                            <li><a href="#" title="Fire this manager" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#confirmFireModal">Fire manager</a></li>
+                            <li>
+                                <form method="POST" action="<?php echo $status === 'Deactivated' ? 'handlers/admin/activateAccount.php' : 'handlers/admin/deactivateAccount.php'; ?>" onsubmit="return confirm('Are you sure you want to <?php echo $status === 'Deactivated' ? 'activate' : 'deactivate'; ?> this account?');" style="display:inline;">
+                                    <input type="hidden" name="staff_id" value="<?php echo $staff_id ?>">
+                                    <button type="submit" class="dropdown-item"><?php echo $status === 'Deactivated' ? 'Activate Account' : 'Deactivate Account'; ?></button>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="POST" action="handlers/admin/deleteAccount.php" onsubmit="return confirm('Are you sure you want to delete this account? This action is irreversible');" style="display:inline;">
+                                    <input type="hidden" name="user_ID" value="<?php echo $user['user_ID']; ?>">
+                                    <button type="submit" class="dropdown-item text-danger">Delete account</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <?php include 'views/admin/modal.confirmFire.php'; ?>
 
     <div class="container mt-4">
         <div class="row">
@@ -145,24 +155,24 @@
                                 ?>
                             </p>
                             <?php
-                            $status = htmlspecialchars($manager['staffStatus']);
+                            
                             $statusClass = '';
 
                             switch ($status) {
-                                case 'Active':
+                                case 'Online':
                                     $statusClass = 'bg-success text-light';
                                     break;
-                                case 'Inactive':
+                                case 'Offline':
                                     $statusClass = 'bg-secondary text-dark';
                                     break;
-                                case 'Fired':
+                                case 'Deactivated':
                                     $statusClass = 'bg-danger text-light';
                                     break;
                                 default:
                                     $statusClass = 'bg-light text-dark'; // Default or handle other statuses as needed
                             }
                             ?>
-                            <p><strong>Status: </strong><span class="badge <?php echo $statusClass; ?>"><?php echo $status; ?></span></p>
+                            <p><strong>Status: </strong><span class="h6"><span class="badge <?php echo $statusClass; ?>"><?php echo $status; ?></span></span></p>
                         </div>
                     </div>
                 </div>                        

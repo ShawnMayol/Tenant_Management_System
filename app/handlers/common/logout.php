@@ -3,27 +3,37 @@
 session_start();
 
 // Check if user is logged in
-if(isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     // Get the user ID from session
     $user_id = $_SESSION['user_id'];
 
-    // Fetch staff ID from user table
+    // Include the database connection
     include('../../core/database.php'); // Adjust path as needed
+
+    // Set the user's status to Offline
+    $updateUserStatusSql = "UPDATE user SET userStatus = 'Offline' WHERE user_ID = ?";
+    $updateUserStatusStmt = $conn->prepare($updateUserStatusSql);
+    $updateUserStatusStmt->bind_param("i", $user_id);
+    $updateUserStatusStmt->execute();
+
+    // Fetch staff ID from user table
     $fetchStaffIdSql = "SELECT staff_ID FROM user WHERE user_ID = ?";
     $fetchStaffIdStmt = $conn->prepare($fetchStaffIdSql);
     $fetchStaffIdStmt->bind_param("i", $user_id);
     $fetchStaffIdStmt->execute();
     $fetchStaffIdResult = $fetchStaffIdStmt->get_result();
 
+    // Fetch staff ID from user table if staff_id is not NULL
+    $fetchStaffIdSql = "SELECT staff_ID FROM user WHERE user_ID = ? AND staff_ID IS NOT NULL";
+    $fetchStaffIdStmt = $conn->prepare($fetchStaffIdSql);
+    $fetchStaffIdStmt->bind_param("i", $user_id);
+    $fetchStaffIdStmt->execute();
+    $fetchStaffIdResult = $fetchStaffIdStmt->get_result();
+
+    // Check if the user is a staff member
     if($fetchStaffIdResult->num_rows === 1) {
         $user = $fetchStaffIdResult->fetch_assoc();
         $staff_id = $user['staff_ID'];
-
-        // Update staffStatus to 'Inactive' in the staff table
-        $updateStatusSql = "UPDATE staff SET staffStatus = 'Inactive' WHERE staff_ID = ?";
-        $updateStatusStmt = $conn->prepare($updateStatusSql);
-        $updateStatusStmt->bind_param("i", $staff_id);
-        $updateStatusStmt->execute();
 
         // Log the logout activity
         $activityDescription = "Logout";
@@ -44,6 +54,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to landing page
-header("location: ../../views/common/landing.php");
+header("Location: ../../views/common/landing.php");
 exit;
 ?>

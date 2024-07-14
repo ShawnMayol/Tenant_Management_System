@@ -14,6 +14,39 @@
     exit(); 
   }
 
+// Include database connection file
+include('core/database.php');
+
+// Retrieve user ID from session
+$user_id = $_SESSION['user_id'];
+
+// Query to check user status
+$statusSql = "SELECT userStatus FROM user WHERE user_ID = ?";
+$statusStmt = $conn->prepare($statusSql);
+$statusStmt->bind_param("i", $user_id);
+$statusStmt->execute();
+$statusResult = $statusStmt->get_result();
+
+if ($statusResult->num_rows === 1) {
+    $user = $statusResult->fetch_assoc();
+    $userStatus = $user['userStatus'];
+
+    // Check if user status is 'Deactivated'
+    if ($userStatus === 'Deactivated') {
+        // Close connection
+        $conn->close();
+
+      // Display alert to the user
+      echo '<script>alert("Your account has been deactivated. Contact Admin if you think this is a mistake.");</script>';
+      echo '<script>setTimeout(function() { window.location.href = "handlers/common/logout.php"; }, 100);</script>';
+      exit(); 
+    }
+} else {
+    // User not found in database, handle accordingly
+    header('Location: views/common/landing.php');
+    exit(); 
+} 
+
 ?>
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>

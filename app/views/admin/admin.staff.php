@@ -56,7 +56,7 @@
 
         // Query to fetch staff data with their last activity, excluding admin
         $sql = "
-        SELECT s.staff_ID, s.lastName, s.firstName, s.middleName, s.staffStatus, a.activityDescription, a.activityTimestamp
+        SELECT s.staff_ID, s.lastName, s.firstName, s.middleName, u.userStatus, a.activityDescription, a.activityTimestamp
         FROM staff s
         LEFT JOIN (
             SELECT staff_ID, activityDescription, activityTimestamp
@@ -67,10 +67,10 @@
                 GROUP BY staff_ID
             )
         ) a ON s.staff_ID = a.staff_ID
-        WHERE s.staffRole != 'Admin'
-        ORDER BY s.staffStatus
+        LEFT JOIN user u ON s.staff_ID = u.staff_ID
+        WHERE s.staffRole != 'Admin' AND u.staff_ID IS NOT NULL
+        ORDER BY u.userStatus DESC
         ";
-
         $result = $conn->query($sql);
 
         // Check if there are any records
@@ -91,11 +91,11 @@
             while ($row = $result->fetch_assoc()) {
                 // Determine the status class based on staffStatus
                 $statusClass = '';
-                if ($row['staffStatus'] === 'Active') {
+                if ($row['userStatus'] === 'Online') {
                     $statusClass = 'bg-success';
-                } elseif ($row['staffStatus'] === 'Inactive') {
+                } elseif ($row['userStatus'] === 'Offline') {
                     $statusClass = 'bg-secondary';
-                } elseif ($row['staffStatus'] === 'Fired') {
+                } elseif ($row['userStatus'] === 'Deactivated') {
                     $statusClass = 'bg-danger';
                 }
 
@@ -103,7 +103,7 @@
                 echo '<td class="py-3">' . $count++ . '</td>';
                 echo '<td class="py-3">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
                 echo '<td class="py-3">' . (!empty($row['activityDescription']) ? $row['activityDescription'] . ' at ' . (new DateTime($row['activityTimestamp']))->format('F j, Y, g:i A') : 'No activity') . '</td>';
-                echo '<td class="py-3"><span class="badge ' . $statusClass . '">' . $row['staffStatus'] . '</span></td>';
+                echo '<td class="py-3 h6"><span class="badge ' . $statusClass . '">' . $row['userStatus'] . '</span></td>';
                 echo '</tr>';
             }
 
