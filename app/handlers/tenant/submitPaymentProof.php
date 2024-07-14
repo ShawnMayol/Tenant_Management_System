@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -15,12 +16,12 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     // Get form data
     $invoice_ID = $_POST['invoice_ID'];
-    $comment = $_POST['comments'];
+    $paymentMethod = $_POST['paymentMethod'];
     $uploadDate = date('Y-m-d H:i:s'); // Current date and time
     $status = 'pending'; // Initial status
 
     // File upload handling
-    $targetDir = "../../uploads/tenant/"; // Directory for file uploads
+    $targetDir = "../../uploads/paymentProof/"; // Directory for file uploads
 
     // Check if the directory exists, if not, create it
     if (!is_dir($targetDir)) {
@@ -37,9 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
         // Upload file to server
         if (move_uploaded_file($_FILES["proofFile"]["tmp_name"], $targetFilePath)) {
             // Insert file path into database
-            $stmt = $conn->prepare("INSERT INTO paymentproof (invoice_ID, comment, filePath, uploadDate, status) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("issss", $invoice_ID, $comment, $targetFilePath, $uploadDate, $status);
+            $stmt = $conn->prepare("INSERT INTO paymentproof (invoice_ID, paymentMethod, imageProof, uploadDate, status) VALUES (?, ?, ?, ?, ?)");
+            if ($stmt === false) {
+                die('MySQL prepare error: ' . $conn->error);
+            }
 
+            $stmt->bind_param("issss", $invoice_ID, $paymentMethod, $targetFilePath, $uploadDate, $status);
             if ($stmt->execute()) {
                 // Success
                 echo "Comment and proof of payment uploaded successfully.";

@@ -79,7 +79,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.bill' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.bill">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.bill' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.transactionLog">
                     <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                         <use xlink:href="<?php echo $currentPage === 'tenant.bill' ? '#credit-card-fill' : '#credit-card'; ?>" />
                     </svg>
