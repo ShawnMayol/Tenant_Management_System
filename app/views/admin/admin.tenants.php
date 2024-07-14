@@ -78,7 +78,7 @@
 
             // Query to fetch lessee data
             $sql = "
-            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.username, u.userStatus
+            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.userStatus, u.picDirectory
             FROM tenant t
             JOIN lease l ON t.lease_ID = l.lease_ID
             JOIN user u ON t.tenant_ID = u.tenant_ID
@@ -93,8 +93,8 @@
                 echo '<table class="table table-striped table-hover">';
                 echo '<thead class="h5">';
                 echo '<tr>';
-                echo '<th style="width: 12%;">#</th>';
-                echo '<th style="width: 35%;">Name</th>';
+                echo '<th style="width: 12%;"></th>';
+                echo '<th style="width: 30%;">Name</th>';
                 echo '<th style="width: 35%;">Status</th>';
                 echo '<th style="width: 21%;">Lease</th>';
                 echo '</tr>';
@@ -125,7 +125,11 @@
                     }
 
                     echo '<tr class="clickable-row" data-href="?page=admin.viewUser&tenant_id=' . $row['tenant_ID'] . '">';
-                    echo '<td class="py-3">' . $count++ . '</td>';
+                    echo '<td class="py-3">';
+                    echo '<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; margin-left: 20px;">';
+                    echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 30px; height: 30px; object-fit: cover;" alt="Staff Picture">';
+                    echo '</div>';
+                    echo '</td>';
                     echo '<td class="py-3">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
                     echo '<td class="py-3 h6"><span class="badge ' . $userStatusClass . '">' . $row['userStatus'] . '</span></td>';
                     echo '<td class="py-3 h6"><span class="badge ' . $leaseStatusClass . '">' . $row['leaseStatus'] . '</span></td>';

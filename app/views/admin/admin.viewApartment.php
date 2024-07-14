@@ -137,7 +137,6 @@
                                     echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
                             }
                         ?>
-                        <?php if ($apartment['apartmentStatus'] !== 'Occupied'): ?>
                         <div class="container mb-5">
                             <form action="handlers/admin/updateApartmentStatus.php?apartment=<?php echo htmlspecialchars($_GET['apartment']); ?>" method="post">
                                 <div class="row">
@@ -145,7 +144,7 @@
                                         <label for="statusSelect" class="form-label">Change Availability Status:</label>
                                         <select class="form-select" id="statusSelect" name="statusSelect" onchange="toggleAvailableByInput()">
                                             <?php
-                                                $statusOptions = ['Available', 'Maintenance', 'Hidden'];
+                                                $statusOptions = ['Available', 'Occupied', 'Maintenance', 'Hidden'];
                                                 foreach ($statusOptions as $option) {
                                                     $selected = ($option === $apartmentStatus) ? 'selected' : '';
                                                     echo '<option value="' . $option . '" ' . $selected . '>' . ucfirst($option) . '</option>';
@@ -163,38 +162,25 @@
                                 </div>
                             </form>
                         </div>
-                        <?php endif; ?>
 
-                        <script>
-                        function toggleAvailableByInput() {
-                            var statusSelect = document.getElementById('statusSelect');
-                            var availableByDiv = document.getElementById('availableByDiv');
-                            if (statusSelect.value === 'Maintenance') {
-                                availableByDiv.style.display = 'block';
-                            } else {
-                                availableByDiv.style.display = 'none';
-                            }
-                        }
-
-                        // Initial check to display the availableBy field if the page loads with Maintenance selected
-                        document.addEventListener('DOMContentLoaded', function() {
-                            toggleAvailableByInput();
-                        });
-                        </script>
                         <script>
                             function toggleAvailableByInput() {
                                 var statusSelect = document.getElementById('statusSelect');
                                 var availableByDiv = document.getElementById('availableByDiv');
                                 var availableByInput = document.getElementById('availableBy');
 
-                                if (statusSelect.value === 'Maintenance') {
+                                if (statusSelect.value === 'Maintenance' || statusSelect.value === 'Occupied') {
                                     availableByDiv.style.display = 'block';
-                                    // Set the minimum date for the availableBy input to today's date
-                                    var today = new Date();
-                                    var day = String(today.getDate()).padStart(2, '0');
-                                    var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
-                                    var year = today.getFullYear();
-                                    availableByInput.min = year + '-' + month + '-' + day;
+                                    if (statusSelect.value === 'Maintenance') {
+                                        // Set the minimum date for the availableBy input to today's date
+                                        var today = new Date();
+                                        var day = String(today.getDate()).padStart(2, '0');
+                                        var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+                                        var year = today.getFullYear();
+                                        availableByInput.min = year + '-' + month + '-' + day;
+                                    } else {
+                                        // For 'Occupied' status, you may set additional logic if needed
+                                    }
                                 } else {
                                     availableByDiv.style.display = 'none';
                                     availableByInput.value = ''; // Clear the date input
@@ -204,8 +190,9 @@
                             // Call the function on page load to set the initial state
                             document.addEventListener('DOMContentLoaded', function() {
                                 toggleAvailableByInput();
-                            }); 
+                            });
                         </script>
+
 
                     </div>
                 </div>
@@ -216,19 +203,19 @@
 </main>
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#changeImageButton').click(function() {
-        $('#uploadImageInput').click(); // Trigger click on hidden file input
-    });
+    $(document).ready(function() {
+        $('#changeImageButton').click(function() {
+            $('#uploadImageInput').click(); // Trigger click on hidden file input
+        });
 
-    $('#uploadImageInput').change(function() {
-        var file = this.files[0];
-        if (file) {
-            // Handle the selected file here (e.g., display preview, upload to server)
-            console.log('Selected file:', file);
-        }
+        $('#uploadImageInput').change(function() {
+            var file = this.files[0];
+            if (file) {
+                // Handle the selected file here (e.g., display preview, upload to server)
+                console.log('Selected file:', file);
+            }
+        });
     });
-});
 </script>
 <script>
     (function () {

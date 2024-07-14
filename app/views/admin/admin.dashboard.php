@@ -77,9 +77,9 @@
     <!-- Total Tenants Card -->
     <div class="col-md-4 mb-4">
         <a href="index.php?page=admin.tenants" class="card-link">
-            <div class="card text-white bg-secondary hover-card">
+            <div class="card text-white bg-primary hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-people" style="margin-right: 10px;"></i> Tenants Active</h5>
+                    <h5 class="card-title"><i class="bi bi-people" style="margin-right: 10px;"></i> Total Tenants</h5>
                     <p class="card-text display-4"><?php echo $totalUsers; ?></p>
                 </div>
             </div>
@@ -92,7 +92,7 @@
             <div class="card text-white bg-success hover-card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <i class="bi bi-file-code" style="margin-right: 10px;"></i> Managers Active
+                        <i class="bi bi-file-code" style="margin-right: 10px;"></i> Total Managers
                     </h5>
                     <p class="card-text display-4"><?php echo $activeManagersCount; ?></p>
                 </div>
@@ -149,7 +149,7 @@
                     echo '</div>'; // .col-md-12
                 }
             } else {
-                echo '<div class="alert alert-info">No announcements available.</div>';
+                echo '<div class="alert alert-info">No announcements yet :)</div>';
             }
 
             // Close database connection

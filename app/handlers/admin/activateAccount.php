@@ -9,6 +9,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin' && isset($_POST['s
     $staff_id = $_POST['staff_id'];
     // echo $staff_id;
 
+    // Update the userStatus to 'Deactivated' in the user table
     $updateUserStatusSql = "UPDATE user SET userStatus = 'Offline' WHERE staff_ID = ?";
     $updateUserStatusStmt = $conn->prepare($updateUserStatusSql);
     $updateUserStatusStmt->bind_param("i", $staff_id);

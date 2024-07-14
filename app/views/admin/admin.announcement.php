@@ -97,7 +97,7 @@
 
                 }
             } else {
-                echo '<div class="alert alert-info">No announcements available.</div>';
+                echo '<div class="alert alert-info">No announcements yet :)</div>';
             }
 
             // Close database connection

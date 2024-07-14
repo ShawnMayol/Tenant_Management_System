@@ -38,7 +38,7 @@ if ($statusResult->num_rows === 1) {
 
       // Display alert to the user
       echo '<script>alert("Your account has been deactivated. Contact Admin if you think this is a mistake.");</script>';
-      echo '<script>setTimeout(function() { window.location.href = "handlers/common/logout.php"; }, 100);</script>';
+      echo '<script>setTimeout(function() { window.location.href = "handlers/common/destroySession.php"; }, 100);</script>';
       exit(); 
     }
 } else {

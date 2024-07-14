@@ -93,8 +93,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <div class="sidebar position-fixed border border-end ms-3 col-md-3 col-lg-2 p-0 bg-body shadow" style="margin-top: 95px;">
-        <div class="offcanvas-md bg-dark-subtle offcanvas-end bg-body" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+        <div class="sidebar position-fixed border border-end ms-3 col-md-3 col-lg-2 p-0 bg-body shadow rounded" style="margin-top: 95px;">
+        <div class="offcanvas-md bg-dark-subtle offcanvas-end bg-body rounded" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="sidebarMenuLabel">Filters</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

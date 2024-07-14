@@ -16,11 +16,53 @@
         });
     });
 </script>
+<?php
+        // Include database connection file
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "tms";
 
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sql = "
+        SELECT s.staff_ID, s.lastName, s.firstName, s.middleName, u.userStatus, a.activityDescription, a.activityTimestamp, u.picDirectory
+        FROM staff s
+        LEFT JOIN (
+            SELECT staff_ID, activityDescription, activityTimestamp
+            FROM activity
+            WHERE activityTimestamp IN (
+                SELECT MAX(activityTimestamp)
+                FROM activity
+                GROUP BY staff_ID
+            )
+        ) a ON s.staff_ID = a.staff_ID
+        LEFT JOIN user u ON s.staff_ID = u.staff_ID
+        WHERE s.staffRole != 'Admin' AND u.staff_ID IS NOT NULL
+        ORDER BY u.userStatus DESC
+    ";
+    
+    // Execute the query
+    $result = $conn->query($sql);
+    
+    // Check if there are any managers
+    if ($result->num_rows > 0) {
+        // Fetch count of managers
+        $countManagers = $result->num_rows;
+    } else {
+        $countManagers = 0;
+    }
+    ?>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h1">Managers</h1>
+        <h1 class="h1">Managers <span class="h4">(<?php echo $countManagers; ?>)</span></h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="input-group me-2">
                 <input type="text" class="form-control" id="filterInput" placeholder="Search Manager..." oninput="searchManagers()">
@@ -39,47 +81,15 @@
 
     <div class="container">
         <div class="table-responsive">
-        <?php
-        // Include database connection file
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "tms";
 
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Query to fetch staff data with their last activity, excluding admin
-        $sql = "
-        SELECT s.staff_ID, s.lastName, s.firstName, s.middleName, u.userStatus, a.activityDescription, a.activityTimestamp
-        FROM staff s
-        LEFT JOIN (
-            SELECT staff_ID, activityDescription, activityTimestamp
-            FROM activity
-            WHERE activityTimestamp IN (
-                SELECT MAX(activityTimestamp)
-                FROM activity
-                GROUP BY staff_ID
-            )
-        ) a ON s.staff_ID = a.staff_ID
-        LEFT JOIN user u ON s.staff_ID = u.staff_ID
-        WHERE s.staffRole != 'Admin' AND u.staff_ID IS NOT NULL
-        ORDER BY u.userStatus DESC
-        ";
-        $result = $conn->query($sql);
-
+    <?php
         // Check if there are any records
         if ($result->num_rows > 0) {
             echo '<table class="table table-striped table-hover">';
             echo '<thead class="h5">';
             echo '<tr>';
-            echo '<th style="width: 10%;">#</th>';
-            echo '<th style="width: 29%;">Name</th>';
+            echo '<th style="width: 8%;"></th>';
+            echo '<th style="width: 25%;">Name</th>';
             echo '<th style="width: 40%;">Last Activity</th>';
             echo '<th style="width: 21%;">Status</th>';
             echo '</tr>';
@@ -98,9 +108,13 @@
                 } elseif ($row['userStatus'] === 'Deactivated') {
                     $statusClass = 'bg-danger';
                 }
-
+                $picDirectory = substr($row['picDirectory'], 6);
                 echo '<tr class="clickable-row" data-href="?page=admin.viewManager&staff_id=' . $row['staff_ID'] . '">';
-                echo '<td class="py-3">' . $count++ . '</td>';
+                echo '<td class="py-3">';
+                echo '<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; margin-left: 20px;">';
+                echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 30px; height: 30px; object-fit: cover;" alt="Staff Picture">';
+                echo '</div>';
+                echo '</td>';
                 echo '<td class="py-3">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
                 echo '<td class="py-3">' . (!empty($row['activityDescription']) ? $row['activityDescription'] . ' at ' . (new DateTime($row['activityTimestamp']))->format('F j, Y, g:i A') : 'No activity') . '</td>';
                 echo '<td class="py-3 h6"><span class="badge ' . $statusClass . '">' . $row['userStatus'] . '</span></td>';

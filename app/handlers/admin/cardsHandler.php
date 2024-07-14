@@ -45,7 +45,7 @@
 
     // Fetch total number of active managers
     $activeManagersCount = 0;
-    $sql = "SELECT COUNT(*) as activeManagersCount FROM staff WHERE staffRole = 'Manager' AND staffStatus = 'Active'";
+    $sql = "SELECT COUNT(*) as activeManagersCount FROM user WHERE userRole = 'Manager' AND userStatus != 'Deactivated'";
     if ($stmt = $conn->prepare($sql)) {
         $stmt->execute();
         $stmt->bind_result($activeManagersCount);

@@ -28,7 +28,7 @@ if (isset($_GET['apartment']) && isset($_POST['statusSelect'])) {
     }
 
     // Prepare SQL update statement
-    if ($newStatus == 'Maintenance') {
+    if ($newStatus == 'Maintenance' || $newStatus == 'Occupied') {
         $sql = "UPDATE apartment SET apartmentStatus = ?, availableBy = ? WHERE apartmentNumber = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ssi', $newStatus, $availableBy, $apartmentNumber);
@@ -36,7 +36,7 @@ if (isset($_GET['apartment']) && isset($_POST['statusSelect'])) {
         $sql = "UPDATE apartment SET apartmentStatus = ?, availableBy = NULL WHERE apartmentNumber = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('si', $newStatus, $apartmentNumber);
-    }
+    } 
 
     if ($stmt->execute()) {
         // Log the activity

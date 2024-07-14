@@ -102,18 +102,23 @@ if (isset($_GET['staff_id'])) {
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Edit Information</a></li>
-                            <li><a class="dropdown-item" title="Reset password" href="#">Reset password</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editStaffInfoModal">Edit Information</a></li>
+                            <li>
+                                <form method="POST" action="handlers/admin/resetAccount.php" onsubmit="return confirm('Are you sure you want to reset this account?');" style="display:inline;">
+                                    <input type="hidden" name="user_ID" value="<?php echo $user['user_ID']; ?>">
+                                    <button type="submit" title="Reset Username and Password to default"  class="dropdown-item">Reset Account</button>
+                                </form>
+                            </li>
                             <li>
                                 <form method="POST" action="<?php echo $status === 'Deactivated' ? 'handlers/admin/activateAccount.php' : 'handlers/admin/deactivateAccount.php'; ?>" onsubmit="return confirm('Are you sure you want to <?php echo $status === 'Deactivated' ? 'activate' : 'deactivate'; ?> this account?');" style="display:inline;">
                                     <input type="hidden" name="staff_id" value="<?php echo $staff_id ?>">
-                                    <button type="submit" class="dropdown-item"><?php echo $status === 'Deactivated' ? 'Activate Account' : 'Deactivate Account'; ?></button>
+                                    <button type="submit" class="dropdown-item text-danger"><?php echo $status === 'Deactivated' ? 'Activate Account' : 'Deactivate Account'; ?></button>
                                 </form>
                             </li>
                             <li>
                                 <form method="POST" action="handlers/admin/deleteAccount.php" onsubmit="return confirm('Are you sure you want to delete this account? This action is irreversible');" style="display:inline;">
                                     <input type="hidden" name="user_ID" value="<?php echo $user['user_ID']; ?>">
-                                    <button type="submit" class="dropdown-item text-danger">Delete account</button>
+                                    <button type="submit" class="dropdown-item text-danger" hidden>Delete account</button>
                                 </form>
                             </li>
                         </ul>
@@ -122,6 +127,7 @@ if (isset($_GET['staff_id'])) {
             </div>
         </div>
     </div>
+    <?php include 'views/admin/modal.staffEditInfo.php'; ?>
 
     <div class="container mt-4">
         <div class="row">
