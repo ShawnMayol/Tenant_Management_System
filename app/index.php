@@ -153,44 +153,44 @@ if ($statusResult->num_rows === 1) {
     </ul>
   </header>
 
-  <?php
-  // Check if the session role is set
-  if (isset($_SESSION['role'])) {
+  
+    <?php
+    // Check if the session role is set
+    if (isset($_SESSION['role'])) {
 
-    // Assign the appropriate sidebar and default dashboard based on the user role
-    switch ($_SESSION['role']) {
-      case 'admin':
-        $sideBar = 'views/admin/admin.sidebar';
-        $page = 'views/admin/admin.dashboard';
-        break;
-      case 'manager':
-        $sideBar = 'views/manager/manager.sidebar';
-        $page = 'views/manager/manager.dashboard';
-        break;
-      case 'tenant':
-        $sideBar = 'views/tenant/tenant.sidebar';
-        $page = 'views/tenant/tenant.dashboard';
-        break;
-      default:
-      echo ('error');
+      // Assign the appropriate sidebar and default dashboard based on the user role
+      switch ($_SESSION['role']) {
+        case 'admin':
+          $sideBar = 'views/admin/admin.sidebar';
+          $page = 'views/admin/admin.dashboard';
+          break;
+        case 'manager':
+          $sideBar = 'views/manager/manager.sidebar';
+          $page = 'views/manager/manager.dashboard';
+          break;
+        case 'tenant':
+          $sideBar = 'views/tenant/tenant.sidebar';
+          $page = 'views/tenant/tenant.dashboard';
+          break;
+        default:
+        echo ('error');
+      }
+      
+      include $sideBar . '.php';
+      
+      // Check if a specific page is requested, override $page if needed
+      if (isset($_GET['page'])) {
+        $page = $_GET['page']; 
+        include 'views/' .  $role . '/' . $page . '.php'; 
+      } else {
+        include $page . '.php';
+      }
+
     }
-    
-    include $sideBar . '.php';
-    
-    // Check if a specific page is requested, override $page if needed
-    if (isset($_GET['page'])) {
-      $page = $_GET['page']; 
-      include 'views/' .  $role . '/' . $page . '.php'; 
-    } else {
-      include $page . '.php';
-    }
-
-  }
-  ?>
+    ?>
 
 
-  </div>
-  </div>
+
 
   <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 
