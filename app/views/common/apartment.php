@@ -91,25 +91,28 @@
                     <p><strong>Apartment Dimensions:</strong> <?php echo $apartment['apartmentDimensions']; ?></p><br>
                     <h3>Availability</h3><hr>
                     <?php 
-                            $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
-                            
-                            switch($apartment['apartmentStatus']) {
-                                case 'Available':
-                                    echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
-                                    break;
-                                case 'Occupied':
-                                    echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied<br>Will be available by ' . $availableBy . '</div>';
-                                    break;
-                                case 'Maintenance':
-                                    echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance<br>Will be available by ' . $availableBy . '</div>';
-                                    break;
-                                case 'Hidden':
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
-                                    break;
-                                default:
-                                    echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
-                            }
-                        ?>
+                        $availableBy = !empty($apartment['availableBy']) ? date('F j, Y', strtotime($apartment['availableBy'])) : 'N/A';
+                        $minStartDate = date('Y-m-d'); // Default to today's date
+
+                        switch($apartment['apartmentStatus']) {
+                            case 'Available':
+                                echo '<div class="p-3 mb-2 bg-success-subtle text-success-emphasis rounded">This apartment is available for rent</div>';
+                                break;
+                            case 'Occupied':
+                                echo '<div class="p-3 mb-2 bg-danger-subtle text-danger-emphasis rounded">This apartment is currently occupied<br>Will be available by ' . $availableBy . '</div>';
+                                $minStartDate = !empty($apartment['availableBy']) ? date('Y-m-d', strtotime($apartment['availableBy'])) : $minStartDate;
+                                break;
+                            case 'Maintenance':
+                                echo '<div class="p-3 mb-2 bg-warning-subtle text-warning-emphasis rounded">This apartment is currently under maintenance<br>Will be available by ' . $availableBy . '</div>';
+                                $minStartDate = !empty($apartment['availableBy']) ? date('Y-m-d', strtotime($apartment['availableBy'])) : $minStartDate;
+                                break;
+                            case 'Hidden':
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">This apartment is hidden from view</div>';
+                                break;
+                            default:
+                                echo '<div class="p-3 mb-2 bg-secondary-subtle text-secondary-emphasis rounded">Unknown apartment status</div>';
+                        }
+                    ?>
                     
                     <div class="mt-5">
                         <h3 id="makeRequest">Make a Request</h3>
@@ -117,7 +120,7 @@
                         <form action="../../views/tenant/leaseProposal.php?apartment=<?php echo $apartmentNumber; ?>" method="POST">
                             <div class="mb-3">
                                 <label for="termsOfStay" class="form-label">Term of Stay*</label>
-                                <select class="form-select" id="termsOfStay" name="termsOfStay" required onchange="setEndDateMin()">
+                                <select class="form-select" id="termsOfStay" name="termsOfStay" required>
                                     <option value="short">Short term (< 6 months)</option>
                                     <option value="long">Long term (>= 6 months)</option>
                                 </select>
@@ -125,11 +128,11 @@
                             <div class="mb-3">
                                 <label for="startDate" class="form-label">Start Date*</label>
                                 <input type="date" class="form-control" id="startDate" name="startDate" required
-                                    min="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
+                                    min="<?php echo $minStartDate; ?>" value="<?php echo $minStartDate; ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="endDate" class="form-label">End Date*</label>
-                                <input type="date" class="form-control" id="endDate" name="endDate" required>
+                                <input type="date" class="form-control" min="" value="" id="endDate" name="endDate" required>
                             </div>
                             <div class="mb-3">
                                 <label for="billingPeriod" class="form-label">Billing Period*</label>
@@ -146,53 +149,61 @@
                             <div class="mb-3">
                                 <label for="message" class="form-label">Message</label>
                                 <textarea class="form-control" id="message" name="message" rows="3"></textarea>
-                            </div><br>
-                            <button type="submit" class="btn btn-primary" style="width: 100%; height: 50px;">Proceed to Tenant Information Filling</button>
+                                <small class="form-text text-muted">Leave us a message to help us consider your request!</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary my-4" style="width: 100%; height: 50px;">Proceed to Tenant Information Filling</button>
                         </form>
-                    </div><br>
-                    <div class="container">
-                        <p class="text-centered">Contact us: <a href="mailto:info@tenantmanagement.com">info@tenantmanagement.com</a> | <a href="tel:+1234567890">+963 412 2347</a></p>
                     </div>
+                    <small class="form-text text-muted">Have more questions?</small>
+                    <p class="text-centered mb-5">Contact us: <a href="mailto:info@c-apartments.com">info@c-apartments.com</a> | <a href="tel:+1234567890">+963 412 2347</a></p>
                 </div>
             </div>
         </div>    
     </main>
+    <!-- <div class="container">
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="<?= htmlspecialchars($dashboardPage) ?>" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+      <li class="nav-item"><a href="?page=../../views/common/faq" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+    </ul>
+    <p class="text-center text-body-secondary">&copy; C-Apartments 2024</p>
+  </footer>
+</div> -->
     <script>
         // // Function to handle scroll event
         window.addEventListener('scroll', function() {
             var banner = document.getElementById('banner');
-            var navbar = document.getElementsByClassName('glass-navbar')[0]; // Select the first element
+            var navbar = document.getElementsByClassName('glass-navbar')[0];
 
             if (window.scrollY > 80) {
-                banner.style.maxHeight = '35px'; // Adjusted size when scrolled down
-                // navbar.style.background = 'none'; // Remove background when scrolled down
-                navbar.style.backdropFilter = 'none'; // Remove backdrop filter when scrolled down
-                navbar.style.boxShadow = 'none'; // Remove box shadow when scrolled down
+                banner.style.maxHeight = '35px'; 
+                // navbar.style.background = 'none';
+                navbar.style.backdropFilter = 'none'; 
+                navbar.style.boxShadow = 'none'; 
             } else {
-                banner.style.maxHeight = '50px'; // Default size when not scrolled down
-                navbar.style.background = 'rgba(0, 0, 0, 0.3)'; // Default background color
-                navbar.style.backdropFilter = 'blur(0.5px)'; // Restore backdrop filter when not scrolled down
-                navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)'; // Restore box shadow when not scrolled down
+                banner.style.maxHeight = '50px';
+                navbar.style.background = 'rgba(0, 0, 0, 0.3)'; 
+                navbar.style.backdropFilter = 'blur(0.5px)'; 
+                navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
             }
         });
     </script>
     <script>
-        // Select all form inputs
         const formInputs = document.querySelectorAll('input, select, textarea');
 
-        // Function to save form data to localStorage
         function saveFormData() {
             formInputs.forEach(input => {
                 localStorage.setItem(input.id, input.value);
             });
         }
 
-        // Event listeners to save data on input change
         formInputs.forEach(input => {
             input.addEventListener('input', saveFormData);
         });
 
-        // Function to load form data from localStorage
         function loadFormData() {
             formInputs.forEach(input => {
                 const savedValue = localStorage.getItem(input.id);
@@ -202,7 +213,6 @@
             });
         }
 
-        // Call loadFormData on page load
         window.addEventListener('load', loadFormData);
 
         // Clear localStorage on form submit
@@ -214,38 +224,34 @@
         </script>
         <script>
             function setEndDateMin() {
-                var termsOfStay = document.getElementById('termsOfStay').value;
-                var endDateInput = document.getElementById('endDate');
-    
-                // Get current date in YYYY-MM-DD format
-                var today = new Date();
-                var todayFormatted = today.toISOString().split('T')[0];
-    
-                // Calculate minimum date based on termsOfStay
-                var minDate;
-                if (termsOfStay === 'short') {
-                    // Set minimum date to 1 month from today
-                    var oneMonthLater = new Date();
-                    oneMonthLater.setMonth(oneMonthLater.getMonth() + 1);
-                    minDate = oneMonthLater.toISOString().split('T')[0];
-                } else if (termsOfStay === 'long') {
-                    // Set minimum date to 6 months from today
-                    var sixMonthsLater = new Date();
-                    sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
-                    minDate = sixMonthsLater.toISOString().split('T')[0];
+                const startDate = document.getElementById('startDate').value;
+                const termOfStay = document.getElementById('termsOfStay').value;
+                const endDate = document.getElementById('endDate');
+                
+                if (startDate) {
+                    let minEndDate;
+                    if (termOfStay === 'short') {
+                        minEndDate = new Date(startDate);
+                        minEndDate.setMonth(minEndDate.getMonth() + 1);
+                    } else if (termOfStay === 'long') {
+                        minEndDate = new Date(startDate);
+                        minEndDate.setMonth(minEndDate.getMonth() + 6);
+                    }
+                    
+                    const formattedMinEndDate = minEndDate.toISOString().split('T')[0];
+                    endDate.min = formattedMinEndDate;
+                    endDate.value = formattedMinEndDate;
                 }
-    
-                // Set min attribute of the endDate input
-                endDateInput.setAttribute('min', minDate);
-    
-                // Reset the value to ensure it's within the new min/max range
-                endDateInput.value = minDate;
             }
-    
-            // Call setEndDateMin initially to set initial min/max based on default selection
-            window.addEventListener('load', setEndDateMin);
+
+            document.getElementById('startDate').addEventListener('change', setEndDateMin);
             document.getElementById('termsOfStay').addEventListener('change', setEndDateMin);
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                setEndDateMin();
+            });
         </script>
+
     
 
 

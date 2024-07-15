@@ -91,7 +91,7 @@ if (isset($_GET['request_id'])) {
             'maintenanceAvailableBy' => $request['maintenanceAvailableBy'],
             'apartmentNumber' => $request['apartmentNumber'],
             'occupiedAvailableBy' => $request['occupiedAvailableBy'],
-            'maxOccupants' => $request['maxOccupants']
+            'maxOccupants' => $request['maxOccupants'] 
         ];
 
         // Store request details
@@ -132,7 +132,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
         <div class="container">
             <div class="row">
                 <div class="col-auto ps-2 pe-3">
-                    <a href="?page=manager.viewRequest&request_id=<?php echo $requestID ?>" class="icon-wrapper" style="text-decoration: none;">
+                    <a href="?page=admin.viewRequest&request_id=<?php echo $requestID ?>" class="icon-wrapper" style="text-decoration: none;">
                         <i class="bi bi-arrow-left-circle text-secondary h2 icon-default"></i>
                         <i class="bi bi-arrow-left-circle-fill text-secondary h2 icon-hover"></i>
                     </a>
@@ -159,16 +159,16 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                     <div class="occupant mb-3">
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label for="firstName" class="form-label">First Name*</label>
-                                <input type="text" class="form-control" name="lesseeFirstName" id="firstName" value="<?php echo $tenantDetails['firstName']; ?>" required>
+                                <label for="lesseeFirstName" class="form-label">First Name*</label>
+                                <input type="text" class="form-control" name="lesseeFirstName" id="lesseeFirstName" value="<?php echo $tenantDetails['firstName']; ?>" required>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="middleName" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" name="lesseeMiddleName" id="middleName" value="<?php echo $tenantDetails['middleName']; ?>">
+                                <label for="lesseeMiddleName" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" name="lesseeMiddleName" id="lesseeMiddleName" value="<?php echo $tenantDetails['middleName']; ?>">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="lastName" class="form-label">Last Name*</label>
-                                <input type="text" class="form-control" name="lesseeLastName" id="lastName" value="<?php echo $tenantDetails['lastName']; ?>" required>
+                                <label for="lesseeLastName" class="form-label">Last Name*</label>
+                                <input type="text" class="form-control" name="lesseeLastName" id="lesseeLastName" value="<?php echo $tenantDetails['lastName']; ?>" required>
                             </div>
                         </div>
 
@@ -176,7 +176,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                                    <input type="date" class="form-control" name="lesseeDOB" value="<?php echo $tenantDetails['dateOfBirth']; ?>" required>
+                                    <input type="date" class="form-control" name="lesseeDOB" value="<?php echo $tenantDetails['dateOfBirth']; ?>" required max="<?php echo date('Y-m-d'); ?>">
                                 </div>
                                 <div class="mb-3">
                                     <label for="gender" class="form-label">Gender*</label>
@@ -190,10 +190,17 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                             </div>
                             
                             <div class="col">
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone*</label>
+                                <!-- <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number*</label>
                                     <input type="text" class="form-control" name="lesseePhone" value="<?php echo $tenantDetails['phone']; ?>" required>
+                                </div> -->
+
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number*</label>
+                                    <input type="text" class="form-control" id="phoneNumber1" name="lesseePhone" placeholder="Phone Number" value="<?php echo $tenantDetails['phone']; ?>" required maxlength="11" pattern="09\d{9}">
+                                    <!-- <small id="phoneNumberHelp" class="form-text text-muted">Phone number must start with 09 and have 11 digits in total.</small> -->
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email*</label>
                                     <input type="email" class="form-control" name="lesseeEmail" value="<?php echo $tenantDetails['email']; ?>" required>
@@ -233,7 +240,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                                        <input type="date" class="form-control" name="occDOB[]" value="<?php echo $tenantDetails['dateOfBirth']; ?>" required>
+                                        <input type="date" class="form-control" name="occDOB[]" value="<?php echo $tenantDetails['dateOfBirth']; ?>" required max="<?php echo date('Y-m-d'); ?>">
                                     </div>
                                     <div class="mb-3">
                                         <label for="gender" class="form-label">Gender*</label>
@@ -247,10 +254,17 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                                 </div>
                                 
                                 <div class="col">
-                                    <div class="mb-3">
+                                    <!-- <div class="mb-3">
                                         <label for="phone" class="form-label">Phone*</label>
                                         <input type="text" class="form-control" name="occPhone[]" value="<?php echo $tenantDetails['phone']; ?>" required>
+                                    </div> -->
+
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone Number*</label>
+                                        <input type="text" class="form-control" id="phoneNumber2" name="occPhone[]" placeholder="Phone Number" value="<?php echo $tenantDetails['phone']; ?>" required maxlength="11" pattern="09\d{9}">
+                                        <!-- <small id="phoneNumberHelp" class="form-text text-muted">Phone number must start with 09 and have 11 digits in total.</small> -->
                                     </div>
+
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email*</label>
                                         <input type="email" class="form-control" name="occEmail[]" value="<?php echo $tenantDetails['email']; ?>" required>
@@ -283,13 +297,21 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                     <h2>Payment Terms</h2>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="billingPeriod" class="form-label">Billing Period*</label>
                             <select class="form-select" name="billingPeriod" id="billingPeriod" required>
                                 <option value="weekly" <?php if($billingPeriod == 'weekly') echo 'selected'; ?> hidden>Weekly</option>
                                 <option value="monthly" <?php if($billingPeriod == 'monthly') echo 'selected'; ?>>Monthly</option>
                                 <option value="annually" <?php if($billingPeriod == 'annually') echo 'selected'; ?> hidden>Annually</option>
                             </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="maxOccupants" class="form-label">Rental Deposit*</label>
+                            <input type="number" class="form-control" id="rentalDepositInput" name="rentalDeposit" value="<?php echo $apartment['rentPerMonth']; ?>" min="<?php echo $apartment['rentPerMonth']; ?>" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="maxOccupants" class="form-label">Security Deposit*</label>
+                            <input type="number" class="form-control" id="securityDepositInput" name="securityDeposit" value="<?php echo $apartment['rentPerMonth']; ?>" min="<?php echo $apartment['rentPerMonth']; ?>" required>
                         </div>
                         <!-- <div class="col-md-6 mb-3">
                             <label for="paymentMethods" class="form-label">Preferred Method of Payment*</label>
@@ -334,10 +356,11 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                         <p class="lh-base">The Tenant shall vacate the Premises at the end of the Lease Term if the Parties do not agree on a new Lease Agreement or an extension of this Agreement.</p>
 
                         <h5 class="fw-bold">IV. PAYMENT TERMS</h5>
-                        <P class="lh-base">The monthly rent to be paid by the Tenant to the Landlord is <u>₱<?php echo $apartment['rentPerMonth']; ?>/month</u>. It is to be paid by the Tenant before the first day of every month, such that the first rent payment is due on <u><span id="firstRentPaymentDueDate">___</span></u>.</P>
+                        <P class="lh-base">The monthly rent to be paid by the Tenant to the Landlord is <u>₱<?php echo $apartment['rentPerMonth']; ?>/month</u>. It is to be paid by the Tenant before the first day of every month.</P>
+                        <!-- , such that the first rent payment is due on <u><span id="firstRentPaymentDueDate">___</span></u> -->
                         <!-- <p class="lh-base">The method of payment preferred by both parties is/are <u id="preferredPayment">Cash/Gcash/Bank</u>.</p> -->
                         <p class="lh-base">In the event of late payments made by the Tenant, the Landlord is entitled to impose a <u>₱<span id="lateFee">___</span>(10% of monthly rent)</u> fine as <strong>late fee</strong> for each day of delay after a <u>three (3) day grace period.</u></p>
-                        <p class="lh-base">Prior to taking occupancy of the Premises, the Tenant will pay the Landlord an amount of <u>₱<?php echo $apartment['rentPerMonth']; ?></u> as a <strong>security deposit</strong> to cover the cost of any damages suffered by the Premises and cleaning. Such security deposit will be returned to the Tenant upon the end of this Agreement, provided the Premises are left in the same condition as prior to the occupancy.</p>
+                        <p id="depositParagraph" class="lh-base">Prior to taking occupancy of the Premises, the Tenant will pay the Landlord an amount of <u>₱<span id="rentalDepositSpan">0</span></u> as a <strong>Rental Deposit</strong> as well as an amount of <u>₱<span id="securityDepositSpan">0</span></u> as a <strong>Security Deposit</strong> to cover the cost of any damages suffered by the Premises and cleaning. Such security deposit will be returned to the Tenant upon the end of this Agreement, provided the Premises are left in the same condition as prior to the occupancy.</p>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -389,7 +412,55 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener("DOMContentLoaded", function() {
+        var phoneNumber1Input = document.getElementById("phoneNumber1");
+        var phoneNumber2Input = document.getElementById("phoneNumber2");
+
+        if (phoneNumber1Input) {
+            phoneNumber1Input.addEventListener("input", function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
+
+                // Limit length to 11 characters
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
+                }
+            });
+        }
+
+        if (phoneNumber2Input) {
+            phoneNumber2Input.addEventListener("input", function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
+
+                // Limit length to 11 characters
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
+                }
+            });
+        }
+    });
+</script>
+
+<script>
+    // Function to update deposit paragraph
+    function updateDepositParagraph() {
+        var rentalDepositValue = document.getElementById("rentalDepositInput").value;
+        var securityDepositValue = document.getElementById("securityDepositInput").value;
+
+        document.getElementById("rentalDepositSpan").textContent = rentalDepositValue;
+        document.getElementById("securityDepositSpan").textContent = securityDepositValue;
+    }
+
+    // Call update function on page load
+    updateDepositParagraph();
+
+    // Add event listeners for input changes
+    document.getElementById("rentalDepositInput").addEventListener("input", updateDepositParagraph);
+    document.getElementById("securityDepositInput").addEventListener("input", updateDepositParagraph);
+
+
+    document.addEventListener('DOMContentLoaded', function() {
     // Get the current date formatted as Month Day, Year
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleString('en-US', {
@@ -401,9 +472,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update the tenant name in the agreement
     function updateTenantName() {
-        const firstName = document.getElementById('firstName').value || '___';
-        const middleName = document.getElementById('middleName').value || '';
-        const lastName = document.getElementById('lastName').value || '___';
+        const firstName = document.getElementById('lesseeFirstName').value || '___';
+        const middleName = document.getElementById('lesseeMiddleName').value || '';
+        const lastName = document.getElementById('lesseeLastName').value || '___';
         const fullName = `${firstName} ${middleName} ${lastName}`.trim();
         document.getElementById('tenantName').innerText = fullName;
     }
@@ -443,8 +514,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('effectiveDate').innerText = formatDate(startDate);
         document.getElementById('leaseTerm').innerText = formatDate(endDate);
 
-        const firstRentPaymentDueDate = calculateFirstRentPaymentDueDate(startDate);
-        document.getElementById('firstRentPaymentDueDate').innerText = firstRentPaymentDueDate;
+        // const firstRentPaymentDueDate = calculateFirstRentPaymentDueDate(startDate);
+        // document.getElementById('firstRentPaymentDueDate').innerText = firstRentPaymentDueDate;
     }
 
     // Function to update the late fee based on the monthly rent
@@ -461,9 +532,9 @@ document.addEventListener('DOMContentLoaded', function() {
     updatePreferredPayment();
 
     // Add event listeners to update tenant name and lease dates on input
-    document.getElementById('firstName').addEventListener('input', updateTenantName);
-    document.getElementById('middleName').addEventListener('input', updateTenantName);
-    document.getElementById('lastName').addEventListener('input', updateTenantName);
+    document.getElementById('lesseeFirstName').addEventListener('input', updateTenantName);
+    document.getElementById('lesseeMiddleName').addEventListener('input', updateTenantName);
+    document.getElementById('lesseeLastName').addEventListener('input', updateTenantName);
 
     // Add event listeners to update lease dates on input
     document.getElementById('startDate').addEventListener('input', updateLeaseDates);
@@ -515,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="col">
                             <div class="mb-3">
                                 <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                                <input type="date" class="form-control" name="occDOB[]" required>
+                                <input type="date" class="form-control" name="occDOB[]" required max="<?php echo date('Y-m-d'); ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender*</label>
@@ -530,12 +601,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                         <div class="col">
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone*</label>
-                                <input type="text" class="form-control" name="occPhone[]" required>
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" name="occPhone[]" maxlength="11" pattern="09\d{9}">
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email*</label>
-                                <input type="email" class="form-control" name="occEmail[]" required>
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" name="occEmail[]">
                             </div>
                         </div>
                     </div>

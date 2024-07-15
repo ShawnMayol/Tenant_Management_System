@@ -62,14 +62,14 @@
                   Dashboard
                 </a>
               </li>
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.requests' ? 'selected' : 'highlight'; ?>" aria-current="page" href="?page=admin.requests">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'admin.requests' ? '#file-earmark-fill' : '#file-earmark'; ?>" />
                   </svg>
                   Requests
                 </a>
-              </li> -->
+              </li>
               <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.apartments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.apartments">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
@@ -86,14 +86,14 @@
                   Tenants
                 </a>
               </li>
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.payments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.payments">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'admin.payments' ? '#credit-card-fill' : '#credit-card'; ?>" />
                   </svg>
                   Payments
                 </a>
-              </li> -->
+              </li>
             </ul>
 
             <h6

@@ -57,9 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $uploadOk = 0;
         }
 
-        // Check file size (5MB max)
-        if ($_FILES[$fileInputName]['size'] > 99999999) {
-            echo "Sorry, your file is too large.";
+        $maxFileSize = 15 * 1024 * 1024; // 15 MB in bytes
+
+        if ($_FILES[$fileInputName]['size'] > $maxFileSize) {
+            echo "Sorry, your file is too large. Maximum file size allowed is 15 MB.";
             $uploadOk = 0;
         }
 

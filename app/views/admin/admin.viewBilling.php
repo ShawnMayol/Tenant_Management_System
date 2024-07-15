@@ -211,7 +211,7 @@ $status = htmlspecialchars($user['userStatus']);
                 </div>
 
                 <div class="col-lg-6">
-                <h3>Lease Term</h3>
+                <h3>Invoice</h3>
                 <hr>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
@@ -274,40 +274,7 @@ $status = htmlspecialchars($user['userStatus']);
                             </tbody>
                         </table>
                     </div>
-                    <div class="row mt-3 mb-5">
-                        <h3>Registered Occupants</h3>
-                        <hr>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Phone</th>
-                                        <th>Email</th>
-                                        <!-- <th>Birthday</th> -->
-                                        <th>Gender</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (!empty($occupants)): ?>
-                                        <?php foreach ($occupants as $occupant): ?>
-                                            <tr>
-                                                <td class="py-3"><?= htmlspecialchars($occupant['firstName'] . ' ' . $occupant['middleName'] . ' ' . $occupant['lastName']) ?></td>
-                                                <td class="py-3"><?= htmlspecialchars($occupant['phoneNumber']) ?></td>
-                                                <td class="py-3"><?= htmlspecialchars($occupant['emailAddress']) ?></td>
-                                                <!-- <td><?= htmlspecialchars(date("F j, Y", strtotime($occupant['dateOfBirth']))) ?></td> -->
-                                                <td class="py-3"><?= htmlspecialchars($occupant['gender']) ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <tr>
-                                            <td colspan="5">No occupants found.</td>
-                                        </tr>
-                                    <?php endif; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                
                 </div>
             </div>
         </div>

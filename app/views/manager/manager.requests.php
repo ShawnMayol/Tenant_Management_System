@@ -51,11 +51,11 @@
                     <i class="bi bi-search d-flex align-items-center"></i>
                 </span> 
             </div>
-            <a href="?page=manager.lease" class="text-secondary" title="Generate Lease" style="text-decoration: none;">
+            <!-- <a href="?page=manager.lease" class="text-secondary" title="Generate Lease" style="text-decoration: none;">
                 <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-1 hover-white">
                     <span class="m-1 h6">Generate Lease</span><i class="bi bi-file-earmark d-flex align-items-center"></i></i>
                 </button>
-            </a>
+            </a> -->
         </div>
     </div>
     

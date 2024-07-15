@@ -73,6 +73,20 @@
                     <h1 class="h1 m-0"><?php echo $apartment['apartmentType']; ?></h1>
                 </div>
                 <div class="col-auto pe-5">
+                    <a href="#" title="See apartment history" class="icon-wrapper" style="text-decoration: none;">
+                        <div class="link">
+                            <i class="bi bi-clock-history text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#apartmentHistoryModal"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-auto pe-5">
+                    <a href="?page=admin.lease&apartment=<?php echo $apartmentNumber; ?>" title="Generate Lease" class="icon-wrapper" style="text-decoration: none;">
+                        <div class="link">
+                            <i class="bi bi-file-earmark text-secondary h2 icon-default-2"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-auto pe-5">
                     <a href="#" title="Edit this apartment" class="icon-wrapper" style="text-decoration: none;">
                         <div class="link">
                             <i class="bi bi-building-gear text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i>
@@ -84,6 +98,7 @@
     </div>
     <br>
     <?php include ('modal.updateApartment.php'); ?>
+    <?php include ('modal.apartmentHistory.php'); ?>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-4">

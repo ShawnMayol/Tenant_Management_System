@@ -14,7 +14,6 @@
     exit(); 
   }
 
-// Include database connection file
 include('core/database.php');
 
 // Retrieve user ID from session
@@ -33,16 +32,14 @@ if ($statusResult->num_rows === 1) {
 
     // Check if user status is 'Deactivated'
     if ($userStatus === 'Deactivated') {
-        // Close connection
-        $conn->close();
+      $conn->close();
 
-      // Display alert to the user
       echo '<script>alert("Your account has been deactivated. Contact Admin if you think this is a mistake.");</script>';
       echo '<script>setTimeout(function() { window.location.href = "handlers/common/destroySession.php"; }, 100);</script>';
       exit(); 
     }
 } else {
-    // User not found in database, handle accordingly
+    // User not found in database
     header('Location: views/common/landing.php');
     exit(); 
 } 

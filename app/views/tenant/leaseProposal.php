@@ -172,72 +172,78 @@
                     <hr>
                     <!-- Tenant details form -->
                     <form action="../../handlers/tenant/requestHandler.php" method="POST" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="firstName" class="form-label">First Name*</label>
-                            <input type="text" class="form-control py-2" id="firstName" name="firstName" placeholder="First Name" required>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="firstName" class="form-label">First Name*</label>
+                                <input type="text" class="form-control py-2" id="firstName" name="firstName" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="middleName" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control py-2" id="middleName" name="middleName" placeholder="Middle Name">
+                                <small class="form-text text-muted">Leave blank if not applicable.</small>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="lastName" class="form-label">Last Name*</label>
+                                <input type="text" class="form-control py-2" id="lastName" name="lastName" placeholder="Last Name" required>
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="middleName" class="form-label">Middle Name</label>
-                            <input type="text" class="form-control py-2" id="middleName" name="middleName" placeholder="Middle Name">
+                        <div class="mb-3">
+                            <label for="dateOfBirth" class="form-label">Date of Birth*</label>
+                            <input type="date" class="form-control py-2" id="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyyy" required max="<?php echo date('Y-m-d'); ?>">
                         </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="lastName" class="form-label">Last Name*</label>
-                            <input type="text" class="form-control py-2" id="lastName" name="lastName" placeholder="Last Name" required>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender*</label>
+                            <select class="form-select py-2" id="gender" name="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dateOfBirth" class="form-label">Date of Birth*</label>
-                        <input type="date" class="form-control py-2" id="dateOfBirth" name="dateOfBirth" placeholder="mm/dd/yyyy" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender*</label>
-                        <select class="form-select py-2" id="gender" name="gender" required>
-                            <option value="">Select gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Prefer not to say">Prefer not to say</option>
-                        </select>
-                    </div>
-                    <br>
-                    <!-- Contact information -->
-                    <h2>Contact Information</h2>
-                    <p>Enter your contact information so that we may be able to get back to you.</p>
-                    <hr>
-                    <div class="mb-3">
-                        <label for="emailAddress" class="form-label">Email Address*</label>
-                        <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="juandelacruz@domain.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="phoneNumber" class="form-label">Phone Number*</label>
-                        <input type="tel" class="form-control py-2" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required>
-                    </div>
-                    <br>
-                    <!-- Valid documents upload -->
-                    <h2>Valid Documents</h2>
-                    <p>Upload a picture or scan of your <a href="#" data-toggle="modal" data-target="#validDocumentsModal" style="text-decoration: none;">valid documents</a> to assist with your lease.</p>
-                    <hr>
-
-                    <div class="mb-3">
-                        <label for="identificationPic" class="form-label">Personal Identification*</label>
-                        <input type="file" class="form-control py-2" id="identificationPic" name="identificationPic" accept="image/*" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="addressPic" class="form-label">Address/Residency*</label>
-                        <input type="file" class="form-control py-2" id="addressPic" name="addressPic" accept="image/*" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="incomePic" class="form-label">Proof of Income*</label>
-                        <input type="file" class="form-control py-2" id="incomePic" name="incomePic" accept="image/*" required>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="othersPic" class="form-label">Additional Documents*</label>
-                        <input type="file" class="form-control py-2" id="othersPic" name="othersPic" accept="image/*" required>
-                    </div>
-                        
+                        <br>
+                        <!-- Contact information -->
+                        <h2>Contact Information</h2>
+                        <p>Enter your contact information so that we may be able to get back to you.</p>
+                        <hr>
+                        <div class="mb-3">
+                            <label for="emailAddress" class="form-label">Email Address*</label>
+                            <input type="email" class="form-control py-2" id="emailAddress" name="emailAddress" placeholder="Email Address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone Number*</label>
+                            <input type="text" class="form-control py-2" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required maxlength="11" pattern="09\d{9}">
+                            <small id="phoneNumberHelp" class="form-text text-muted">Phone number must start with 09 and have 11 digits in total.</small>
+                        </div>
+                        <br>
+                        <!-- Valid documents upload -->
+                        <h2>Valid Documents</h2>
+                            
+                            <p>Upload a picture or scan of your <a href="#" data-toggle="modal" data-target="#validDocumentsModal" style="text-decoration: none;">valid documents</a> to assist with your lease. <small class="form-text text-muted">15MB max file size for each file.</small></p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="identificationPic" class="form-label">Personal Identification*</label>
+                                    <input type="file" class="form-control py-2" id="identificationPic" name="identificationPic" accept="image/*" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="addressPic" class="form-label">Address/Residency*</label>
+                                    <input type="file" class="form-control py-2" id="addressPic" name="addressPic" accept="image/*" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="incomePic" class="form-label">Proof of Income*</label>
+                                    <input type="file" class="form-control py-2" id="incomePic" name="incomePic" accept="image/*" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="othersPic" class="form-label">Additional Documents*</label>
+                                    <input type="file" class="form-control py-2" id="othersPic" name="othersPic" accept="image/*" required>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Hidden fields -->
                         <input type="hidden" name="apartmentNumber" value="<?php echo htmlspecialchars($_GET['apartment']); ?>">
                         <input type="hidden" name="termsOfStay" value="<?php echo htmlspecialchars($_POST['termsOfStay']); ?>">
@@ -256,6 +262,20 @@
         <?php include 'modal.validDocuments.php'; ?>
     </main>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var phoneNumberInput = document.getElementById("phoneNumber");
+
+            phoneNumberInput.addEventListener("input", function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
+
+                // Limit length to 11 characters
+                if (this.value.length > 11) {
+                    this.value = this.value.slice(0, 11);
+                }
+            });
+        });
+
         // Function to handle scroll event
         window.addEventListener('scroll', function() {
             var banner = document.getElementById('banner');

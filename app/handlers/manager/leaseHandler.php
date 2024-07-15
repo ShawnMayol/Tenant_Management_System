@@ -4,14 +4,17 @@ include '../../core/database.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $managerPassword = $_POST['managerPassword'];
-    $requestID = $_POST['requestID'];
+    if(isset($_POST['requestID'])) {
+        $requestID = $_POST['requestID'];
+    }
 
     $apartmentNumber = $_POST['apartmentNumber'];
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
     $billingPeriod = $_POST['billingPeriod'];
+    $rentalDeposit = $_POST['rentalDeposit'];
     $securityDeposit = $_POST['securityDeposit'];
-    $leaseStatus = 'active';
+    $leaseStatus = 'Active';
 
     $lesseeFirstName = $_POST['lesseeFirstName'];
     $lesseeMiddleName = $_POST['lesseeMiddleName'];
@@ -31,26 +34,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Fetch manager's password hash from the database
     $userID = $_SESSION['user_id'];
-    $sql = "SELECT staff_ID, password FROM user WHERE user_ID = ?";
+    $sql = "SELECT staff_ID, password, userRole FROM user WHERE user_ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userID);
     $stmt->execute();
-    $stmt->bind_result($staffID, $hashedPassword);
+    $stmt->bind_result($staffID, $hashedPassword, $role);
     $stmt->fetch();
     $stmt->close();
+
+    $redirectPage = '';
+    if ($role == 'Admin') {
+        $redirectPage = '../../index.php?page=admin.requests';
+    } elseif ($role == 'Manager') {
+        $redirectPage = '../../index.php?page=manager.requests';
+    } else {
+        $redirectPage = '../../index.php';
+    }
 
     // Verify the manager's password
     if (password_verify($managerPassword, $hashedPassword)) {
         // Update request status to Approved
-        $status = 'Approved';
-        $stmt = $conn->prepare("UPDATE request SET requestStatus = ? WHERE request_ID = ?");
-        $stmt->bind_param("si", $status, $requestID);
-        $stmt->execute();
-        $stmt->close();
+        if(isset($_POST['requestID'])) {
+            $status = 'Approved';
+            $stmt = $conn->prepare("UPDATE request SET requestStatus = ? WHERE request_ID = ?");
+            $stmt->bind_param("si", $status, $requestID);
+            $stmt->execute();
+            $stmt->close();
+        }
 
         // Insert lease information
-        $stmt = $conn->prepare("INSERT INTO lease (apartmentNumber, startDate, endDate, billingPeriod, securityDeposit) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("issss", $apartmentNumber, $startDate, $endDate, $billingPeriod, $securityDeposit);
+        $stmt = $conn->prepare("INSERT INTO lease (apartmentNumber, startDate, endDate, billingPeriod, rentalDeposit, securityDeposit, reviewedBy) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("isssssi", $apartmentNumber, $startDate, $endDate, $billingPeriod, $rentalDeposit, $securityDeposit, $staffID);
         $stmt->execute();
         $leaseID = $stmt->insert_id; // Get the auto-generated lease ID
         $stmt->close();
@@ -98,8 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $insertActivityStmt->close();
 ?>
         <script>
-            // alert("Lease has been successfully finalized.");
-            window.location.href = '../../index.php?page=manager.requests';
+            alert("Lease has been successfully finalized.");
+            window.location.href = '<?php echo $redirectPage; ?>';
         </script>
 <?php
     } else {
