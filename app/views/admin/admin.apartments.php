@@ -61,7 +61,7 @@
             </div>
             <a href="" class="text-secondary" id="addApartmentButton" data-bs-toggle="modal" data-bs-target="#addApartmentModal" title="Add apartment" style="text-decoration: none;">
                 <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-1 hover-white">
-                    <span class="m-1">Add Apartment</span><i class="bi bi-plus-square icon-adjust m-1 d-flex align-items-center"></i>
+                    <span class="m-1">Add Apartment</span><i class="bi bi-building-add icon-adjust m-1 d-flex align-items-center"></i>
                 </button>
             </a>
         </div>

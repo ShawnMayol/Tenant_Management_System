@@ -75,7 +75,7 @@
                 <div class="col-auto pe-5">
                     <a href="#" title="Edit this apartment" class="icon-wrapper" style="text-decoration: none;">
                         <div class="link">
-                            <i class="bi bi-pencil-square text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i>
+                            <i class="bi bi-building-gear text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i>
                         </div>
                     </a>
                 </div>

@@ -102,7 +102,7 @@ if (isset($_GET['staff_id'])) {
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editStaffInfoModal">Edit Information</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editStaffInfoModal">Edit Account</a></li>
                             <li>
                                 <form method="POST" action="handlers/admin/resetAccount.php" onsubmit="return confirm('Are you sure you want to reset this account?');" style="display:inline;">
                                     <input type="hidden" name="user_ID" value="<?php echo $user['user_ID']; ?>">

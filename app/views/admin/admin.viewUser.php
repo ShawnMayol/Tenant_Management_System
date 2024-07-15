@@ -136,20 +136,20 @@
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editTenantInfoModal">Edit Information</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editTenantInfoModal">Edit Account</a></li>
                             <li>
                                 <form method="POST" action="handlers/admin/resetAccount.php" onsubmit="return confirm('Are you sure you want to reset this account?');" style="display:inline;">
                                     <input type="hidden" name="user_ID" value="<?php echo $user['user_ID']; ?>">
                                     <button type="submit" title="Reset Username and Password to default" class="dropdown-item">Reset Account</button>
                                 </form>
                             </li>
+                            <li><a class="dropdown-item" href="#">Edit Lease</a></li>
                             <li>
                                 <form method="POST" action="<?php echo $status === 'Deactivated' ? 'handlers/admin/tenantActivateAccount.php' : 'handlers/admin/tenantDeactivateAccount.php'; ?>" onsubmit="return confirm('Are you sure you want to <?php echo $status === 'Deactivated' ? 'activate' : 'deactivate'; ?> this account?');" style="display:inline;">
                                     <input type="hidden" name="tenant_id" value="<?php echo $tenant_id ?>">
                                     <button type="submit" class="dropdown-item text-danger"><?php echo $status === 'Deactivated' ? 'Activate Account' : 'Deactivate Account'; ?></button>
                                 </form>
                             </li>
-                            <li><a class="dropdown-item text-danger" href="#">Edit Lease Term</a></li>
                         </ul>
                     </div>
                 </div>

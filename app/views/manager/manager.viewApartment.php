@@ -72,13 +72,13 @@
                 <div class="col">
                     <h1 class="h1 m-0"><?php echo $apartment['apartmentType']; ?></h1>
                 </div>
-                <!-- <div class="col-auto pe-5">
-                    <a href="#" title="Edit this apartment" class="icon-wrapper" style="text-decoration: none;">
+                <div class="col-auto pe-5">
+                    <a href="?page=manager.lease&apartment=<?php echo $apartmentNumber; ?>" title="Generate Lease" class="icon-wrapper" style="text-decoration: none;">
                         <div class="link">
-                            <i class="bi bi-pencil-square text-secondary h2 icon-default-2" data-bs-toggle="modal" data-bs-target="#editApartmentModal"></i>
+                            <i class="bi bi-file-earmark text-secondary h2 icon-default-2"></i>
                         </div>
                     </a>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
