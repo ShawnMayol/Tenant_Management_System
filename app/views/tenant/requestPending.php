@@ -3,7 +3,7 @@
     session_start();
 ?>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en" data-bs-theme="light">
 
 <head>
     <script src="../../assets/dist/js/color-modes.js"></script>

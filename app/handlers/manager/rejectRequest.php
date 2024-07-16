@@ -8,11 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Fetch manager's password from the database
     $userID = $_SESSION['user_id'];
-    $sql = "SELECT staff_ID, password FROM user WHERE user_ID = ?";
+    $sql = "SELECT staff_ID, password, userRole FROM user WHERE user_ID = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userID);
     $stmt->execute();
-    $stmt->bind_result($staffID, $hashedPassword);
+    $stmt->bind_result($staffID, $hashedPassword, $userRole);
     $stmt->fetch();
     $stmt->close();
 
@@ -33,10 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insertActivityStmt->bind_param("is", $staffID, $activityDescription);
             $insertActivityStmt->execute();
             $insertActivityStmt->close();
+
+            // Determine the redirection URL based on userRole
+            $redirectUrl = ($userRole === 'admin') ? '../../index.php?page=admin.requests' : '../../index.php?page=manager.requests';
 ?>
             <script>
-                // alert("Request has been successfully rejected.");
-                window.location.href = '../../index.php?page=manager.requests';
+                window.location.href = '<?php echo $redirectUrl; ?>';
             </script>
 <?php
         } else {
