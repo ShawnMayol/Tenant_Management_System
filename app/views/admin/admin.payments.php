@@ -44,7 +44,7 @@
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h1">Payments</h1>
+        <h1 class="h1">Invoice</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
         <div class="input-group me-2">
                 <input type="text" class="form-control" id="filterInput" placeholder="Search Tenant..." oninput="searchTenants()">
@@ -108,7 +108,7 @@
             FROM tenant t
             JOIN lease l ON t.lease_ID = l.lease_ID
             JOIN user u ON t.tenant_ID = u.tenant_ID
-            WHERE t.tenantType = 'Lessee'
+            WHERE t.tenantType = 'Lessee' AND l.leaseStatus = 'Active'
             ORDER BY l.lease_ID DESC
             ";
 

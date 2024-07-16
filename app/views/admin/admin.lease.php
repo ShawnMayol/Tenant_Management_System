@@ -113,6 +113,7 @@
         <form id="leaseConfirmationForm" action="handlers/manager/leaseHandler.php" method="POST">
             <!-- HIDDEN -->
             <input type="hidden" name="apartmentNumber" value="<?php echo $apartmentNumber; ?>">
+            <input type="hidden" name="rentPerMonth" value="<?php echo $rentPerMonth; ?>">
 
             <div class="row bg-secondary-subtle rounded pt-3 pb-4">
                 <div class="col">

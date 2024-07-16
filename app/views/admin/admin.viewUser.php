@@ -141,7 +141,7 @@ $status = htmlspecialchars($user['userStatus']);
                                     <button type="submit" title="Reset Username and Password to default" class="dropdown-item">Reset Account</button>
                                 </form>
                             </li>
-                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editLeaseModal">Edit Lease</a></li>
+                            <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editLeaseModal">Edit Lease</a></li> -->
                             <li>
                                 <form method="POST" action="<?php echo $status === 'Deactivated' ? 'handlers/admin/tenantActivateAccount.php' : 'handlers/admin/tenantDeactivateAccount.php'; ?>" onsubmit="return confirm('Are you sure you want to <?php echo $status === 'Deactivated' ? 'activate' : 'deactivate'; ?> this account?');" style="display:inline;">
                                     <input type="hidden" name="tenant_id" value="<?php echo $tenant_id ?>">
@@ -166,6 +166,7 @@ $status = htmlspecialchars($user['userStatus']);
                             <div class="position-relative">
                                 <?php $picDirectory = substr($user['picDirectory'], 6); ?>
                                 <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?>">
+                                <p class="text-center mt-3"><a href="?page=admin.viewBilling&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Assessment</a></p>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">
@@ -229,14 +230,14 @@ $status = htmlspecialchars($user['userStatus']);
                                         <th scope="row">End Date</th>
                                         <td class="py-3"><?php echo htmlspecialchars(date('F j, Y', strtotime($lease['endDate']))); ?></td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <th scope="row">Billing Period</th>
                                         <td class="py-3"><?php echo htmlspecialchars($lease['billingPeriod']); ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Security Deposit</th>
                                         <td class="py-3">₱<?php echo htmlspecialchars($lease['securityDeposit']); ?></td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <th scope="row">Lease Status</th>
                                         <td class="py-3">

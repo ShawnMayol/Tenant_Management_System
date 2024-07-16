@@ -54,10 +54,10 @@
             <table id="pinnedTable" class="table table-striped table-hover">
             <thead class="h5">
             <tr>
-            <th>#</th>
-            <th style="width: 30%;">Name</th>
-            <th>Request Date</th>
-            <th>Apartment Type</th>
+            <th style="width: 5%;">#</th>
+            <th style="width: 25%;">Name</th>
+            <th style="width: 20%;">Request Date</th>
+            <th style="width: 20%;">Apartment Type</th>
             <th style="width: 20%;">Apartment Status</th>
             </tr>
             </thead>
@@ -120,11 +120,11 @@
                     }
 
                     echo '<tr class="clickable-row" data-href="?page=admin.viewRequest&request_id=' . $row['request_ID'] . '" style="cursor: pointer;">';
-                    echo '<td class="py-3">' . $count++ . '</td>';
-                    echo '<td class="py-3">' . $fullName . '</td>';
-                    echo '<td class="py-3">' . $formattedDate . '</td>';
-                    echo '<td class="py-3">' . (!empty($row['apartmentType']) ? $row['apartmentType'] : 'Unknown') . '</td>';
-                    echo '<td class="py-3"><span class="badge ' . $statusClass . '">' . $apartmentStatus . '</span></td>';
+                    echo '<td class="py-3" style="width: 5%;">' . $count++ . '</td>';
+                    echo '<td class="py-3" style="width: 25%;">' . $fullName . '</td>';
+                    echo '<td class="py-3" style="width: 20%;">' . $formattedDate . '</td>';
+                    echo '<td class="py-3" style="width: 20%;">' . (!empty($row['apartmentType']) ? $row['apartmentType'] : 'Unknown') . '</td>';
+                    echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass . '">' . $apartmentStatus . '</span></td>';
                     echo '</tr>';
                 }
 
@@ -207,11 +207,11 @@ if ($result_pending->num_rows > 0) {
         }
 
         echo '<tr class="clickable-row" data-href="?page=admin.viewRequest&request_id=' . $row_pending['request_ID'] . '" style="cursor: pointer;">';
-        echo '<td class="py-3">' . $count_pending++ . '</td>';
-        echo '<td class="py-3">' . $fullName_pending . '</td>';
-        echo '<td class="py-3">' . $formattedDate_pending . '</td>';
-        echo '<td class="py-3">' . (!empty($row_pending['apartmentType']) ? $row_pending['apartmentType'] : 'Unknown') . '</td>';
-        echo '<td class="py-3"><span class="badge ' . $statusClass_pending . '">' . $apartmentStatus_pending . '</span></td>';
+        echo '<td class="py-3" style="width: 5%;">' . $count_pending++ . '</td>';
+        echo '<td class="py-3" style="width: 25%;">' . $fullName_pending . '</td>';
+        echo '<td class="py-3" style="width: 20%;">' . $formattedDate_pending . '</td>';
+        echo '<td class="py-3" style="width: 20%;">' . (!empty($row_pending['apartmentType']) ? $row_pending['apartmentType'] : 'Unknown') . '</td>';
+        echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass_pending . '">' . $apartmentStatus_pending . '</span></td>';
         echo '</tr>';
     }
 
@@ -219,7 +219,7 @@ if ($result_pending->num_rows > 0) {
     echo '</table>';
 } else {
     // Handle case where no pending requests are found
-    echo '<p>No pending requests found.</p>';
+    // echo '<p>No pending requests found.</p>';
 }
 
 $conn->close();

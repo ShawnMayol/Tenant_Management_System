@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_ID'])) {
             if ($tenant) {
                 $firstName = $tenant['firstName'];
                 $lastName = $tenant['lastName'];
+                $profile = '../../uploads/tenant/placeholder.jpg';
             } else {
                 echo "Tenant not found.";
                 exit;
@@ -55,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_ID'])) {
             if ($staff) {
                 $firstName = $staff['firstName'];
                 $lastName = $staff['lastName'];
+                $profile = '../../uploads/staff/placeholder.jpg';
             } else {
                 echo "Staff not found.";
                 exit;
@@ -66,12 +68,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_ID'])) {
 
         // Set default username and password
         $defaultUsername = $firstName . $lastName . $user_ID;
+        $defaultProfile = $profile;
         $defaultPassword = password_hash($firstName . $lastName . $user_ID, PASSWORD_DEFAULT);
 
         // Update user details
-        $updateSql = "UPDATE user SET username = ?, password = ? WHERE user_ID = ?";
+        $updateSql = "UPDATE user SET username = ?, password = ?, picDirectory = ? WHERE user_ID = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("ssi", $defaultUsername, $defaultPassword, $user_ID);
+        $updateStmt->bind_param("sssi", $defaultUsername, $defaultPassword, $defaultProfile, $user_ID);
 
         if ($updateStmt->execute()) {
             // echo "Account reset successfully.";

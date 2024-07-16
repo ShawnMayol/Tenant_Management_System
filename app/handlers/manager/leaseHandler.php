@@ -9,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $apartmentNumber = $_POST['apartmentNumber'];
+    $rentPerMonth = $_POST['rentPerMonth'];
     $startDate = $_POST['startDate'];
     $endDate = $_POST['endDate'];
     $billingPeriod = $_POST['billingPeriod'];
@@ -63,11 +64,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert lease information
-        $stmt = $conn->prepare("INSERT INTO lease (apartmentNumber, startDate, endDate, billingPeriod, rentalDeposit, securityDeposit, reviewedBy) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssssi", $apartmentNumber, $startDate, $endDate, $billingPeriod, $rentalDeposit, $securityDeposit, $staffID);
+        $stmt = $conn->prepare("INSERT INTO lease (apartmentNumber, startDate, endDate, billingPeriod, securityDeposit, reviewedBy) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("issssi", $apartmentNumber, $startDate, $endDate, $billingPeriod, $securityDeposit, $staffID);
         $stmt->execute();
         $leaseID = $stmt->insert_id; // Get the auto-generated lease ID
         $stmt->close();
+
+        // Generate monthly bills
+        $startDateTime = new DateTime($startDate);
+        $dueDate = clone $startDateTime; // Start from the lease start date
+        $dueDate->modify('+1 month'); // First bill due date is one month after the start date
+        $endDateTime = new DateTime($endDate);
+
+        $stmt = $conn->prepare("INSERT INTO bill (lease_ID, amountDue, dueDate) VALUES (?, ?, ?)");
+        $stmt->bind_param("iss", $leaseID, $rentPerMonth, $dueDateStr);
+
+        while ($dueDate <= $endDateTime) {
+            $dueDateStr = $dueDate->format('Y-m-d');
+            $stmt->execute();
+            $dueDate->modify('+1 month');
+        }
 
         // Update apartment status to 'Occupied' and set availableBy to end date of lease
         $stmt = $conn->prepare("UPDATE apartment SET apartmentStatus = 'Occupied', availableBy = ? WHERE apartmentNumber = ?");

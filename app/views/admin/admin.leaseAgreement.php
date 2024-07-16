@@ -149,6 +149,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
             <input type="hidden" name="apartmentNumber" value="<?php echo htmlspecialchars($apartment['apartmentNumber']); ?>">
             <input type="hidden" name="securityDeposit" value="<?php echo htmlspecialchars($apartment['rentPerMonth']); ?>">
             <input type="hidden" name="requestID" value="<?php echo htmlspecialchars($requestID); ?>">
+            <input type="hidden" name="rentPerMonth" value="<?php echo $rentPerMonth; ?>">
 
             <div class="row bg-secondary-subtle rounded pt-3 pb-4">
                 <div class="col">
