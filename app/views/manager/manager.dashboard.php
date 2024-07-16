@@ -123,6 +123,8 @@
                     // Format the timestamp into a readable format
                     $created_at = date('l, F j, Y, h:i A', strtotime($row['created_at']));
 
+                    $content = nl2br(htmlspecialchars($row['content']));
+                    
                     // Output the announcement HTML
                     echo '<div class="col-md-12 mb-4">';
                     echo '<div class="card">';
@@ -138,7 +140,7 @@
                     echo '<p class="card-text text-muted mb-3">' . htmlspecialchars($created_at) . '</p>';
 
                     echo '<h5 class="card-subtitle mb-3">' . htmlspecialchars($row['title']) . '</h5>';
-                    echo '<p class="card-text">' . htmlspecialchars($row['content']) . '</p>';
+                    echo '<p class="card-text">' . $content . '</p>';
                     echo '</div>';
 
                     echo '</div>'; // .card-body

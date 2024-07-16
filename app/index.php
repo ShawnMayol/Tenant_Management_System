@@ -94,7 +94,7 @@ if ($statusResult->num_rows === 1) {
       } elseif ($userRole === 'manager') {
           $modalTarget = '#staffAccountModal';
       } elseif ($userRole === 'tenant') {
-          $modalTarget = '#tenantModal';
+          $modalTarget = '#tenantAccountModal';
       } else {
           $modalTarget = '#staffAccountModal'; // Default to staff modal for safety
       }
@@ -174,8 +174,38 @@ if ($statusResult->num_rows === 1) {
           $page = 'views/manager/manager.dashboard';
           break;
         case 'tenant':
+          include('core/database.php');
+      
+          // Query to get tenant_ID
+          $sql = "SELECT tenant_ID FROM user WHERE user_ID = ?";
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("i", $user_id);
+          $stmt->execute();
+          $stmt->bind_result($tenant_id);
+          $stmt->fetch();
+          $stmt->close();
+      
+          // Query to get lease_ID
+          $sql = "SELECT lease_ID FROM tenant WHERE tenant_ID = ?";
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("i", $tenant_id);
+          $stmt->execute();
+          $stmt->bind_result($lease_id);
+          $stmt->fetch();
+          $stmt->close();
+      
+          // Query to get apartmentNumber using lease_ID
+          $sql = "SELECT apartmentNumber FROM lease WHERE lease_ID = ?";
+          $stmt = $conn->prepare($sql);
+          $stmt->bind_param("i", $lease_id);
+          $stmt->execute();
+          $stmt->bind_result($apartmentNumber);
+          $stmt->fetch();
+          $stmt->close();
+      
           $sideBar = 'views/tenant/tenant.sidebar';
           $page = 'views/tenant/tenant.dashboard';
+          $conn->close();
           break;
         default:
         echo ('error');

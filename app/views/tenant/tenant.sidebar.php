@@ -59,29 +59,29 @@
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'tenant.dashboard' ? '#house-fill' : '#house'; ?>" />
                   </svg>
-                  Announcements
+                  Dashboard
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.apartments' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.apartments">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.apartment' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.apartment&apartment=<?php echo $apartmentNumber; ?>">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'tenant.apartments' ? '#building-fill' : '#building'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'tenant.apartment' ? '#building-fill' : '#building'; ?>" />
                   </svg>
                   Apartment
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.invoice' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.invoice">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.viewBilling' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.viewBilling&tenant_id=<?php echo $tenant_id; ?>">
                     <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <use xlink:href="<?php echo $currentPage === 'tenant.invoice' ? '#file-earmark-text-fill' : '#file-earmark-text'; ?>" />
+                        <use xlink:href="<?php echo $currentPage === 'tenant.viewBilling' ? '#credit-card-fill' : '#credit-card'; ?>" />
                     </svg>
-                    Invoice
+                    Assessment
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.bill' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.transactionLog">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.transactionLog' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.transactionLog">
                     <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <use xlink:href="<?php echo $currentPage === 'tenant.bill' ? '#credit-card-fill' : '#credit-card'; ?>" />
+                        <use xlink:href="<?php echo $currentPage === 'tenant.transactionLog' ? '#cash-stack' : '#cash-stack'; ?>" />
                     </svg>
                     Transaction History
                 </a>
@@ -92,7 +92,7 @@
 
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#accountModal">
+                <a class="nav-link d-flex align-items-center gap-2 highlight" href="#" data-bs-toggle="modal" data-bs-target="#tenantAccountModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
                         <use xlink:href="#person-gear" />
                     </svg>
@@ -100,7 +100,7 @@
                 </a>
             </li>
 
-            <?php include('views/tenant/modal.tenantAccount.php'); ?>
+            <?php include('views/common/modal.account.php'); ?>
             <?php include('views/common/modal.changePassword.php'); ?>
 
             <li class="nav-item">

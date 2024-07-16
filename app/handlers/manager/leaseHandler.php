@@ -6,6 +6,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $managerPassword = $_POST['managerPassword'];
     if(isset($_POST['requestID'])) {
         $requestID = $_POST['requestID'];
+    } else {
+        $requestID = '';
     }
 
     $apartmentNumber = $_POST['apartmentNumber'];
@@ -82,8 +84,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         while ($dueDate <= $endDateTime) {
             $dueDateStr = $dueDate->format('Y-m-d');
             $stmt->execute();
+            // Capture the first bill ID
+            if ($dueDate == clone $startDateTime->modify('+1 month')) {
+                $firstBillID = $stmt->insert_id;
+            }
             $dueDate->modify('+1 month');
         }
+        $stmt->close();
+        
+        $stmt = $conn->prepare("INSERT INTO payments (bill_ID, paymentAmount, receivedBy, paymentDate, paymentStatus) VALUES (?, ?, ?, NOW(), 'Received')");
+        $stmt->bind_param("isi", $firstBillID, $rentalDeposit, $staffID);
+        $stmt->execute();
+        $stmt->close();
+        
+        $conn->close();
 
         // Update apartment status to 'Occupied' and set availableBy to end date of lease
         $stmt = $conn->prepare("UPDATE apartment SET apartmentStatus = 'Occupied', availableBy = ? WHERE apartmentNumber = ?");

@@ -1,6 +1,6 @@
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h1">FAQ</h1>
+        <h1 class="h1">FAQ - Frequently Asked Questions</h1>
     </div>
     <div class="row mt-5 px-4">
         <div class="col-md-9">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <h5>Sections</h5>
+            <h5>Table of Contents</h5>
             <hr>
             <a href="#q1" style="text-decoration: none;"><h6>1. What is the difference between Deposit and Security Deposit?</h6></a>
             <a href="#q2" style="text-decoration: none;"><h6>2. How can I pay my rent?</h6></a>

@@ -1,161 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
-<style>
-    .icon-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 1em; /* Ensure the container has a fixed width */
-    }
-    .icon-default,
-    .icon-hover {
-        position: absolute;
-        top: -13px;
-        left: 0;
-    }
-    .icon-default-2 {
-        position: absolute;
-        top: -13px;
-        left: 0;
-    }
-    .icon-hover {
-        display: none;
-    }
-
-    .icon-wrapper:hover .icon-default {
-        display: none;
-    }
-
-    .icon-wrapper:hover .icon-hover {
-        display: inline;
-    }
-    .custom-icon {
-        font-size: 28px;
-    }
-    .dropdown-toggle:hover {
-        cursor: pointer;
-    }
-    /* Hide the dropdown caret */
-    .dropdown-toggle::after {
-        display: none;
-    }
-    .clickable-row {
-        cursor: pointer;
-    }
-    .card.bg-danger:hover {
-    background-color: #dc3545;
-    filter: brightness(108%);
-    }
-
-    .card.bg-success:hover {
-        background-color: #198754;
-        filter: brightness(108%);
-    }
-
-    .card.bg-primary:hover {
-        background-color: #0d6efd;
-        filter: brightness(108%);
-    }
-
-    .card.bg-warning:hover {
-        background-color: #ffc107;
-        filter: brightness(108%);
-    }
-</style>
-
-<?php
-include('core/database.php');
-
-if (isset($_GET['tenant_id'])) {
-    $tenant_id = $_GET['tenant_id'];
-
-    // Query tenant information
-    $tenantSql = "SELECT * FROM tenant WHERE tenant_ID = ?";
-    $tenantStmt = $conn->prepare($tenantSql);
-    $tenantStmt->bind_param("i", $tenant_id);
-    $tenantStmt->execute();
-    $tenantResult = $tenantStmt->get_result();
-    $tenant = $tenantResult->fetch_assoc();
-
-    if ($tenant) {
-        // Query user information
-        $userSql = "SELECT u.*, u.picDirectory 
-                    FROM user u
-                    INNER JOIN tenant t ON u.tenant_ID = t.tenant_ID
-                    WHERE u.tenant_ID = ?";
-        $userStmt = $conn->prepare($userSql);
-        $userStmt->bind_param("i", $tenant_id);
-        $userStmt->execute();
-        $userResult = $userStmt->get_result();
-        $user = $userResult->fetch_assoc();
-
-        if (!empty($tenant['lease_ID'])) {
-            // Query lease information
-            $leaseSql = "SELECT * FROM lease WHERE lease_ID = ?";
-            $leaseStmt = $conn->prepare($leaseSql);
-            $leaseStmt->bind_param("i", $tenant['lease_ID']);
-            $leaseStmt->execute();
-            $leaseResult = $leaseStmt->get_result();
-            $lease = $leaseResult->fetch_assoc();
-
-            // Query occupants associated with the lease
-            $occupantSql = "SELECT * FROM tenant WHERE lease_ID = ? AND tenantType = 'Occupant'";
-            $occupantStmt = $conn->prepare($occupantSql);
-            $occupantStmt->bind_param("i", $tenant['lease_ID']);
-            $occupantStmt->execute();
-            $occupantResult = $occupantStmt->get_result();
-
-            $occupants = [];
-            while ($row = $occupantResult->fetch_assoc()) {
-                $occupants[] = $row;
-            }
-
-            // Query bills associated with the lease
-            $billSql = "SELECT * FROM bill WHERE lease_ID = ?";
-            $billStmt = $conn->prepare($billSql);
-            $billStmt->bind_param("i", $tenant['lease_ID']);
-            $billStmt->execute();
-            $billResult = $billStmt->get_result();
-
-            $bills = [];
-            while ($row = $billResult->fetch_assoc()) {
-                // Store each bill's data into variables
-                $bill_ID = $row['bill_ID'];
-                $bill_lease_ID = $row['lease_ID'];
-                $bill_billStatus = $row['billStatus'];
-                $bill_amountDue = $row['amountDue'];
-                $bill_lateFees = $row['lateFees'];
-                $bill_amountPaid = $row['amountPaid'];
-                $bill_dueDate = $row['dueDate'];
-
-                // Store these variables into an array or use them as needed
-                $bills[] = [
-                    'bill_ID' => $bill_ID,
-                    'lease_ID' => $bill_lease_ID,
-                    'billStatus' => $bill_billStatus,
-                    'amountDue' => $bill_amountDue,
-                    'lateFees' => $bill_lateFees,
-                    'amountPaid' => $bill_amountPaid,
-                    'dueDate' => $bill_dueDate
-                ];
-            }
-        } else {
-            $lease = null;
-            $occupants = [];
-            $bills = [];
-        }
-    } else {
-        echo "Tenant not found.";
-        exit;
-    }
-
-    $conn->close();
-} else {
-    echo "Tenant ID is not specified.";
-    exit;
-}
-$status = htmlspecialchars($user['userStatus']);
-?>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -172,16 +16,16 @@ $status = htmlspecialchars($user['userStatus']);
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="container">
             <div class="row">
-                <div class="col-auto ps-2 pe-3">
+                <!-- <div class="col-auto ps-2 pe-3">
                     <a href="?page=admin.payments" class="icon-wrapper" style="text-decoration: none;">
                         <i class="bi bi-arrow-left-circle text-secondary h2 icon-default"></i>
                         <i class="bi bi-arrow-left-circle-fill text-secondary h2 icon-hover"></i>
                     </a>
-                </div>
+                </div> -->
                 <div class="col">
                     <h1 class="h1 m-0"><?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?></h1>
                 </div>
-                <div class="col-auto pe-5">
+                <!-- <div class="col-auto pe-5">
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical fs-3 dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -192,7 +36,7 @@ $status = htmlspecialchars($user['userStatus']);
                                     <button type="submit" title="Reset Username and Password to default" class="dropdown-item">Reset Account</button>
                                 </form>
                             </li>
-                            <!-- <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editLeaseModal">Edit Lease</a></li> -->
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editLeaseModal">Edit Lease</a></li>
                             <li>
                                 <form method="POST" action="<?php echo $status === 'Deactivated' ? 'handlers/admin/tenantActivateAccount.php' : 'handlers/admin/tenantDeactivateAccount.php'; ?>" onsubmit="return confirm('Are you sure you want to <?php echo $status === 'Deactivated' ? 'activate' : 'deactivate'; ?> this account?');" style="display:inline;">
                                     <input type="hidden" name="tenant_id" value="<?php echo $tenant_id ?>">
@@ -201,7 +45,7 @@ $status = htmlspecialchars($user['userStatus']);
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -217,7 +61,7 @@ $status = htmlspecialchars($user['userStatus']);
                             <div class="position-relative">
                                 <?php $picDirectory = substr($user['picDirectory'], 6); ?>
                                 <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?>">
-                                <p class="text-center mt-3"><a href="?page=admin.viewUser&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Occupants</a></p>
+                                <p class="text-center mt-3"><a href="?page=tenant.viewUser&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Occupants</a></p>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">
@@ -269,7 +113,7 @@ $status = htmlspecialchars($user['userStatus']);
                         <table class="table table-striped table-hover">
                             <tbody>
                                 <?php if ($lease): ?>
-                                    <tr class="clickable-row" data-href="?page=admin.viewApartment&apartment=<?php echo htmlspecialchars($lease['apartmentNumber']); ?>">
+                                    <tr class="clickable-row" data-href="?page=tenant.apartment&apartment=<?php echo htmlspecialchars($lease['apartmentNumber']); ?>">
                                         <th scope="row">Apartment Number</th>
                                         <td class="py-3"><?php echo htmlspecialchars($lease['apartmentNumber']); ?></td>
                                     </tr>
@@ -311,12 +155,6 @@ $status = htmlspecialchars($user['userStatus']);
                                             ?>
                                             <span class="badge <?php echo $leaseStatusClass; ?>"><?php echo ucfirst($leaseStatus); ?></span>
                                         </td>
-                                        <?php if ($lease['reviewedBy'] != 1): ?>
-                                            <tr class="clickable-row" data-href="?page=admin.viewManager&staff_id=<?php echo htmlspecialchars($lease['reviewedBy']); ?>">
-                                                <th scope="row">Reviewed by Staff Number</th>
-                                                <td class="py-3"><?php echo htmlspecialchars($lease['reviewedBy']); ?></td>
-                                            </tr>
-                                        <?php endif; ?>
                                     </tr>
                                 <?php else: ?>
                                     <tr>
@@ -394,13 +232,13 @@ $status = htmlspecialchars($user['userStatus']);
                     </div>
                 </div>
                 <div class="col-3">
-                    <!-- <a href="" class="text-decoration-none">
+                    <a href="" class="text-decoration-none">
                         <div class="card text-white bg-success my-3">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-cash h3" style="margin-right: 15px;"></i> Make Payment</h5>
                             </div>
                         </div>
-                    </a> -->
+                    </a>
                     <div class="card text-white bg-danger my-3">
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-cash-stack h3" style="margin-right: 15px;"></i> Overdue Fees</h5>
@@ -430,3 +268,13 @@ $status = htmlspecialchars($user['userStatus']);
         </div>
     </div>
 </main>
+  <footer class="py-3 my-4">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+      <li class="nav-item"><a href="<?= htmlspecialchars($dashboardPage) ?>" class="nav-link px-2 text-body-secondary">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+      <li class="nav-item"><a href="?page=../../views/common/faq" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+    </ul>
+    <p class="text-center text-body-secondary">&copy; C-Apartments 2024</p>
+  </footer>
