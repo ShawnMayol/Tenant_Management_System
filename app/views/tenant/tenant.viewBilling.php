@@ -179,7 +179,8 @@ $status = htmlspecialchars($user['userStatus']);
                     </a>
                 </div> -->
                 <div class="col">
-                    <h1 class="h1 m-0"><?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?></h1>
+                    <!-- <h1 class="h1 m-0"><?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?></h1> -->
+                    <h1 class="h1 m-0">Assessment</h1>
                 </div>
                 <!-- <div class="col-auto pe-5">
                     <div class="dropdown">
@@ -210,7 +211,7 @@ $status = htmlspecialchars($user['userStatus']);
     <?php include 'views/admin/modal.editLease.php'; ?>
 
     <div class="container mt-4">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-5 col-md-12 mt-3">
@@ -281,14 +282,14 @@ $status = htmlspecialchars($user['userStatus']);
                                         <th scope="row">End Date</th>
                                         <td class="py-3"><?php echo htmlspecialchars(date('F j, Y', strtotime($lease['endDate']))); ?></td>
                                     </tr>
-                                    <!-- <tr>
+                                    <tr>
                                         <th scope="row">Billing Period</th>
                                         <td class="py-3"><?php echo htmlspecialchars($lease['billingPeriod']); ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Security Deposit</th>
                                         <td class="py-3">₱<?php echo htmlspecialchars($lease['securityDeposit']); ?></td>
-                                    </tr> -->
+                                    </tr>
                                     <tr>
                                         <th scope="row">Lease Status</th>
                                         <td class="py-3">
@@ -322,7 +323,7 @@ $status = htmlspecialchars($user['userStatus']);
                     </div>
                 
                 </div>
-            </div>
+            </div> -->
             <?php
                 // Initialize total
                 $totalRent = 0.00;
@@ -341,8 +342,8 @@ $status = htmlspecialchars($user['userStatus']);
                 }
             ?>
             <div class="row mt-4">
-                <h1 class="h3">Assessment</h1>
-                <hr>
+                <!-- <h1 class="h3">Assessment</h1>
+                <hr> -->
                 <div class="col-9">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
@@ -358,20 +359,20 @@ $status = htmlspecialchars($user['userStatus']);
                             <tbody>
                                 <?php foreach ($bills as $bill): ?>
                                 <tr>
-                                    <td><strong><?php echo date('F j, Y', strtotime($bill['dueDate'])); ?></strong></td>
-                                    <td><?php echo number_format($bill['amountDue'], 2); ?></td>
-                                    <td><?php echo number_format($bill['lateFees'], 2); ?></td>
-                                    <td><?php echo number_format($bill['amountPaid'], 2); ?></td>
-                                    <td><?php echo number_format(($bill['amountDue'] + $bill['lateFees']) - $bill['amountPaid'], 2); ?></td>
+                                    <td class="py-3"><strong><?php echo date('F j, Y', strtotime($bill['dueDate'])); ?></strong></td>
+                                    <td class="py-3"><?php echo number_format($bill['amountDue'], 2); ?></td>
+                                    <td class="py-3"><?php echo number_format($bill['lateFees'], 2); ?></td>
+                                    <td class="py-3"><?php echo number_format($bill['amountPaid'], 2); ?></td>
+                                    <td class="py-3"><?php echo number_format(($bill['amountDue'] + $bill['lateFees']) - $bill['amountPaid'], 2); ?></td>
                                 </tr>
                                 <?php endforeach; ?>
 
                                 <tr>
-                                    <td class="fw-bold">Total</td>
-                                    <td class="fw-bold"><?php echo number_format($totalRent, 2); ?></td>
-                                    <td class="fw-bold"><?php echo number_format($totalLateFees, 2); ?></td>
-                                    <td class="fw-bold"><?php echo number_format($totalPaid, 2); ?></td>
-                                    <td class="fw-bold"><?php echo number_format($totalBalance, 2); ?></td>
+                                    <td class="fw-bold py-3">Total</td>
+                                    <td class="fw-bold py-3"><?php echo number_format($totalRent, 2); ?></td>
+                                    <td class="fw-bold py-3"><?php echo number_format($totalLateFees, 2); ?></td>
+                                    <td class="fw-bold py-3"><?php echo number_format($totalPaid, 2); ?></td>
+                                    <td class="fw-bold py-3"><?php echo number_format($totalBalance, 2); ?></td>
                                 </tr>
 
                                 <tr>
@@ -388,7 +389,7 @@ $status = htmlspecialchars($user['userStatus']);
                     </div>
                 </div>
                 <div class="col-3">
-                    <a href="" class="text-decoration-none">
+                    <a href="?page=tenant.payment&payment=paymentOptions" class="text-decoration-none">
                         <div class="card text-white bg-success my-3">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="bi bi-cash h3" style="margin-right: 15px;"></i> Make Payment</h5>

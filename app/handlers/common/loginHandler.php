@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../../index.php?page=manager.dashboard");
                 exit();
             } else if ($user['userRole'] == 'Tenant') {
+                $_SESSION['tenant_id'] = $user['tenant_ID'];
                 header("Location: ../../index.php?page=tenant.dashboard");
                 exit();
             } else {

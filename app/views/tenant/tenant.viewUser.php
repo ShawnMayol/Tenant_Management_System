@@ -166,7 +166,7 @@ $status = htmlspecialchars($user['userStatus']);
                             <div class="position-relative">
                                 <?php $picDirectory = substr($user['picDirectory'], 6); ?>
                                 <img src="<?php echo htmlspecialchars($picDirectory); ?>" style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow" alt="<?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?>">
-                                <p class="text-center mt-3"><a href="?page=tenant.viewBilling&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Assessment</a></p>
+                                <!-- <p class="text-center mt-3"><a href="?page=tenant.viewBilling&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Assessment</a></p> -->
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-12">

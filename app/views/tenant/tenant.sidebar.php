@@ -41,7 +41,7 @@
 
 <div class="container-fluid">    
     <div class="row">
-      <div class="sidebar position-fixed border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+      <div class="sidebar position-fixed border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary shadow">
         <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="sidebarMenuLabel">C-Apartments</h5>
@@ -60,6 +60,14 @@
                       <use xlink:href="<?php echo $currentPage === 'tenant.dashboard' ? '#house-fill' : '#house'; ?>" />
                   </svg>
                   Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.viewUser' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.viewUser&tenant_id=<?php echo $tenant_id; ?>">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'tenant.viewUser' ? '#file-earmark-text-fill' : '#file-earmark-text'; ?>" />
+                  </svg>
+                  Lease
                 </a>
               </li>
               <li class="nav-item">
