@@ -3,7 +3,7 @@
 
 <?php
   session_start();
-
+  date_default_timezone_set('Asia/Manila');
 // Debugging: Check session values
   // print_r($_SESSION);
   // print_r($_GET);

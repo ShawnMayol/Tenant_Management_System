@@ -89,7 +89,7 @@
                         $status = 'bg-success';
                     }
 
-                    echo '<tr class="clickable-row" data-href="?page=admin.viewRequest&request_id=' . $row['request_ID'] . '">';
+                    echo '<tr class="clickable-row" data-href="?page=admin.viewMaintenance&request_id=' . $row['request_ID'] . '">';
                     echo '<td class="py-3">';
                     echo '<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; margin-left: 20px;">';
                     echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 30px; height: 30px; object-fit: cover;" alt="User Picture">';

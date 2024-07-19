@@ -50,13 +50,13 @@
         </a>
     </div>
 
-    <!-- Overdue Payments Card -->
+    <!-- Maintenance Requests Card -->
     <div class="col-md-4 mb-4">
-        <a href="overdue-payments.php" class="card-link">
+        <a href="?page=admin.maintenance" class="card-link">
             <div class="card text-white bg-danger hover-card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-exclamation-triangle" style="margin-right: 10px;"></i> Overdue Payments</h5>
-                    <p class="card-text display-4">0</p>
+                    <h5 class="card-title"><i class="bi bi-tools" style="margin-right: 10px;"></i> Maintenance Requests</h5>
+                    <p class="card-text display-4"><?php echo $totalRequests; ?></p>
                 </div>
             </div>
         </a>

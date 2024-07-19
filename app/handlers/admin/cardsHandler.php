@@ -54,3 +54,14 @@
     } else {
         echo "Error: " . $conn->error;
     }
+
+    $totalRequests = 0;
+    $sql = "SELECT COUNT(*) as totalRequests FROM maintenancerequests WHERE status IN ('Pending', 'In Progress')";
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->execute();
+        $stmt->bind_result($totalRequests);
+        $stmt->fetch();
+        $stmt->close();
+    } else {
+        echo "Error: " . $conn->error;
+    }

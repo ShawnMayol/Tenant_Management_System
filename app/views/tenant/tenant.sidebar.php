@@ -102,17 +102,17 @@
             </h6>
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.staff' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.staff">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.payment' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.payment&payment=paymentOptions">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.staff' ? '#file-code-fill' : '#file-code'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'tenant.payment' ? '#credit-card-fill' : '#credit-card'; ?>" />
                   </svg>
                   Make payment
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.analytics' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.analytics">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'tenant.maintenance' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=tenant.maintenance">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.analytics' ? '#bar-chart-line-fill' : '#bar-chart-line'; ?>" />
+                      <use xlink:href="<?php echo $currentPage === 'tenant.maintenance' ? '#wrench-fill' : '#wrench'; ?>" />
                   </svg>
                   Request Maintenance
                 </a>
