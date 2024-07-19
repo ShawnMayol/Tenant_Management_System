@@ -21,7 +21,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Payment Summary</h2>
+                        <h2 class="card-title">Assessment Summary</h2>
                         <p><strong>Total Amount Due:</strong> ₱<?php echo number_format($totalBalance, 2); ?></p>
                         <p><strong>Last Payment Date:</strong> <?php echo date('F j, Y', strtotime($lastPaymentDate)); ?></p>
                         <p><strong>Last Payment Amount:</strong> ₱<?php echo number_format($lastPaymentAmount, 2); ?></p>

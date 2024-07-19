@@ -96,6 +96,29 @@
               </li>
             </ul>
 
+            <h6
+              class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+              <span>TENANT</span>
+            </h6>
+            <ul class="nav flex-column mb-auto">
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.staff' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.staff">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'admin.staff' ? '#file-code-fill' : '#file-code'; ?>" />
+                  </svg>
+                  Make payment
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.analytics' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.analytics">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'admin.analytics' ? '#bar-chart-line-fill' : '#bar-chart-line'; ?>" />
+                  </svg>
+                  Request Maintenance
+                </a>
+              </li>
+            </ul>
+
             <hr class="my-3">
 
           <ul class="nav flex-column mb-auto">
