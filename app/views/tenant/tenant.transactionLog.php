@@ -14,27 +14,23 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Invoice #</th>
-                                <th>Payment Method</th>
-                                <th>Amount Paid</th>
-                                <th>Overpayment</th>
-                                <th>Outstanding Balance</th>
-                                <th>Verified By</th>
-                                <th>Transaction Status</th>
-                                <th>Payment Date</th>
+                                <th class="text-center">Bill #</th>
+                                <th class="text-center">Amount Paid</th>
+                                <th class="text-center">Proof of Payment</th>
+                                <th class="text-center">Payment Date</th>
+                                <th class="text-center">Transaction Status</th>
+                                <th class="text-center">Received By: </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($bill as $bill): ?>
+                            <?php foreach ($paymentsLog as $plogs): ?>
                                 <tr>
-                                    <td><?php echo $bill['invoice_ID']; ?></td>
-                                    <td><?php echo $bill['paymentMethod']; ?></td>
-                                    <td><?php echo $bill['amountPaid']; ?></td>
-                                    <td><?php echo $bill['overpayment']; ?></td>
-                                    <td><?php echo $bill['outstandingBalance']; ?></td>
-                                    <td><?php echo $bill['receivedBy']; ?></td>
-                                    <td><?php echo $bill['transactionStatus']; ?></td>
-                                    <td><?php echo $bill['paymentDate']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['bill_ID']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['paymentAmount']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['proofOfPayment']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['paymentDate']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['paymentStatus']; ?></td>
+                                    <td class="text-center"><?php echo $plogs['Staff']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
