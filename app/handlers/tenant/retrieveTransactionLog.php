@@ -9,22 +9,29 @@ if (!$loggedInUserID) {
 }
 
 // SQL query to retrieve payment history
-$sql = "SELECT *
-        FROM bill bi
-        JOIN transactionlog tr ON tr.bill_ID = bi.bill_ID
-        JOIN user us ON tr.user_ID = us.user_ID
+$sql = "SELECT p.*, CONCAT(s.firstName,' ',s.lastName) AS Staff
+        FROM payments p
+        JOIN bill b ON b.bill_ID = p.bill_ID
+        JOIN lease l ON l.lease_ID = b.lease_ID
+        JOIN tenant t ON t.lease_ID = b.lease_ID
+        JOIN staff s ON s.staff_ID = p.receivedBy
+        JOIN user us ON us.tenant_ID = t.tenant_ID
         WHERE us.user_ID = $loggedInUserID
-        ORDER BY tr.transaction_ID DESC";
+        ORDER BY p.payment_ID DESC";
 $result = $conn->query($sql);
 
-$bill = [];
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
+
+$paymentsLog = [];
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $bill[] = $row;
+        $paymentsLog[] = $row;
     }
 } else {
-    $bill = [];
+    $paymentsLog = [];
 }
 
 $conn->close();
-?>
+

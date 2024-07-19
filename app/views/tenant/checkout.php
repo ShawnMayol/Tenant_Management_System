@@ -11,13 +11,13 @@
                 <h2 class="card-title mb-0">Upload your proof of payment</h2>
             </div>
             <form method="POST" action="handlers/tenant/uploadProof.php" id="paymentForm">
-                <div class="mb-3">
-                    <label for="paymentAmount" class="form-label">Payment Amount</label>
-                    <input type="number" class="form-control py-2" id="paymentAmount" placeholder="Payment Amount" min="0" name="paymentAmount" value="0" pattern="[0-9]*" required>
-                    <div class="invalid-feedback">
-                        Please enter a valid amount.
-                    </div>
-                </div>
+                    <!-- <div class="mb-3">
+                        <label for="paymentAmount" class="form-label">Payment Amount</label>
+                        <input type="number" class="form-control py-2" id="paymentAmount" placeholder="Payment Amount" min="0" name="paymentAmount" value="0" pattern="[0-9]*" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid amount.
+                        </div>
+                    </div> -->
                 <div class="mb-3">
                     <label for="proofOfPayment" class="form-label">Proof of Payment</label>
                     <input type="file" class="form-control py-2" id="proofOfPayment" name="proofOfPayment" accept="image/*, .pdf" required>

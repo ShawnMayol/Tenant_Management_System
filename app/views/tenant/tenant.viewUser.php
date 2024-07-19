@@ -71,7 +71,10 @@ if (isset($_GET['tenant_id'])) {
 
         if (!empty($tenant['lease_ID'])) {
             // Query lease information
-            $leaseSql = "SELECT * FROM lease WHERE lease_ID = ?";
+            $leaseSql = "SELECT l.*, CONCAT(s.firstName,' ',s.lastName) AS Staff 
+                        FROM lease l 
+                        JOIN staff s ON s.staff_ID = l.reviewedBy
+                        WHERE lease_ID = ?";
             $leaseStmt = $conn->prepare($leaseSql);
             $leaseStmt->bind_param("i", $tenant['lease_ID']);
             $leaseStmt->execute();
@@ -260,6 +263,10 @@ $status = htmlspecialchars($user['userStatus']);
                                             ?>
                                             <span class="badge <?php echo $leaseStatusClass; ?>"><?php echo ucfirst($leaseStatus); ?></span>
                                         </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Approved By:</th>
+                                        <td class="py-3"><?php echo $lease['Staff']; ?></td>
                                     </tr>
                                 <?php else: ?>
                                     <tr>

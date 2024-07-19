@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2024 at 05:16 PM
+-- Generation Time: Jul 19, 2024 at 08:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,7 +85,81 @@ INSERT INTO `activity` (`activity_ID`, `staff_ID`, `activityDescription`, `activ
 (44, 2, 'Account Deactivated', '2024-07-14 14:49:32'),
 (45, 2, 'Account Activated', '2024-07-14 14:49:52'),
 (46, 2, 'Login', '2024-07-14 14:49:58'),
-(47, 2, 'Logout', '2024-07-14 14:57:14');
+(47, 2, 'Logout', '2024-07-14 14:57:14'),
+(48, 1, 'Logout', '2024-07-15 02:53:37'),
+(49, 2, 'Login', '2024-07-15 02:54:32'),
+(50, 2, 'Approved lease 3', '2024-07-15 03:01:36'),
+(51, 1, 'Login', '2024-07-15 03:03:04'),
+(52, 2, 'Account Deactivated', '2024-07-15 03:06:57'),
+(53, 2, 'Account Activated', '2024-07-15 03:07:21'),
+(54, 2, 'Login', '2024-07-15 03:07:34'),
+(55, 1, 'Edit announcement 1', '2024-07-15 03:08:25'),
+(56, 2, 'Logout', '2024-07-15 03:09:46'),
+(57, 2, 'Login', '2024-07-15 03:24:18'),
+(58, 2, 'Logout', '2024-07-15 04:00:36'),
+(59, 1, 'Logout', '2024-07-15 04:00:40'),
+(60, 1, 'Login', '2024-07-15 04:00:50'),
+(61, 1, 'Logout', '2024-07-15 06:29:18'),
+(62, 1, 'Login', '2024-07-15 06:29:31'),
+(63, 1, 'Logout', '2024-07-15 07:29:27'),
+(64, 1, 'Login', '2024-07-15 07:30:33'),
+(65, 1, 'Logout', '2024-07-15 07:31:55'),
+(66, 2, 'Login', '2024-07-15 07:32:03'),
+(67, 1, 'Login', '2024-07-15 07:37:17'),
+(68, 1, 'Logout', '2024-07-15 07:40:23'),
+(69, 1, 'Login', '2024-07-15 07:40:39'),
+(70, 2, 'Logout', '2024-07-15 07:42:47'),
+(71, 1, 'Login', '2024-07-15 14:16:08'),
+(72, 2, 'Login', '2024-07-15 14:17:07'),
+(73, 2, 'Logout', '2024-07-15 14:17:26'),
+(74, 2, 'Login', '2024-07-15 14:17:31'),
+(75, 2, 'Logout', '2024-07-15 14:37:07'),
+(76, 1, 'Pinned request 4', '2024-07-15 15:29:18'),
+(77, 1, 'Unpinned request 4', '2024-07-15 15:31:22'),
+(78, 1, 'Pinned request 4', '2024-07-15 15:31:29'),
+(79, 1, 'Unpinned request 4', '2024-07-15 15:47:35'),
+(80, 1, 'Pinned request 4', '2024-07-15 15:48:38'),
+(81, 1, 'Pinned request 5', '2024-07-15 15:48:48'),
+(82, 1, 'Unpinned request 4', '2024-07-15 15:48:52'),
+(83, 1, 'Unpinned request 5', '2024-07-15 15:49:00'),
+(84, 1, 'Pinned request 4', '2024-07-15 15:50:16'),
+(85, 1, 'Pinned request 5', '2024-07-15 15:50:24'),
+(86, 1, 'Unpinned request 4', '2024-07-15 15:51:30'),
+(87, 2, 'Login', '2024-07-15 16:21:58'),
+(88, 1, 'Edit announcement 1', '2024-07-15 16:24:34'),
+(89, 1, 'Approved lease 4', '2024-07-15 17:35:11'),
+(90, 1, 'Unpinned request 5', '2024-07-15 17:42:16'),
+(91, 1, 'Approved lease 5', '2024-07-15 17:48:41'),
+(92, 2, 'Logout', '2024-07-15 18:17:21'),
+(93, 1, 'Pinned request 6', '2024-07-15 18:28:05'),
+(94, 1, 'Approved lease 6', '2024-07-15 19:32:25'),
+(95, 1, 'Unpinned request 6', '2024-07-15 20:44:22'),
+(96, 1, 'Pinned request 7', '2024-07-15 20:44:53'),
+(97, 1, 'Pinned request 6', '2024-07-15 20:44:57'),
+(98, 1, 'Login', '2024-07-16 04:14:24'),
+(99, 1, 'Pinned request 8', '2024-07-16 09:00:29'),
+(100, 1, 'Unpinned request 6', '2024-07-16 09:01:01'),
+(101, 1, 'Unpinned request 7', '2024-07-16 09:01:04'),
+(102, 1, 'Unpinned request 8', '2024-07-16 09:01:08'),
+(103, 1, 'Pinned request 6', '2024-07-16 09:03:35'),
+(104, 1, 'Unpinned request 6', '2024-07-16 09:04:53'),
+(105, 1, 'Approved lease 7', '2024-07-16 09:46:47'),
+(106, 1, 'Approved lease 12', '2024-07-16 09:54:29'),
+(107, 1, 'Approved lease 13', '2024-07-16 10:30:38'),
+(108, 1, 'Logout', '2024-07-16 12:47:44'),
+(109, 1, 'Login', '2024-07-16 12:47:55'),
+(110, 2, 'Login', '2024-07-19 03:53:58'),
+(111, 2, 'Logout', '2024-07-19 03:59:11'),
+(112, 2, 'Login', '2024-07-19 04:04:54'),
+(113, 2, 'Pinned request 1', '2024-07-19 04:05:03'),
+(114, 2, 'Unpinned request 1', '2024-07-19 04:05:12'),
+(115, 2, 'Pinned request 1', '2024-07-19 04:05:14'),
+(116, 2, 'Approved lease 18', '2024-07-19 04:34:33'),
+(117, 2, 'Logout', '2024-07-19 05:02:57'),
+(118, 2, 'Login', '2024-07-19 05:20:35'),
+(119, 2, 'Approved lease 1', '2024-07-19 05:22:19'),
+(120, 2, 'Logout', '2024-07-19 05:24:09'),
+(121, 2, 'Login', '2024-07-19 06:27:53');
 
 -- --------------------------------------------------------
 
@@ -133,9 +207,11 @@ CREATE TABLE `apartment` (
 --
 
 INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `apartmentDimensions`, `apartmentAddress`, `maxOccupants`, `apartmentStatus`, `availableBy`, `apartmentPictures`, `apartmentDescription`) VALUES
-(1, 'Studio', 6000.00, '25 Square meter', 'Cebu City, Philippines', 2, 'Occupied', '2025-01-14', '../../uploads/apartment/apartment.jpg', 'A comfortable Studio apartment fit for couples or individuals!'),
-(2, '2 Bedroom', 8000.00, '25 Square meter', 'Talamban, Cebu City', 4, 'Occupied', '2024-08-14', '../../uploads/apartment/2bedroom2.jpg', 'A lofty 2 Bedroom apartment perfect for small families.'),
-(3, 'Studio', 6500.00, '25 Square meter', 'Talamban, Cebu City', 3, 'Available', NULL, '../../uploads/apartment/2bedroom.jpg', 'Space-y studio apartment good for 3 people.');
+(1, 'Studio', 6000.00, '25 Square meter', 'Cebu City, Philippines', 2, 'Available', '2025-02-14', '../../uploads/apartment/apartment.jpg', 'A comfortable Studio apartment fit for couples or individuals!'),
+(2, '2 Bedroom', 8000.00, '25 Square meter', 'Talamban, Cebu City', 4, 'Available', '2024-08-14', '../../uploads/apartment/2bedroom2.jpg', 'A lofty 2 Bedroom apartment perfect for small families.'),
+(3, 'Studio', 6500.00, '25 Square meter', 'Talamban, Cebu City', 3, 'Available', '2024-04-12', '../../uploads/apartment/2bedroom.jpg', 'Space-y studio apartment good for 3 people.'),
+(4, '3 Bedroom', 9000.00, '50 Square meter', 'LB 468, Talamban, Cebu City ', 4, 'Occupied', '2024-09-30', '../../uploads/apartment/penthouse.jpg', 'Cozy 3 bedroom apartment perfect for families.'),
+(5, 'Studio', 6000.00, '20 Square meters', 'Talamban, Cebu City', 2, 'Available', '2024-12-20', '../../uploads/apartment/apartment2.jpg', 'Studio apartment');
 
 -- --------------------------------------------------------
 
@@ -145,41 +221,23 @@ INSERT INTO `apartment` (`apartmentNumber`, `apartmentType`, `rentPerMonth`, `ap
 
 CREATE TABLE `bill` (
   `bill_ID` int(11) NOT NULL,
-  `invoice_ID` int(11) DEFAULT NULL,
-  `paymentMethod` varchar(50) NOT NULL,
-  `amountPaid` decimal(10,2) NOT NULL,
-  `overpayment` decimal(10,2) DEFAULT 0.00,
-  `outstandingBalance` decimal(10,2) DEFAULT 0.00,
-  `paymentDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fees`
---
-
-CREATE TABLE `fees` (
-  `fee_ID` int(11) NOT NULL,
   `lease_ID` int(11) DEFAULT NULL,
-  `rent` decimal(10,2) NOT NULL,
-  `tax` decimal(10,2) NOT NULL,
-  `maintenance` decimal(10,2) NOT NULL,
-  `totalAmount` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice`
---
-
-CREATE TABLE `invoice` (
-  `invoice_ID` int(11) NOT NULL,
-  `fee_ID` int(11) DEFAULT NULL,
+  `billStatus` enum('Pending','Paid','Overdue','Paid by Deposit') DEFAULT 'Pending',
+  `amountDue` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `lateFees` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `amountPaid` decimal(10,2) DEFAULT 0.00,
   `dueDate` date NOT NULL,
-  `dateIssued` date DEFAULT NULL
+  `billDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bill`
+--
+
+INSERT INTO `bill` (`bill_ID`, `lease_ID`, `billStatus`, `amountDue`, `lateFees`, `amountPaid`, `dueDate`, `billDate`) VALUES
+(4, 7, 'Paid by Deposit', 9000.00, 0.00, 9000.00, '2024-07-05', '2024-06-28'),
+(5, 7, 'Pending', 9000.00, 0.00, 0.00, '2024-07-21', '2024-07-10'),
+(6, 1, 'Paid by Deposit', 9000.00, 0.00, 9000.00, '2024-08-04', '2024-07-28');
 
 -- --------------------------------------------------------
 
@@ -192,18 +250,43 @@ CREATE TABLE `lease` (
   `apartmentNumber` int(11) DEFAULT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL,
-  `billingPeriod` varchar(50) NOT NULL,
+  `billingPeriod` enum('Weekly','Monthly','Annually') NOT NULL DEFAULT 'Monthly',
+  `rentalDeposit` decimal(10,2) NOT NULL,
   `securityDeposit` decimal(10,2) DEFAULT 0.00,
-  `leaseStatus` enum('Active','Expired','Terminated') DEFAULT 'Active'
+  `leaseStatus` enum('Active','Expired','Terminated') DEFAULT 'Active',
+  `reviewedBy` int(11) DEFAULT NULL,
+  `createdOn` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lease`
 --
 
-INSERT INTO `lease` (`lease_ID`, `apartmentNumber`, `startDate`, `endDate`, `billingPeriod`, `securityDeposit`, `leaseStatus`) VALUES
-(1, 1, '2024-07-14', '2025-01-14', 'monthly', 6000.00, 'Active'),
-(2, 2, '2024-07-14', '2024-08-14', 'monthly', 8000.00, 'Active');
+INSERT INTO `lease` (`lease_ID`, `apartmentNumber`, `startDate`, `endDate`, `billingPeriod`, `rentalDeposit`, `securityDeposit`, `leaseStatus`, `reviewedBy`, `createdOn`) VALUES
+(1, 4, '2024-07-19', '2024-09-30', 'Monthly', 9000.00, 9000.00, 'Active', 2, '2024-07-19 05:22:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `payment_ID` int(11) NOT NULL,
+  `bill_ID` int(11) DEFAULT NULL,
+  `receivedBy` int(11) DEFAULT NULL,
+  `paymentAmount` decimal(10,2) DEFAULT NULL,
+  `proofOfPayment` varchar(255) DEFAULT NULL,
+  `paymentDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `paymentStatus` enum('Pending','Received','Rejected') DEFAULT 'Pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_ID`, `bill_ID`, `receivedBy`, `paymentAmount`, `proofOfPayment`, `paymentDate`, `paymentStatus`) VALUES
+(1, 6, 2, 9000.00, 'Paid by Deposit', '2024-07-19 05:22:18', 'Received');
 
 -- --------------------------------------------------------
 
@@ -240,8 +323,7 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`request_ID`, `apartmentNumber`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `phoneNumber`, `emailAddress`, `requestDate`, `identificationPic`, `incomePic`, `addressPic`, `othersPic`, `requestStatus`, `termsOfStay`, `startDate`, `endDate`, `billingPeriod`, `occupants`, `message`, `gender`) VALUES
-(1, 1, 'Shawn', 'Mayol', 'Jurgen', '2004-03-19', '09298089931', 'shawn@gmail.com', '2024-07-14', '../../uploads/request/identification.jpg', '../../uploads/request/proof of income.png', '../../uploads/request/address.jpg', '../../uploads/request/reference letter.png', 'Approved', 'long', '2024-07-14', '2025-01-14', 'monthly', 1, 'Can I get this apartment by tomorrow? I will be staying for long term.', 'Male'),
-(2, 2, 'Jason', 'Momoa', '', '1987-09-12', '09121231234', 'jason@gmail.com', '2024-07-14', '../../uploads/request/identification.jpg', '../../uploads/request/proof of income.png', '../../uploads/request/address.jpg', '../../uploads/request/lease.jpg', 'Approved', 'short', '2024-07-14', '2024-08-14', 'monthly', 4, 'Lets agree on a lease agreement date by next week.', 'Male');
+(1, 4, 'Lance', 'Cerenio', 'Majorenos', '2004-11-12', '09159031303', '20010110@usc.edu.ph', '2024-07-19', '../../uploads/request/143063751.png', '../../uploads/request/3NF.png', '../../uploads/request/8tlwrk.jpg', '../../uploads/request/DSC01424-52.jpg', 'Approved', 'short', '2024-07-19', '2024-08-19', 'monthly', 2, 'Need this ASAP', 'Male');
 
 -- --------------------------------------------------------
 
@@ -292,27 +374,9 @@ CREATE TABLE `tenant` (
 --
 
 INSERT INTO `tenant` (`tenant_ID`, `lease_ID`, `firstName`, `lastName`, `middleName`, `dateOfBirth`, `gender`, `phoneNumber`, `emailAddress`, `tenantType`) VALUES
-(1, 1, 'Shawn', 'Mayol', 'Jurgen', '2004-03-19', 'Male', '09298089931', 'shawn@gmail.com', 'Lessee'),
-(2, 1, 'Shawn', 'Mayol', 'Jurgen', '2004-03-19', 'Male', '09298089931', 'shawn@gmail.com', 'Occupant'),
-(3, 2, 'Jason', 'Momoa', '', '1986-10-12', 'Male', '09121231234', 'jason@gmail.com', 'Lessee'),
-(4, 2, 'Jason', 'Momoa', '', '1987-09-12', 'Male', '09121231234', 'jason@gmail.com', 'Occupant'),
-(5, 2, 'Jane', 'Momoa', '', '1986-12-09', 'Female', '09131231234', 'jane@gmail.com', 'Occupant'),
-(6, 2, 'Jimbo', 'Momoa', '', '2004-09-12', 'Male', '09871231234', 'jimbo@gmail.com', 'Occupant'),
-(7, 2, 'Joana', 'Momoa', '', '2012-12-09', 'Female', '09121231234', 'Joana@gmail.com', 'Occupant');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transactionlog`
---
-
-CREATE TABLE `transactionlog` (
-  `transaction_ID` int(11) NOT NULL,
-  `bill_ID` int(11) DEFAULT NULL,
-  `user_ID` int(11) DEFAULT NULL,
-  `receivedBy` int(11) DEFAULT NULL,
-  `transactionStatus` enum('received','pending') DEFAULT 'pending'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(1, 1, 'Lance', 'Cerenio', 'Majorenos', '2004-11-12', 'Male', '09159031303', '20010110@usc.edu.ph', 'Lessee'),
+(2, 1, 'Lance', 'Cerenio', 'Majorenos', '2004-11-12', 'Male', '09159031303', '20010110@usc.edu.ph', 'Occupant'),
+(3, 1, 'Shawn', 'Mayol', '', '2024-07-19', 'Male', '12345678910', 'shawngwapo@gmail.com', 'Occupant');
 
 -- --------------------------------------------------------
 
@@ -336,10 +400,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_ID`, `tenant_ID`, `staff_ID`, `username`, `password`, `userStatus`, `userRole`, `picDirectory`) VALUES
-(1, NULL, 1, 'Admin', '$2y$10$FHJjEueNM5xyn6GJXnGT2.uAz.6f53d3rPBXCHaMCugXh20sjFUza', 'Online', 'Admin', '../../uploads/staff/admin.jpg'),
-(2, NULL, 2, 'CarlOmega2', '$2y$10$cAeL5cy/q3X6m7snluJk3uYSWmF32b5Bixvd5wSBMhyq1VXaeKHVu', 'Offline', 'Manager', '../../uploads/staff/carl.jpg'),
-(3, 1, NULL, 'ShawnMayol1', '$2y$10$nWORB8HaJ/HZsrBsyfVP.ukW4jgh2j.2qkEm8WEkfFIMwoZPCr49y', 'Offline', 'Tenant', '../../uploads/tenant/placeholder.jpg'),
-(4, 3, NULL, 'JasonMomoa4', '$2y$10$W8qm9rW.UGmz2kH/TjT1MOuKEwgr8iq1Dj.aq0x72E7wJPHWsgUY.', 'Offline', 'Tenant', '../../uploads/tenant/placeholder.jpg');
+(1, NULL, 1, 'Admin', '$2y$10$FHJjEueNM5xyn6GJXnGT2.uAz.6f53d3rPBXCHaMCugXh20sjFUza', 'Online', 'Admin', '../../uploads/staff/manager2.jpg'),
+(2, NULL, 2, 'CarlOmega2', '$2y$10$50rOwAXNloSGQKqdKGLLyOrAea4I9CdpKUbrYVIdtf7NuLn9274Ia', 'Online', 'Manager', '../../uploads/staff/placeholder.jpg'),
+(3, 1, NULL, 'LanceCerenio1', '$2y$10$TbulMiyxJN/XKJ1tIXxTaOXalfzFF9Lz8zL4EcQ.w46EMjfZ2p5fC', 'Online', 'Tenant', '../../uploads/tenant/placeholder.jpg');
 
 --
 -- Indexes for dumped tables
@@ -370,28 +433,23 @@ ALTER TABLE `apartment`
 --
 ALTER TABLE `bill`
   ADD PRIMARY KEY (`bill_ID`),
-  ADD KEY `invoice_ID` (`invoice_ID`);
-
---
--- Indexes for table `fees`
---
-ALTER TABLE `fees`
-  ADD PRIMARY KEY (`fee_ID`),
   ADD KEY `lease_ID` (`lease_ID`);
-
---
--- Indexes for table `invoice`
---
-ALTER TABLE `invoice`
-  ADD PRIMARY KEY (`invoice_ID`),
-  ADD KEY `fee_ID` (`fee_ID`);
 
 --
 -- Indexes for table `lease`
 --
 ALTER TABLE `lease`
   ADD PRIMARY KEY (`lease_ID`),
-  ADD KEY `apartmentNumber` (`apartmentNumber`);
+  ADD KEY `apartmentNumber` (`apartmentNumber`),
+  ADD KEY `lease_ibfk_2` (`reviewedBy`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`payment_ID`),
+  ADD KEY `bill_ID` (`bill_ID`),
+  ADD KEY `receivedBy` (`receivedBy`);
 
 --
 -- Indexes for table `request`
@@ -414,15 +472,6 @@ ALTER TABLE `tenant`
   ADD KEY `lease_ID` (`lease_ID`);
 
 --
--- Indexes for table `transactionlog`
---
-ALTER TABLE `transactionlog`
-  ADD PRIMARY KEY (`transaction_ID`),
-  ADD KEY `bill_ID` (`bill_ID`),
-  ADD KEY `user_ID` (`user_ID`),
-  ADD KEY `receivedBy` (`receivedBy`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -439,7 +488,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `activity_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `activity_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `announcement`
@@ -451,37 +500,31 @@ ALTER TABLE `announcement`
 -- AUTO_INCREMENT for table `apartment`
 --
 ALTER TABLE `apartment`
-  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `apartmentNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `bill`
 --
 ALTER TABLE `bill`
-  MODIFY `bill_ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `fees`
---
-ALTER TABLE `fees`
-  MODIFY `fee_ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `invoice`
---
-ALTER TABLE `invoice`
-  MODIFY `invoice_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `bill_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `lease`
 --
 ALTER TABLE `lease`
-  MODIFY `lease_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `lease_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `payment_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `request_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `request_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -493,19 +536,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `tenant`
 --
 ALTER TABLE `tenant`
-  MODIFY `tenant_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `transactionlog`
---
-ALTER TABLE `transactionlog`
-  MODIFY `transaction_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tenant_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -527,25 +564,21 @@ ALTER TABLE `announcement`
 -- Constraints for table `bill`
 --
 ALTER TABLE `bill`
-  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`invoice_ID`) REFERENCES `invoice` (`invoice_ID`);
-
---
--- Constraints for table `fees`
---
-ALTER TABLE `fees`
-  ADD CONSTRAINT `fees_ibfk_1` FOREIGN KEY (`lease_ID`) REFERENCES `lease` (`lease_ID`);
-
---
--- Constraints for table `invoice`
---
-ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`fee_ID`) REFERENCES `fees` (`fee_ID`);
+  ADD CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`lease_ID`) REFERENCES `lease` (`lease_ID`);
 
 --
 -- Constraints for table `lease`
 --
 ALTER TABLE `lease`
-  ADD CONSTRAINT `lease_ibfk_1` FOREIGN KEY (`apartmentNumber`) REFERENCES `apartment` (`apartmentNumber`);
+  ADD CONSTRAINT `lease_ibfk_1` FOREIGN KEY (`apartmentNumber`) REFERENCES `apartment` (`apartmentNumber`),
+  ADD CONSTRAINT `lease_ibfk_2` FOREIGN KEY (`reviewedBy`) REFERENCES `staff` (`staff_ID`);
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`bill_ID`) REFERENCES `bill` (`bill_ID`),
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`receivedBy`) REFERENCES `staff` (`staff_ID`);
 
 --
 -- Constraints for table `request`
@@ -558,14 +591,6 @@ ALTER TABLE `request`
 --
 ALTER TABLE `tenant`
   ADD CONSTRAINT `tenant_ibfk_1` FOREIGN KEY (`lease_ID`) REFERENCES `lease` (`lease_ID`);
-
---
--- Constraints for table `transactionlog`
---
-ALTER TABLE `transactionlog`
-  ADD CONSTRAINT `transactionlog_ibfk_1` FOREIGN KEY (`bill_ID`) REFERENCES `bill` (`bill_ID`),
-  ADD CONSTRAINT `transactionlog_ibfk_2` FOREIGN KEY (`user_ID`) REFERENCES `user` (`user_ID`),
-  ADD CONSTRAINT `transactionlog_ibfk_3` FOREIGN KEY (`receivedBy`) REFERENCES `user` (`user_ID`);
 
 --
 -- Constraints for table `user`

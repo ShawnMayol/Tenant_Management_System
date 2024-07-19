@@ -2,21 +2,25 @@
 
 <style>
     .icon-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 1em; /* Ensure the container has a fixed width */
+        position: relative;
+        display: inline-block;
+        width: 1em;
+        /* Ensure the container has a fixed width */
     }
+
     .icon-default,
     .icon-hover {
         position: absolute;
         top: -13px;
         left: 0;
     }
+
     .icon-default-2 {
         position: absolute;
         top: -13px;
         left: 0;
     }
+
     .icon-hover {
         display: none;
     }
@@ -28,22 +32,27 @@
     .icon-wrapper:hover .icon-hover {
         display: inline;
     }
+
     .custom-icon {
         font-size: 28px;
     }
+
     .dropdown-toggle:hover {
         cursor: pointer;
     }
+
     /* Hide the dropdown caret */
     .dropdown-toggle::after {
         display: none;
     }
+
     .clickable-row {
         cursor: pointer;
     }
+
     .card.bg-danger:hover {
-    background-color: #dc3545;
-    filter: brightness(108%);
+        background-color: #dc3545;
+        filter: brightness(108%);
     }
 
     .card.bg-success:hover {
@@ -63,7 +72,7 @@
 </style>
 
 <?php
-include('core/database.php');
+include ('core/database.php');
 
 if (isset($_GET['tenant_id'])) {
     $tenant_id = $_GET['tenant_id'];
@@ -118,37 +127,81 @@ if (isset($_GET['tenant_id'])) {
 
             $bills = [];
             while ($row = $billResult->fetch_assoc()) {
-                // Store each bill's data into variables
-                $bill_ID = $row['bill_ID'];
-                $bill_lease_ID = $row['lease_ID'];
-                $bill_billStatus = $row['billStatus'];
-                $bill_amountDue = $row['amountDue'];
-                $bill_lateFees = $row['lateFees'];
-                $bill_amountPaid = $row['amountPaid'];
-                $bill_dueDate = $row['dueDate'];
+                $bills[] = $row;
+            }
 
-                // Store these variables into an array or use them as needed
-                $bills[] = [
-                    'bill_ID' => $bill_ID,
-                    'lease_ID' => $bill_lease_ID,
-                    'billStatus' => $bill_billStatus,
-                    'amountDue' => $bill_amountDue,
-                    'lateFees' => $bill_lateFees,
-                    'amountPaid' => $bill_amountPaid,
-                    'dueDate' => $bill_dueDate
-                ];
+            $daysAfterDue = 3;  // Number of days after the due date to add late fees
+
+            // Check each bill for overdue status and update if necessary
+            foreach ($bills as $bill) {
+                // $currentDate = date('Y-m-d');        // Actual date
+                $currentDate = date('Y-m-d', strtotime('+1 day'));     // To testing purposes
+                $dueDate = $bill['dueDate'];
+                $billStatus = $bill['billStatus'];
+
+                // Calculate the date 3 days after the due date
+                $graceDays = date('Y-m-d', strtotime($dueDate . ' + ' . $daysAfterDue . ' days'));
+
+                // Compare dates to check if overdue and bill status is not 'Paid' or 'Paid by Deposit'
+                if (($billStatus != 'Paid' && $billStatus != 'Paid by Deposit') && $currentDate > $dueDate) {
+                    $rentAmount = $bill['amountDue'];
+                    $lateFee = $rentAmount * 0.10; // 10% late fee
+
+                    // Calculate the number of overdue days, including grace period
+                    $dueDateTime = new DateTime($dueDate);
+                    $currentDateTime = new DateTime($currentDate);
+
+                    // Calculate the number of days past the due date
+                    $daysOverdue = $dueDateTime->diff($currentDateTime)->days;
+
+                    // Apply late fees for each overdue day within the grace period
+                    if ($daysOverdue <= $daysAfterDue) {
+                        $totalLateFee = $daysOverdue * $lateFee;
+
+                        // Update bill status to 'Overdue' and add late fees to the existing lateFees column
+                        $updateSql = "UPDATE bill SET billStatus = 'Overdue', lateFees = ? WHERE bill_ID = ?";
+                        $updateStmt = $conn->prepare($updateSql);
+                        $updateStmt->bind_param("di", $totalLateFee, $bill['bill_ID']);
+                        $updateStmt->execute();
+                        $updateStmt->close();
+
+                        // Update the bill array with the new status and late fees
+                        $bill['billStatus'] = 'Overdue';
+                        $bill['lateFees'] = $totalLateFee;
+                    }
+                }
+
+                // Fetch updated data for the current bill
+                $fetchSql = "SELECT *
+                 FROM bill b
+                 JOIN lease l ON b.lease_id = l.lease_ID
+                 JOIN apartment a ON l.apartmentNumber = a.apartmentNumber
+                 WHERE b.bill_ID = ?";
+                $fetchStmt = $conn->prepare($fetchSql);
+                $fetchStmt->bind_param("i", $bill['bill_ID']);
+                $fetchStmt->execute();
+                $fetchResult = $fetchStmt->get_result();
+                $updatedBill = $fetchResult->fetch_assoc();
+                $fetchStmt->close();
+
+                // Update the bills array with the fetched updated data
+                foreach ($bills as &$b) {
+                    if ($b['bill_ID'] == $updatedBill['bill_ID']) {
+                        $b = $updatedBill;
+                        break;
+                    }
+                }
             }
         } else {
             $lease = null;
             $occupants = [];
             $bills = [];
         }
+        $conn->close();
     } else {
         echo "Tenant not found.";
         exit;
     }
-
-    $conn->close();
 } else {
     echo "Tenant ID is not specified.";
     exit;
@@ -160,8 +213,8 @@ $status = htmlspecialchars($user['userStatus']);
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function(row) {
-            row.addEventListener('click', function() {
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
                 window.location.href = row.dataset.href;
             });
         });
@@ -169,7 +222,8 @@ $status = htmlspecialchars($user['userStatus']);
 </script>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" data-theme="<?php echo $theme; ?>">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <div class="container">
             <div class="row">
                 <!-- <div class="col-auto ps-2 pe-3">
@@ -181,6 +235,7 @@ $status = htmlspecialchars($user['userStatus']);
                 <div class="col">
                     <!-- <h1 class="h1 m-0"><?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?></h1> -->
                     <h1 class="h1 m-0">Assessment</h1>
+                    <button id="generateBillBtn" class="btn bg-primary mt-3 mb-3">Get Upcoming Bill</button>
                 </div>
                 <!-- <div class="col-auto pe-5">
                     <div class="dropdown">
@@ -207,6 +262,19 @@ $status = htmlspecialchars($user['userStatus']);
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('generateBillBtn').addEventListener('click', function () {
+            fetch('handlers/tenant/makeBill.php')
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Bill generation response:', data); // Debugging: log the response
+                    //alert(data); // Alert for confirmation, remove in production
+                    location.reload(); // Automatically refresh the webpage
+                })
+                .catch(error => console.error('Error generating bill:', error));
+        });
+    </script>
+
     <?php include 'views/admin/modal.tenantEditInfo.php'; ?>
     <?php include 'views/admin/modal.editLease.php'; ?>
 
@@ -294,21 +362,21 @@ $status = htmlspecialchars($user['userStatus']);
                                         <th scope="row">Lease Status</th>
                                         <td class="py-3">
                                             <?php
-                                                $leaseStatus = htmlspecialchars($lease['leaseStatus']);
-                                                $leaseStatusClass = '';
-                                                switch ($leaseStatus) {
-                                                    case 'Active':
-                                                        $leaseStatusClass = 'bg-success text-light h6';
-                                                        break;
-                                                        case 'Expired':
-                                                        $leaseStatusClass = 'bg-secondary text-dark h6';
-                                                        break;
-                                                        case 'Terminated':
-                                                        $leaseStatusClass = 'bg-danger text-light h6';
-                                                        break;
-                                                    default:
-                                                        $leaseStatusClass = 'bg-light text-dark h6'; // Default or handle other statuses as needed
-                                                }
+                                            $leaseStatus = htmlspecialchars($lease['leaseStatus']);
+                                            $leaseStatusClass = '';
+                                            switch ($leaseStatus) {
+                                                case 'Active':
+                                                    $leaseStatusClass = 'bg-success text-light h6';
+                                                    break;
+                                                case 'Expired':
+                                                    $leaseStatusClass = 'bg-secondary text-dark h6';
+                                                    break;
+                                                case 'Terminated':
+                                                    $leaseStatusClass = 'bg-danger text-light h6';
+                                                    break;
+                                                default:
+                                                    $leaseStatusClass = 'bg-light text-dark h6'; // Default or handle other statuses as needed
+                                            }
                                             ?>
                                             <span class="badge <?php echo $leaseStatusClass; ?>"><?php echo ucfirst($leaseStatus); ?></span>
                                         </td>
@@ -324,114 +392,154 @@ $status = htmlspecialchars($user['userStatus']);
                 
                 </div>
             </div> -->
-            <?php
-                // Initialize total
-                $totalRent = 0.00;
-                $totalLateFees = 0.00;
-                $totalPaid = 0.00;
-                $totalBalance = 0.00;
-                $totalPayments = 0.00;
+        <?php
+        // Initialize total
+        $totalRent = 0.00;
+        $totalLateFees = 0.00;
+        $totalPaid = 0.00;
+        $totalBalance = 0.00;
+        $totalPayments = 0.00;
+        $statusColor = '';
 
-                // Iterate through bills to calculate totals
-                foreach ($bills as $bill) {
-                    $totalRent += $bill['amountDue'];
-                    $totalLateFees += $bill['lateFees'];
-                    $totalPaid += $bill['amountPaid'];
-                    $totalBalance += ($bill['amountDue'] + $bill['lateFees']) - $bill['amountPaid'];
-                    $totalPayments += $bill['amountPaid'];
-                }
-            ?>
-            <div class="row mt-4">
-                <!-- <h1 class="h3">Assessment</h1>
+        // Iterate through bills to calculate totals
+        foreach ($bills as $bill) {
+            $totalRent += $bill['amountDue'];
+            $totalLateFees += $bill['lateFees'];
+            $totalPaid += $bill['amountPaid'];
+            $totalBalance += ($bill['amountDue'] + $bill['lateFees']) - $bill['amountPaid'];
+            $totalPayments += $bill['amountPaid'] + $bill['lateFees'];
+        }
+
+        ?>
+        <div class="row mt-4">
+            <!-- <h1 class="h3">Assessment</h1>
                 <hr> -->
-                <div class="col-9">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th style="width: 25%;">Due Date</th>
-                                    <th style="width: 20%;">Rent</th>
-                                    <th style="width: 20%;">Late Fee</th>
-                                    <th style="width: 20%;">Paid</th>
-                                    <th style="width: 20%;">Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($bills as $bill): ?>
-                                <tr>
-                                    <td class="py-3"><strong><?php echo date('F j, Y', strtotime($bill['dueDate'])); ?></strong></td>
-                                    <td class="py-3"><?php echo number_format($bill['amountDue'], 2); ?></td>
-                                    <td class="py-3"><?php echo number_format($bill['lateFees'], 2); ?></td>
-                                    <td class="py-3"><?php echo number_format($bill['amountPaid'], 2); ?></td>
-                                    <td class="py-3"><?php echo number_format(($bill['amountDue'] + $bill['lateFees']) - $bill['amountPaid'], 2); ?></td>
-                                </tr>
-                                <?php endforeach; ?>
+            <div class="col-9">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Bill Date/Due Date</th>
+                                <th class="text-center" style="width: 20%;">Rent</th>
+                                <th class="text-center" style="width: 20%;">Overdue Fee</th>
+                                <th class="text-center" style="width: 20%;">Paid</th>
+                                <th class="text-center" style="width: 20%;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($bills as $bill):
+                                switch ($bill['billStatus']) {
+                                    case 'Pending':
+                                        $statusColor = '#FAB972';
+                                        break;
+                                    case 'Paid':
+                                    case 'Paid by Deposit':
+                                        $statusColor = '#84eab3';
 
-                                <tr>
-                                    <td class="fw-bold py-3">Total</td>
-                                    <td class="fw-bold py-3"><?php echo number_format($totalRent, 2); ?></td>
-                                    <td class="fw-bold py-3"><?php echo number_format($totalLateFees, 2); ?></td>
-                                    <td class="fw-bold py-3"><?php echo number_format($totalPaid, 2); ?></td>
-                                    <td class="fw-bold py-3"><?php echo number_format($totalBalance, 2); ?></td>
-                                </tr>
+                                        break;
+                                    case 'Overdue':
+                                        $statusColor = '#f69697';
+                                        break;
+                                    default:
+                                        $statusColor = 'white'; // Default color if status is unknown
+                                        break;
 
+                                }
+                                ?>
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-1"><strong><small>Rent is calculated on a monthly basis.</small></strong></td>
+                                    <td class="py-3">
+                                        <strong>
+                                            <?php
+                                            echo date('F j, Y', strtotime($bill['billDate'])) . ' <br> ' . date('F j, Y', strtotime($bill['dueDate']));
+                                            ?>
+                                        </strong>
+                                    </td>
+                                    <td class="py-3 text-center"><?php echo number_format($bill['amountDue'], 2); ?></td>
+                                    <td class="py-3 text-center"><?php echo number_format($bill['lateFees'], 2); ?></td>
+                                    <td class="py-3 text-center"><?php echo number_format($bill['amountPaid'], 2); ?></td>
+                                    <td class="py-3 text-center">
+                                        <span
+                                            style="color: <?php echo $statusColor; ?>;"><?php echo htmlspecialchars($bill['billStatus']); ?></span>
+                                    </td>
+
                                 </tr>
-                                <tr>
-                                    <td colspan="5" class="text-center text-muted py-1"><strong><small>Late fees are added after a 3-day grace period.</small></strong></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5" class="text-center text-danger py-1"><strong><small>Displayed fees are subject to change.</small></strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <?php endforeach; ?>
+
+                            <tr>
+                                <td class="fw-bold py-3 text-center">Total</td>
+                                <td class="fw-bold py-3 text-center"><?php echo number_format($totalRent, 2); ?></td>
+                                <td class="fw-bold py-3 text-center"><?php echo number_format($totalLateFees, 2); ?>
+                                </td>
+                                <td class="fw-bold py-3 text-center"><?php echo number_format($totalPaid, 2); ?></td>
+                                <td class="fw-bold py-3 text-center"></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-1"><strong><small>Rent is calculated on
+                                            a monthly basis.</small></strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-1"><strong><small>Late fees are added
+                                            after a 3-day grace period.</small></strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-danger py-1"><strong><small>Displayed fees are
+                                            subject to change.</small></strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-3">
+                <a href="?page=tenant.payment&payment=paymentOptions" class="text-decoration-none">
+                    <div class="card text-white bg-success my-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-cash h3" style="margin-right: 15px;"></i> Make
+                                Payment</h5>
+                        </div>
+                    </div>
+                </a>
+                <div class="card text-white bg-danger my-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-cash-stack h3" style="margin-right: 15px;"></i> Overdue
+                            Fees</h5>
+                        <p class="card-text display-6">₱<?php echo number_format($totalLateFees, 2); ?></p>
                     </div>
                 </div>
-                <div class="col-3">
-                    <a href="?page=tenant.payment&payment=paymentOptions" class="text-decoration-none">
-                        <div class="card text-white bg-success my-3">
-                            <div class="card-body">
-                                <h5 class="card-title"><i class="bi bi-cash h3" style="margin-right: 15px;"></i> Make Payment</h5>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="card text-white bg-danger my-3">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-cash-stack h3" style="margin-right: 15px;"></i> Overdue Fees</h5>
-                            <p class="card-text display-6">₱0</p>
-                        </div>
+                <div class="card text-white bg-primary my-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-cash-coin h3" style="margin-right: 15px;"></i> Total
+                            Payments</h5>
+                        <p class="card-text display-6">₱<?php echo number_format($totalPayments, 2); ?></p>
                     </div>
-                    <div class="card text-white bg-primary my-3">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-cash-coin h3" style="margin-right: 15px;"></i> Total Payments</h5>
-                            <p class="card-text display-6">₱<?php echo number_format($totalPayments, 2); ?></p>
-                        </div>
-                    </div>
-                    <!-- <div class="card text-white bg-primary my-3">
+                </div>
+                <!-- <div class="card text-white bg-primary my-3">
                         <div class="card-body">
                             <h5 class="card-title"><i class="bi bi-bank h3" style="margin-right: 15px;"></i> Rental Deposit</h5>
                             <p class="card-text display-6">0</p>
                         </div>
                     </div> -->
-                    <div class="card text-white bg-warning my-3">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="bi bi-piggy-bank h3" style="margin-right: 15px;"></i> Security Deposit</h5>
-                            <p class="card-text display-6">₱<?php echo htmlspecialchars($lease['securityDeposit']); ?></p>
-                        </div>
+                <div class="card text-white bg-warning my-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="bi bi-piggy-bank h3" style="margin-right: 15px;"></i> Security
+                            Deposit</h5>
+                        <p class="card-text display-6">₱<?php echo htmlspecialchars($lease['securityDeposit']); ?></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </main>
-  <footer class="py-3 my-4">
+<footer class="py-3 my-4">
     <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="<?= htmlspecialchars($dashboardPage) ?>" class="nav-link px-2 text-body-secondary">Home</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-      <li class="nav-item"><a href="?page=../../views/common/faq" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+        <li class="nav-item"><a href="<?= htmlspecialchars($dashboardPage) ?>"
+                class="nav-link px-2 text-body-secondary">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+        <li class="nav-item"><a href="?page=../../views/common/faq" class="nav-link px-2 text-body-secondary">FAQs</a>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
     </ul>
     <p class="text-center text-body-secondary">&copy; C-Apartments 2024</p>
-  </footer>
+</footer>

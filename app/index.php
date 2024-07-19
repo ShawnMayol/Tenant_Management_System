@@ -203,7 +203,7 @@ if ($statusResult->num_rows === 1) {
           $stmt->fetch();
           $stmt->close();
       
-          $sideBar = 'views/tenant/tenant.sidebar';
+          $sideBar = 'views/tenant/tenant.sidebar';  //remove s from tenants
           $page = 'views/tenant/tenant.dashboard';
           $conn->close();
           break;
