@@ -82,7 +82,7 @@ if (isset($_GET['tenant_id'])) {
         // Ensure there's a lease_ID to query lease information
         if (!empty($tenant['lease_ID'])) {
             // Query lease information
-            $leaseSql = "SELECT l.*, CONCAT(s.firstName,' ',s.lastName) AS Staff 
+            $leaseSql = "SELECT l.*, CONCAT(s.firstName, ' ', s.middleName, ' ', s.lastName) AS Staff 
             FROM lease l 
             JOIN staff s ON s.staff_ID = l.reviewedBy
             WHERE lease_ID = ?";
@@ -173,6 +173,7 @@ $status = htmlspecialchars($user['userStatus']);
                             <img src="<?php echo htmlspecialchars($picDirectory); ?>"
                                 style="height: 250px; width: 300px; object-fit: cover;" class="img-fluid shadow"
                                 alt="<?php echo htmlspecialchars($tenant['lastName'] . ', ' . $tenant['firstName'] . ' ' . $tenant['middleName']); ?>">
+                                <p class="text-center mt-3"><a href="?page=manager.viewBilling&tenant_id=<?php echo $tenant_id; ?>" class="text-decoration-none">Show Assessment</a></p>
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-12">
@@ -244,14 +245,14 @@ $status = htmlspecialchars($user['userStatus']);
                                         <?php echo htmlspecialchars(date('F j, Y', strtotime($lease['endDate']))); ?>
                                     </td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th scope="row">Billing Period</th>
                                     <td class="py-3"><?php echo htmlspecialchars($lease['billingPeriod']); ?></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Security Deposit</th>
                                     <td class="py-3">₱<?php echo htmlspecialchars($lease['securityDeposit']); ?></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <th scope="row">Lease Status</th>
                                     <td class="py-3">
@@ -277,7 +278,7 @@ $status = htmlspecialchars($user['userStatus']);
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Approved By:</th>
+                                    <th scope="row">Reviewed by Staff</th>
                                     <td class="py-3"><?php echo $lease['Staff']; ?></td>
                                 </tr>
                             <?php else: ?>

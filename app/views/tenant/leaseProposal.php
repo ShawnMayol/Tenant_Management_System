@@ -2,6 +2,7 @@
 <html lang="en" data-bs-theme="auto">
 <?php
   session_start();
+  date_default_timezone_set('Asia/Manila');
 
     // Debugging: Check session values
     //   print_r($_SESSION);

@@ -95,6 +95,14 @@
                   Payments
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.maintenance' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.maintenance">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'manager.maintenance' ? '#wrench-fill' : '#wrench'; ?>" />
+                  </svg>
+                  Maintenance
+                </a>
+              </li>
             </ul>
               
 
@@ -120,13 +128,21 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.analytics' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.analytics">
+                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                      <use xlink:href="<?php echo $currentPage === 'admin.analytics' ? '#bar-chart-line-fill' : '#bar-chart-line'; ?>" />
+                  </svg>
+                  Analytics
+                </a>
+              </li>
+              <!-- <li class="nav-item">
                 <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'manager.report' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=manager.report">
                   <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
                       <use xlink:href="<?php echo $currentPage === 'manager.report' ? '#clipboard-fill' : '#clipboard'; ?>" />
                   </svg>
                   Report
                 </a>
-              </li>
+              </li> -->
             </ul>
 
             <hr class="my-3">
