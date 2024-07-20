@@ -94,14 +94,6 @@
                   Payments
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link d-flex align-items-center gap-2 <?php echo $currentPage === 'admin.maintenance' ? 'selected' : 'highlight'; ?>" aria-current="page" href="index.php?page=admin.maintenance">
-                  <svg class="bi" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                      <use xlink:href="<?php echo $currentPage === 'admin.maintenance' ? '#wrench-fill' : '#wrench'; ?>" />
-                  </svg>
-                  Maintenance
-                </a>
-              </li>
             </ul>
 
             <h6

@@ -67,15 +67,18 @@
         margin-right: 8px; 
     }
 </style>
-<div class="container">
+    <div class="container">
         <div class="table-responsive">
+            <h1 class="h4">
+                <i class="bi bi-pin-angle-fill icon-align"></i> Pinned
+            </h1>
             <table id="pinnedTable" class="table table-striped table-hover">
             <thead class="h5">
             <tr>
-            <th style="width: 5%;">#</th>
-            <th style="width: 25%;">Name</th>
-            <th style="width: 20%;">Request Date</th>
-            <th style="width: 20%;">Apartment Type</th>
+            <th>#</th>
+            <th style="width: 30%;">Name</th>
+            <th>Request Date</th>
+            <th>Apartment Type</th>
             <th style="width: 20%;">Apartment Status</th>
             </tr>
             </thead>
@@ -107,9 +110,6 @@
 
             // Check if there are any records
             if ($result->num_rows > 0) {
-                echo '<h1 class="h4">';
-                echo '<i class="bi bi-pin-angle-fill icon-align"></i> Pinned';
-                echo '</h1>';
                 echo '<tbody>';
 
                 // Output data of each row
@@ -138,26 +138,26 @@
                     }
 
                     echo '<tr class="clickable-row" data-href="?page=manager.viewRequest&request_id=' . $row['request_ID'] . '" style="cursor: pointer;">';
-                    echo '<td class="py-3" style="width: 5%;">' . $count++ . '</td>';
-                    echo '<td class="py-3" style="width: 25%;">' . $fullName . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . $formattedDate . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . (!empty($row['apartmentType']) ? $row['apartmentType'] : 'Unknown') . '</td>';
-                    echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass . '">' . $apartmentStatus . '</span></td>';
+                    echo '<td class="py-3">' . $count++ . '</td>';
+                    echo '<td class="py-3">' . $fullName . '</td>';
+                    echo '<td class="py-3">' . $formattedDate . '</td>';
+                    echo '<td class="py-3">' . (!empty($row['apartmentType']) ? $row['apartmentType'] : 'Unknown') . '</td>';
+                    echo '<td class="py-3"><span class="badge ' . $statusClass . '">' . $apartmentStatus . '</span></td>';
                     echo '</tr>';
                 }
 
                 echo '</tbody>';
                 echo '</table>';
-                // echo '<hr>';
             } else {
-                // echo 'No pinned request :)';
+                echo 'No pinned request :)';
             }
 
             $conn->close();
             ?>
         </div>
     </div>
-    <div class="container pt-2">
+    <hr>
+    <div class="container mt-4 pt-2">
         <div class="table-responsive">
             <?php
             // Include database connection file
@@ -175,7 +175,7 @@
             }
 
             // Query for Pending requests
-            $sql_pending = "
+            $sql = "
                 SELECT r.request_ID, r.firstName, r.middleName, r.lastName, r.requestDate, a.apartmentType, a.apartmentStatus
                 FROM request r
                 LEFT JOIN apartment a ON r.apartmentNumber = a.apartmentNumber
@@ -183,61 +183,52 @@
                 ORDER BY r.requestDate ASC
             ";
 
-            $result_pending = $conn->query($sql_pending);
+            $result = $conn->query($sql);
 
             // Check if there are any records
-            if ($result_pending->num_rows > 0) {
+            if ($result->num_rows > 0) {
                 echo '<table id="pendingTable" class="table table-striped table-hover">';
-                // echo '<thead class="h5">';
-                // echo '<tr>';
-                // echo '<th>#</th>';
-                // echo '<th style="width: 30%;">Name</th>';
-                // echo '<th>Request Date</th>';
-                // echo '<th>Apartment Type</th>';
-                // echo '<th style="width: 20%;">Apartment Status</th>';
-                // echo '</tr>';
-                // echo '</thead>';
                 echo '<tbody>';
+                // echo '<br>';
 
                 // Output data of each row
-                $count_pending = 1;
-                while ($row_pending = $result_pending->fetch_assoc()) {
+                $count = 1;
+                while ($row = $result->fetch_assoc()) {
                     // Combine the names
-                    $fullName_pending = $row_pending['lastName'] . ', ' . $row_pending['firstName'] . ' ' . $row_pending['middleName'];
+                    $fullName = $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'];
                     
                     // Format the date
-                    $formattedDate_pending = (new DateTime($row_pending['requestDate']))->format('F j, Y');
+                    $formattedDate = (new DateTime($row['requestDate']))->format('F j, Y');
                     
                     // Determine the status class based on apartmentStatus
-                    $statusClass_pending = '';
-                    $apartmentStatus_pending = !empty($row_pending['apartmentStatus']) ? $row_pending['apartmentStatus'] : 'Unknown';
+                    $statusClass = '';
+                    $apartmentStatus = !empty($row['apartmentStatus']) ? $row['apartmentStatus'] : 'Unknown';
                     
-                    if ($apartmentStatus_pending === 'Available') {
-                        $statusClass_pending = 'bg-success';
-                    } elseif ($apartmentStatus_pending === 'Maintenance') {
-                        $statusClass_pending = 'bg-warning';
-                    } elseif ($apartmentStatus_pending === 'Occupied') {
-                        $statusClass_pending = 'bg-danger';
-                    } elseif ($apartmentStatus_pending === 'Hidden') {
-                        $statusClass_pending = 'bg-secondary';
+                    if ($apartmentStatus === 'Available') {
+                        $statusClass = 'bg-success';
+                    } elseif ($apartmentStatus === 'Maintenance') {
+                        $statusClass = 'bg-warning';
+                    } elseif ($apartmentStatus === 'Occupied') {
+                        $statusClass = 'bg-danger';
+                    } elseif ($apartmentStatus === 'Hidden') {
+                        $statusClass = 'bg-secondary';
                     } else {
-                        $statusClass_pending = 'bg-secondary';
+                        $statusClass = 'bg-secondary';
                     }
 
-                    echo '<tr class="clickable-row" data-href="?page=manager.viewRequest&request_id=' . $row_pending['request_ID'] . '" style="cursor: pointer;">';
-                    echo '<td class="py-3" style="width: 5%;">' . $count_pending++ . '</td>';
-                    echo '<td class="py-3" style="width: 25%;">' . $fullName_pending . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . $formattedDate_pending . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . (!empty($row_pending['apartmentType']) ? $row_pending['apartmentType'] : 'Unknown') . '</td>';
-                    echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass_pending . '">' . $apartmentStatus_pending . '</span></td>';
+                    echo '<tr class="clickable-row" data-href="?page=manager.viewRequest&request_id=' . $row['request_ID'] . '" style="cursor: pointer;">';
+                    echo '<td class="py-3" style="width: 4%;">' . $count++ . '</td>';
+                    echo '<td class="py-3" style="width: 30%;">' . $fullName . '</td>';
+                    echo '<td class="py-3" style="width: 21%;">' . $formattedDate . '</td>';
+                    echo '<td class="py-3">' . (!empty($row['apartmentType']) ? $row['apartmentType'] : 'Unknown') . '</td>';
+                    echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass . '">' . $apartmentStatus . '</span></td>';
                     echo '</tr>';
                 }
 
                 echo '</tbody>';
                 echo '</table>';
             } else {
-                // Handle case where no pending requests are found
-                // echo '<p>No pending requests found.</p>';
+                // echo 'No pending request :)';
             }
 
             $conn->close();

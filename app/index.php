@@ -3,10 +3,10 @@
 
 <?php
   session_start();
-  date_default_timezone_set('Asia/Manila');
+
 // Debugging: Check session values
-  // print_r($_SESSION);
-  // print_r($_GET);
+  print_r($_SESSION);
+  print_r($_GET);
 
 // Redirect to landing.php if user is not logged in yet
   if(!isset($_SESSION['user_id'])) {

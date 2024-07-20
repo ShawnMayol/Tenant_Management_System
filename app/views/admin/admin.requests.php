@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 <style>
     .clickable-row {
@@ -6,9 +7,10 @@
     }
 </style>
 
+
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h1">Rent Requests</h1>
+        <h1 class="h1">Requests</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="input-group me-2">
                 <input type="text" class="form-control" id="filterInput" placeholder="Search name..." oninput="searchRequest()">
@@ -16,7 +18,7 @@
                     <i class="bi bi-search d-flex align-items-center"></i>
                 </span> 
             </div>
-            <!-- <div class="dropdown me-2">
+            <div class="dropdown me-2">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="apartmentStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     Apartment Status
                 </button>
@@ -24,6 +26,7 @@
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'All')">All</a></li>
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'Available')">Available</a></li>
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'Maintenance')">Maintenance</a></li>
+                    <!-- Add more options as needed -->
                 </ul>
             </div>
             <div class="dropdown">
@@ -34,7 +37,7 @@
                     <li><a class="dropdown-item" href="#" onclick="orderTable('asc')">Ascending</a></li>
                     <li><a class="dropdown-item" href="#" onclick="orderTable('desc')">Descending</a></li>
                 </ul>
-            </div> -->
+            </div>
         </div>
     </div>
     
@@ -45,7 +48,6 @@
         margin-top: -20px; 
         margin-right: 8px; 
     }
-
 </style>
     <div class="container">
         <div class="table-responsive">
@@ -140,88 +142,89 @@
     <div class="container pt-2">
         <div class="table-responsive">
             <?php
-            // Include database connection file
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
+// Include database connection file
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "tms";
 
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-            // Query for Pending requests
-            $sql_pending = "
-                SELECT r.request_ID, r.firstName, r.middleName, r.lastName, r.requestDate, a.apartmentType, a.apartmentStatus
-                FROM request r
-                LEFT JOIN apartment a ON r.apartmentNumber = a.apartmentNumber
-                WHERE r.requestStatus = 'Pending'
-                ORDER BY r.requestDate ASC
-            ";
+// Query for Pending requests
+$sql_pending = "
+    SELECT r.request_ID, r.firstName, r.middleName, r.lastName, r.requestDate, a.apartmentType, a.apartmentStatus
+    FROM request r
+    LEFT JOIN apartment a ON r.apartmentNumber = a.apartmentNumber
+    WHERE r.requestStatus = 'Pending'
+    ORDER BY r.requestDate ASC
+";
 
-            $result_pending = $conn->query($sql_pending);
+$result_pending = $conn->query($sql_pending);
 
-            // Check if there are any records
-            if ($result_pending->num_rows > 0) {
-                echo '<table id="pendingTable" class="table table-striped table-hover">';
-                // echo '<thead class="h5">';
-                // echo '<tr>';
-                // echo '<th>#</th>';
-                // echo '<th style="width: 30%;">Name</th>';
-                // echo '<th>Request Date</th>';
-                // echo '<th>Apartment Type</th>';
-                // echo '<th style="width: 20%;">Apartment Status</th>';
-                // echo '</tr>';
-                // echo '</thead>';
-                echo '<tbody>';
+// Check if there are any records
+if ($result_pending->num_rows > 0) {
+    echo '<table id="pendingTable" class="table table-striped table-hover">';
+    // echo '<thead class="h5">';
+    // echo '<tr>';
+    // echo '<th>#</th>';
+    // echo '<th style="width: 30%;">Name</th>';
+    // echo '<th>Request Date</th>';
+    // echo '<th>Apartment Type</th>';
+    // echo '<th style="width: 20%;">Apartment Status</th>';
+    // echo '</tr>';
+    // echo '</thead>';
+    echo '<tbody>';
 
-                // Output data of each row
-                $count_pending = 1;
-                while ($row_pending = $result_pending->fetch_assoc()) {
-                    // Combine the names
-                    $fullName_pending = $row_pending['lastName'] . ', ' . $row_pending['firstName'] . ' ' . $row_pending['middleName'];
-                    
-                    // Format the date
-                    $formattedDate_pending = (new DateTime($row_pending['requestDate']))->format('F j, Y');
-                    
-                    // Determine the status class based on apartmentStatus
-                    $statusClass_pending = '';
-                    $apartmentStatus_pending = !empty($row_pending['apartmentStatus']) ? $row_pending['apartmentStatus'] : 'Unknown';
-                    
-                    if ($apartmentStatus_pending === 'Available') {
-                        $statusClass_pending = 'bg-success';
-                    } elseif ($apartmentStatus_pending === 'Maintenance') {
-                        $statusClass_pending = 'bg-warning';
-                    } elseif ($apartmentStatus_pending === 'Occupied') {
-                        $statusClass_pending = 'bg-danger';
-                    } elseif ($apartmentStatus_pending === 'Hidden') {
-                        $statusClass_pending = 'bg-secondary';
-                    } else {
-                        $statusClass_pending = 'bg-secondary';
-                    }
+    // Output data of each row
+    $count_pending = 1;
+    while ($row_pending = $result_pending->fetch_assoc()) {
+        // Combine the names
+        $fullName_pending = $row_pending['lastName'] . ', ' . $row_pending['firstName'] . ' ' . $row_pending['middleName'];
+        
+        // Format the date
+        $formattedDate_pending = (new DateTime($row_pending['requestDate']))->format('F j, Y');
+        
+        // Determine the status class based on apartmentStatus
+        $statusClass_pending = '';
+        $apartmentStatus_pending = !empty($row_pending['apartmentStatus']) ? $row_pending['apartmentStatus'] : 'Unknown';
+        
+        if ($apartmentStatus_pending === 'Available') {
+            $statusClass_pending = 'bg-success';
+        } elseif ($apartmentStatus_pending === 'Maintenance') {
+            $statusClass_pending = 'bg-warning';
+        } elseif ($apartmentStatus_pending === 'Occupied') {
+            $statusClass_pending = 'bg-danger';
+        } elseif ($apartmentStatus_pending === 'Hidden') {
+            $statusClass_pending = 'bg-secondary';
+        } else {
+            $statusClass_pending = 'bg-secondary';
+        }
 
-                    echo '<tr class="clickable-row" data-href="?page=admin.viewRequest&request_id=' . $row_pending['request_ID'] . '" style="cursor: pointer;">';
-                    echo '<td class="py-3" style="width: 5%;">' . $count_pending++ . '</td>';
-                    echo '<td class="py-3" style="width: 25%;">' . $fullName_pending . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . $formattedDate_pending . '</td>';
-                    echo '<td class="py-3" style="width: 20%;">' . (!empty($row_pending['apartmentType']) ? $row_pending['apartmentType'] : 'Unknown') . '</td>';
-                    echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass_pending . '">' . $apartmentStatus_pending . '</span></td>';
-                    echo '</tr>';
-                }
+        echo '<tr class="clickable-row" data-href="?page=admin.viewRequest&request_id=' . $row_pending['request_ID'] . '" style="cursor: pointer;">';
+        echo '<td class="py-3" style="width: 5%;">' . $count_pending++ . '</td>';
+        echo '<td class="py-3" style="width: 25%;">' . $fullName_pending . '</td>';
+        echo '<td class="py-3" style="width: 20%;">' . $formattedDate_pending . '</td>';
+        echo '<td class="py-3" style="width: 20%;">' . (!empty($row_pending['apartmentType']) ? $row_pending['apartmentType'] : 'Unknown') . '</td>';
+        echo '<td class="py-3" style="width: 20%;"><span class="badge ' . $statusClass_pending . '">' . $apartmentStatus_pending . '</span></td>';
+        echo '</tr>';
+    }
 
-                echo '</tbody>';
-                echo '</table>';
-            } else {
-                // Handle case where no pending requests are found
-                // echo '<p>No pending requests found.</p>';
-            }
+    echo '</tbody>';
+    echo '</table>';
+} else {
+    // Handle case where no pending requests are found
+    // echo '<p>No pending requests found.</p>';
+}
 
-            $conn->close();
-            ?>
+$conn->close();
+?>
+
         </div>
     </div>
 </main>

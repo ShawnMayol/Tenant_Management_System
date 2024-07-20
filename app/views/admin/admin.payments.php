@@ -1,176 +1,160 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
+<?php
+include ('handlers/manager/retrievePaymentProof.php');
+?>
+<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-    .clickable-row {
-        cursor: pointer;
+    .payment-th,
+    .payment-td {
+        text-align: center;
+    }
+
+    .payment-td {
+        vertical-align: middle;
     }
 </style>
 
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Payments</h1>
+    </div>
+
+    <!-- Payment Proof Table -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Bill ID/Tenant</th>
+                    <th scope="col" class="payment-th">Payment Amount</th>
+                    <th scope="col" class="payment-th">Payment Date</th>
+                    <th scope="col" class="payment-th">Payment Proof</th>
+                    <th scope="col" class="payment-th">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()):
+                        $baseUrl = '/TMSv10/app/uploads/request/';
+
+                        // Generate the URL dynamically
+                        $imageUrl = $baseUrl . htmlspecialchars($row['proofOfPayment']);
+                        ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['bill_ID']) . '<br>' . $row['Name']; ?></td>
+                            <td class="payment-td"><?php echo htmlspecialchars($row['paymentAmount']); ?></td>
+                            <td class="payment-td"><?php echo htmlspecialchars(ucfirst($row['paymentDate'])); ?></td>
+                            <td class="payment-td">
+                                <a href="<?= $imageUrl ?>" target="_blank" class="btn btn-primary">
+                                    View
+                                </a>
+                            </td>
+                            <td class="payment-td">
+                                <button class="receive-btn btn btn-success"
+                                    data-bill-id="<?php echo htmlspecialchars($row['bill_ID']); ?>"
+                                    data-payment-id="<?php echo htmlspecialchars($row['payment_ID']); ?>">Received</button>
+                                <button class="reject-btn btn btn-danger"
+                                    data-payment-id="<?php echo htmlspecialchars($row['payment_ID']); ?>">Reject</button>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" class="text-center">No payment proofs found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+
+        </table>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rejectModalLabel">Reject Payment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="rejectForm">
+                            <input type="hidden" id="rejectPaymentId" name="paymentId">
+                            <div class="mb-3">
+                                <label for="rejectNote" class="form-label">Reason for Rejection:</label>
+                                <textarea class="form-control" id="rejectNote" name="note" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function(row) {
-            row.addEventListener('click', function() {
-                window.location.href = row.dataset.href;
-            });
+    document.querySelectorAll('.receive-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var paymentId = this.getAttribute('data-payment-id');
+            var billId = this.getAttribute('data-bill-id');
+            console.log('Receive button clicked for payment ID:', paymentId);
+            console.log('Bill ID:', billId);
+
+            fetch('handlers/manager/updatePayment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'paymentId=' + encodeURIComponent(paymentId) + '&status=Received' + '&billId=' + encodeURIComponent(billId)
+            })
+                .then(response => response.text())
+                .then(responseText => {
+                    console.log('Response text:', responseText);
+                    if (responseText.trim() === 'Success') {
+                        alert('Payment status updated to received.');
+                        location.reload();
+                    } else {
+                        alert('Error updating payment status: ' + responseText);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
-</script>
 
-<script>
-    function searchTenants() {
-        // Get the input field and its value
-        var input = document.getElementById("filterInput");
-        var filter = input.value.toLowerCase();
+    var rejectModal = new bootstrap.Modal(document.getElementById('rejectModal'), {
+        keyboard: false
+    });
 
-        // Get the table and table rows
-        var table = document.querySelector(".table tbody");
-        var rows = table.getElementsByTagName("tr");
+    document.querySelectorAll('.reject-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var paymentId = this.getAttribute('data-payment-id');
+            document.getElementById('rejectPaymentId').value = paymentId;
+            rejectModal.show();
+        });
+    });
 
-        // Loop through all table rows, and hide those that don't match the search query
-        for (var i = 0; i < rows.length; i++) {
-            var nameCell = rows[i].getElementsByTagName("td")[1]; // Assuming the name is in the second column (index 1)
-            if (nameCell) {
-                var nameText = nameCell.textContent || nameCell.innerText;
-                if (nameText.toLowerCase().includes(filter)) {
-                    rows[i].style.display = ""; // Show row if the name matches the filter
+    document.getElementById('rejectForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var paymentId = document.getElementById('rejectPaymentId').value;
+        var note = document.getElementById('rejectNote').value;
+
+        fetch('handlers/manager/updatePayment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'paymentId=' + encodeURIComponent(paymentId) + '&status=Rejected' + '&note=' + encodeURIComponent(note)
+        })
+            .then(response => response.text())
+            .then(responseText => {
+                console.log('Response text:', responseText);
+                if (responseText.trim() === 'Success') {
+                    alert('Payment status updated to rejected.');
+                    location.reload();
                 } else {
-                    rows[i].style.display = "none"; // Hide row if it doesn't match
+                    alert('Error updating payment status: ' + responseText);
                 }
-            }       
-        }
-    }
+            })
+            .catch(error => console.error('Error:', error));
+    });
 </script>
-
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h1">Payments</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="input-group me-2">
-                <input type="text" class="form-control" id="filterInput" placeholder="Search Tenant..." oninput="searchTenants()">
-                <span class="input-group-text">
-                    <i class="bi bi-search d-flex align-items-center"></i>
-                </span> 
-            </div>
-            <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Status
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="statusDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'All')">All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Online')">Online</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Offline')">Offline</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Deactivated')">Deactivated</a></li>
-                </ul>
-            </div>
-            <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="leaseStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Lease Status
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="leaseStatusDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'All')">All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Active')">Active</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Expired')">Expired</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Terminated')">Terminated</a></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="orderDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Order by Start Date
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="orderDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="orderTable('asc')">Ascending</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="orderTable('desc')">Descending</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="table-responsive">
-            <?php
-            // Include database connection file
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            // Query to fetch lessee data
-            $sql = "
-            SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, u.userStatus, u.picDirectory
-            FROM tenant t
-            JOIN lease l ON t.lease_ID = l.lease_ID
-            JOIN user u ON t.tenant_ID = u.tenant_ID
-            WHERE t.tenantType = 'Lessee' AND l.leaseStatus = 'Active'
-            ORDER BY l.lease_ID DESC
-            ";
-
-            $result = $conn->query($sql);
-
-            // Check if there are any records
-            if ($result->num_rows > 0) {
-                echo '<table class="table table-striped table-hover">';
-                echo '<thead class="h5">';
-                echo '<tr>';
-                echo '<th style="width: 12%;"></th>';
-                echo '<th style="width: 30%;">Name</th>';
-                echo '<th style="width: 35%;">Status</th>';
-                echo '<th style="width: 21%;">Lease</th>';
-                echo '</tr>';
-                echo '</thead>';
-                echo '<tbody>';
-
-                // Output data of each row
-                $count = 1;
-                while ($row = $result->fetch_assoc()) {
-                    // Determine the status class based on leaseStatus
-                    $leaseStatusClass = '';
-                    if ($row['leaseStatus'] === 'Active') {
-                        $leaseStatusClass = 'bg-success';
-                    } elseif ($row['leaseStatus'] === 'Expired') {
-                        $leaseStatusClass = 'bg-secondary';
-                    } elseif ($row['leaseStatus'] === 'Terminated') {
-                        $leaseStatusClass = 'bg-danger';
-                    }
-
-                    // Determine the status class based on userStatus
-                    $userStatusClass = '';
-                    if ($row['userStatus'] === 'Online') {
-                        $userStatusClass = 'bg-success';
-                    } elseif ($row['userStatus'] === 'Offline') {
-                        $userStatusClass = 'bg-secondary';
-                    } elseif ($row['userStatus'] === 'Deactivated') {
-                        $userStatusClass = 'bg-danger';
-                    }
-
-                    echo '<tr class="clickable-row" data-href="?page=admin.viewBilling&tenant_id=' . $row['tenant_ID'] . '">';
-                    echo '<td class="py-3">';
-                    echo '<div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; margin-left: 20px;">';
-                    echo '<img src="' . htmlspecialchars(substr($row['picDirectory'], 6)) . '" class="img-fluid rounded-circle me-3" style="width: 30px; height: 30px; object-fit: cover;" alt="Staff Picture">';
-                    echo '</div>';
-                    echo '</td>';
-                    echo '<td class="py-3">' . $row['lastName'] . ', ' . $row['firstName'] . ' ' . $row['middleName'] . '</td>';
-                    echo '<td class="py-3 h6"><span class="badge ' . $userStatusClass . '">' . $row['userStatus'] . '</span></td>';
-                    echo '<td class="py-3 h6"><span class="badge ' . $leaseStatusClass . '">' . $row['leaseStatus'] . '</span></td>';
-                    echo '</tr>';
-                }
-
-                echo '</tbody>';
-                echo '</table>';
-            } else {
-                echo 'No active lessees found.';
-            }
-
-            $conn->close();
-            ?>
-        </div>
-    </div>
-
-</main>

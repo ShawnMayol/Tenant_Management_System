@@ -89,11 +89,8 @@ if (isset($_GET['tenant_id'])) {
         $user = $userResult->fetch_assoc();
 
         if (!empty($tenant['lease_ID'])) {
-            // Query lease information including staff name
-            $leaseSql = "SELECT l.*, CONCAT(s.firstName, ' ', s.middleName, ' ', s.lastName) AS reviewedByName
-                         FROM lease l
-                         LEFT JOIN staff s ON l.reviewedBy = s.staff_ID
-                         WHERE l.lease_ID = ?";
+            // Query lease information
+            $leaseSql = "SELECT * FROM lease WHERE lease_ID = ?";
             $leaseStmt = $conn->prepare($leaseSql);
             $leaseStmt->bind_param("i", $tenant['lease_ID']);
             $leaseStmt->execute();
@@ -316,8 +313,8 @@ $status = htmlspecialchars($user['userStatus']);
                                         </td>
                                         <?php if ($lease['reviewedBy'] != 1): ?>
                                             <tr class="clickable-row" data-href="?page=admin.viewManager&staff_id=<?php echo htmlspecialchars($lease['reviewedBy']); ?>">
-                                                <th scope="row">Reviewed by Staff</th>
-                                                <td class="py-3"><?php echo htmlspecialchars($lease['reviewedByName']); ?></td>
+                                                <th scope="row">Reviewed by Staff Number</th>
+                                                <td class="py-3"><?php echo htmlspecialchars($lease['reviewedBy']); ?></td>
                                             </tr>
                                         <?php endif; ?>
                                     </tr>
