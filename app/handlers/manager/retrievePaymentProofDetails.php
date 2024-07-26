@@ -37,4 +37,4 @@ if (isset($_GET['paymentProof_ID'])) {
 }
 
 $conn->close();
-?>
+

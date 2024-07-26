@@ -7,8 +7,6 @@
     }
 </style>
 
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
-
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h1">Maintenance Request</h1>
@@ -45,16 +43,7 @@
     <div class="container">
         <div class="table-responsive">
             <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include ('core/database.php');
 
             $sql = "
             SELECT mr.request_ID, mr.maintenanceType, mr.status, mr.requestDate, t.firstName, t.lastName, t.middleName, u.picDirectory

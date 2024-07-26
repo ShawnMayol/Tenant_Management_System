@@ -44,7 +44,7 @@
             <div class="card text-white bg-primary hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-credit-card" style="margin-right: 10px;"></i> Pending Payments</h5>
-                    <p class="card-text display-4">0</p>
+                    <p class="card-text display-4"><?php echo $pendingPayments; ?></p>
                 </div>
             </div>
         </a>
@@ -108,7 +108,7 @@
                     <h5 class="card-title">
                         <i class="bi bi-cash" style="margin-right: 10px;"></i> Payments this month
                     </h5>
-                    <p class="card-text display-4"><?php echo 0.00; ?></p>
+                    <p class="card-text display-4"><?php echo $completedPayments ?></p>
                 </div>
             </div>
         </a>

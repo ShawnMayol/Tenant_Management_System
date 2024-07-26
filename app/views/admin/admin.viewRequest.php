@@ -189,9 +189,6 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                         <p><?php echo nl2br(htmlspecialchars($message)); ?></p>
                     </div>
                 </div>
-                <!-- <div class="mt-4">
-                    <a href="../../views/common/apartment.php?apartment=<?php //echo $apartmentNumber; ?>#makeRequest" class="btn btn-secondary shadow">Back</a>
-                </div> -->
             </div>
 
             <!-- Form column -->

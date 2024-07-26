@@ -16,25 +16,6 @@
                     <i class="bi bi-search d-flex align-items-center"></i>
                 </span> 
             </div>
-            <!-- <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="apartmentStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Apartment Status
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="apartmentStatusDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'All')">All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'Available')">Available</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('apartmentStatus', 'Maintenance')">Maintenance</a></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="orderDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Order by Request Date
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="orderDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="orderTable('asc')">Ascending</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="orderTable('desc')">Descending</a></li>
-                </ul>
-            </div> -->
         </div>
     </div>
     
@@ -60,19 +41,7 @@
             </tr>
             </thead>
             <?php
-            // Include database connection file
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include ('core/database.php');
 
             // Query for Pinned requests
             $sql = "
@@ -141,19 +110,8 @@
         <div class="table-responsive">
             <?php
             // Include database connection file
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
-
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
+            include ('core/database.php');
+           
             // Query for Pending requests
             $sql_pending = "
                 SELECT r.request_ID, r.firstName, r.middleName, r.lastName, r.requestDate, a.apartmentType, a.apartmentStatus
@@ -168,15 +126,6 @@
             // Check if there are any records
             if ($result_pending->num_rows > 0) {
                 echo '<table id="pendingTable" class="table table-striped table-hover">';
-                // echo '<thead class="h5">';
-                // echo '<tr>';
-                // echo '<th>#</th>';
-                // echo '<th style="width: 30%;">Name</th>';
-                // echo '<th>Request Date</th>';
-                // echo '<th>Apartment Type</th>';
-                // echo '<th style="width: 20%;">Apartment Status</th>';
-                // echo '</tr>';
-                // echo '</thead>';
                 echo '<tbody>';
 
                 // Output data of each row

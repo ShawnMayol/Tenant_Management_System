@@ -14,12 +14,6 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h1">Announcements</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <!-- <div class="input-group me-2">
-                <input type="text" class="form-control" id="filterInput" placeholder="Search Tenant..." oninput="searchTenants()">
-                <span class="input-group-text">
-                    <i class="bi bi-search d-flex align-items-center"></i>
-                </span> 
-            </div> -->
             <a href="#" class="text-secondary" data-bs-toggle="modal" data-bs-target="#sendAnnouncementModal" title="Make Announcement" style="text-decoration: none;">
                 <button type="button" class="btn btn-outline-secondary d-flex align-items-center gap-1 hover-white">
                     <span class="m-1 h6">Make an Announcement</span><i class="bi bi-megaphone d-flex align-items-center"></i></i>

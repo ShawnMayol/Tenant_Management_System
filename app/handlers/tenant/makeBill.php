@@ -26,11 +26,12 @@ if ($result->num_rows > 0) {
         $createDate = $data['createdOn'];
         $reviewedByStaff = $data['reviewedBy'];
 
-        //$endDate = new DateTime($data['endDate']);    Makes bill until end of term
+        //$endDate = new DateTime($data['endDate']);    //Makes bill until end of term
 
         // Retrieves the Current Date
         $nowDate = date('Y-m-d');   
         $tempNowDate = new DateTime($nowDate);
+        $tempNowDate = $tempNowDate->modify('first day of next month');
 
         // Calculate number of months covered by the deposit
         $monthsCoveredByDeposit = floor($deposit / $rentPerMonth);
@@ -70,7 +71,8 @@ if ($result->num_rows > 0) {
 
             // Move to the next month
             $currentDate = $currentDate->modify('first day of next month');
-            $monthsCount++; 
+            $paidByDeposit = false; 
+            $monthsCount++;
         }
     }
 } else {

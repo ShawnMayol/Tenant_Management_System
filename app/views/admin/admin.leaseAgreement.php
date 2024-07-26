@@ -274,7 +274,7 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-secondary" id="addOccupant">Add Occupant</button>
+                    <button type="button" class="btn btn-primary" id="addOccupant">Add Occupant</button>
                 </div>
             </div>
 
@@ -314,21 +314,6 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                             <label for="maxOccupants" class="form-label">Security Deposit*</label>
                             <input type="number" class="form-control" id="securityDepositInput" name="securityDeposit" value="<?php echo $apartment['rentPerMonth']; ?>" min="<?php echo $apartment['rentPerMonth']; ?>" required>
                         </div>
-                        <!-- <div class="col-md-6 mb-3">
-                            <label for="paymentMethods" class="form-label">Preferred Method of Payment*</label>
-                            <div>
-                                <input type="checkbox" id="paymentCash" name="paymentMethods" value="Cash" checked disabled>
-                                <label for="paymentCash">Cash (enabled by default)</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="paymentGcash" name="paymentMethods" value="Gcash">
-                                <label for="paymentGcash">Gcash</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="paymentBank" name="paymentMethods" value="Bank">
-                                <label for="paymentBank">Bank</label>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -339,9 +324,6 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
             <div class="row bg-secondary-subtle py-4 rounded"  id="printableDiv">
                 <div class="col">
                     <div>
-                        <!-- <div class="">
-                            <img src="assets/src/svg/c-banner.svg" alt="c-apartments" style="width: 220px;" class="mx-auto mt-2 d-block">
-                        </div> -->
                         <h4 class="fw-bold mt-4 text-center h2">LEASE AGREEMENT</h4>
 
                         <h5 class="fw-bold">I. PARTIES</h5>

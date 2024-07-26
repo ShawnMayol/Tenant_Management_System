@@ -1,23 +1,14 @@
 <?php 
 include('core/database.php');
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
 $loggedInUserID = $_SESSION['user_id'] ?? null;
 
 // Retrieve payment proof records along with invoice and fees data
-$sql = "SELECT *
-        FROM paymentproof pp
-        LEFT JOIN invoice inv ON pp.invoice_ID = inv.invoice_ID
-        LEFT JOIN fees fe ON inv.fee_ID = fe.fee_ID
-        ORDER BY 
-            CASE 
-                WHEN pp.status = 'pending' THEN 1
-                ELSE 2
-            END,
-            pp.uploadDate DESC";
+$sql = "SELECT p.*, CONCAT(t.firstName,' ',t.lastName) AS 'Name'
+        FROM payments p
+        JOIN bill b ON b.bill_ID = p.bill_ID
+        JOIN tenant t ON t.lease_ID = b.lease_ID
+        WHERE p.paymentStatus = 'Pending' AND t.tenantType = 'Lessee'";
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -26,6 +17,7 @@ if (!$result) {
 }
 
 // Retrieve staff ID for the logged-in user
+$staffID = null;
 if ($loggedInUserID) {
     $staffQuery = "SELECT st.staff_ID
                    FROM user us
@@ -38,4 +30,3 @@ if ($loggedInUserID) {
     $stmt->fetch();
     $stmt->close();
 }
-?>

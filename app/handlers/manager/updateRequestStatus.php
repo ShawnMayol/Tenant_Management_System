@@ -12,18 +12,7 @@ if (isset($_GET['request_id'], $_GET['current_status'])) {
     $newStatus = ($currentStatus === 'Pinned') ? 'Pending' : 'Pinned';
     $activityDescription = ($newStatus === 'Pinned') ? "Pinned request $requestID" : "Unpinned request $requestID";
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "tms";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('../../core/database.php');
 
     // Prepare and execute SQL update query for request status
     $sql = "UPDATE `request` SET `requestStatus` = ? WHERE `request_ID` = ?";
@@ -56,4 +45,3 @@ if (isset($_GET['request_id'], $_GET['current_status'])) {
 } else {
     echo "Invalid request";
 }
-?>

@@ -315,40 +315,22 @@ if ($apartment['apartmentStatus'] === 'Maintenance') {
                     <h2>Payment Terms</h2>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="billingPeriod" class="form-label">Billing Period*</label>
                             <select class="form-select" name="billingPeriod" id="billingPeriod" required>
-                                <option value="weekly" <?php if ($billingPeriod == 'weekly')
-                                    echo 'selected'; ?> hidden>
-                                    Weekly</option>
-                                <option value="monthly" <?php if ($billingPeriod == 'monthly')
-                                    echo 'selected'; ?>>Monthly
-                                </option>
-                                <option value="annually" <?php if ($billingPeriod == 'annually')
-                                    echo 'selected'; ?>
-                                    hidden>Annually</option>
+                                <option value="weekly" <?php if($billingPeriod == 'weekly') echo 'selected'; ?> hidden>Weekly</option>
+                                <option value="monthly" <?php if($billingPeriod == 'monthly') echo 'selected'; ?>>Monthly</option>
+                                <option value="annually" <?php if($billingPeriod == 'annually') echo 'selected'; ?> hidden>Annually</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="advanceDeposit" class="form-label">Advance Rental Deposit*</label>
-                            <input type="number" class="form-control" name="advDeposit" id="advDeposit" placeholder="₱ 5,000.00">
-
+                        <div class="col-md-4 mb-3">
+                            <label for="maxOccupants" class="form-label">Rental Deposit*</label>
+                            <input type="number" class="form-control" id="rentalDepositInput" name="rentalDeposit" value="<?php echo $apartment['rentPerMonth']; ?>" min="<?php echo $apartment['rentPerMonth']; ?>" required>
                         </div>
-                        <!-- <div class="col-md-6 mb-3">
-                            <label for="paymentMethods" class="form-label">Preferred Method of Payment*</label>
-                            <div>
-                                <input type="checkbox" id="paymentCash" name="paymentMethods" value="Cash" checked disabled>
-                                <label for="paymentCash">Cash (enabled by default)</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="paymentGcash" name="paymentMethods" value="Gcash">
-                                <label for="paymentGcash">Gcash</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="paymentBank" name="paymentMethods" value="Bank">
-                                <label for="paymentBank">Bank</label>
-                            </div>
-                        </div> -->
+                        <div class="col-md-4 mb-3">
+                            <label for="maxOccupants" class="form-label">Security Deposit*</label>
+                            <input type="number" class="form-control" id="securityDepositInput" name="securityDeposit" value="<?php echo $apartment['rentPerMonth']; ?>" min="<?php echo $apartment['rentPerMonth']; ?>" required>
+                        </div>
                     </div>
                 </div>
             </div>

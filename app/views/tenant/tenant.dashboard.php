@@ -72,17 +72,20 @@ while ($row = $billResult->fetch_assoc()) {
 }
 
 // Sort the paymentDate in DESCENDING order
-usort($bills, function($a, $b) {
+usort($bills, function ($a, $b) {
     // Handle cases where paymentDate might be null
     $dateA = isset($a['paymentDate']) ? strtotime($a['paymentDate']) : 0;
     $dateB = isset($b['paymentDate']) ? strtotime($b['paymentDate']) : 0;
-    
+
     return $dateB - $dateA; // Sort descending
 });
 
 // Get the most recent payment
 $recentPayment = !empty($bills) ? $bills[0] : null;
-$paymentDate = strtotime($recentPayment['paymentDate']);
+if ($recentPayment)
+    $paymentDate = strtotime($recentPayment['paymentDate']);
+else
+    $paymentDate = null;
 
 // Calculate totals
 $totalRent = 0.00;
@@ -119,14 +122,18 @@ $conn->close();
                         <h5 class="card-title mb-3"><i class="bi bi-file-earmark-text h3"
                                 style="margin-right: 15px;"></i> Lease Agreement</h5>
                         <p class="card-text">Apartment Type:
-                            <strong><?php echo htmlspecialchars($apartmentType); ?></strong></p>
+                            <strong><?php echo htmlspecialchars($apartmentType); ?></strong>
+                        </p>
                         <p class="card-text">Start Date:
-                            <strong><?php echo date('F j, Y', strtotime($startDate)); ?></strong></p>
+                            <strong><?php echo date('F j, Y', strtotime($startDate)); ?></strong>
+                        </p>
                         <p class="card-text">End Date:
-                            <strong><?php echo date('F j, Y', strtotime($endDate)); ?></strong></p>
+                            <strong><?php echo date('F j, Y', strtotime($endDate)); ?></strong>
+                        </p>
                         <p class="card-text">Billing Period: <strong><?php echo $billingPeriod; ?></strong></p>
                         <p class="card-text">Rent Amount: <strong>₱<?php echo $rentPerMonth; ?></strong></p>
-                        <p class="card-text">Created On: <strong><?php echo date('F j, Y', strtotime($createDate)); ?></strong></p>
+                        <p class="card-text">Created On:
+                            <strong><?php echo date('F j, Y', strtotime($createDate)); ?></strong></p>
                     </div>
                 </div>
             </a>
@@ -138,7 +145,8 @@ $conn->close();
                         <h5 class="card-title mb-3"><i class="bi bi-credit-card h3" style="margin-right: 15px;"></i>
                             Current Balance</h5>
                         <p class="card-text">Remaining Balance:
-                            <strong>₱<?php echo number_format($totalBalance, 2); ?></strong></p>
+                            <strong>₱<?php echo number_format($totalBalance, 2); ?></strong>
+                        </p>
                         <p class="card-text">Overdue Balance: ₱<?php echo number_format($totalLateFees, 2); ?></p>
                     </div>
                 </div>
@@ -152,7 +160,15 @@ $conn->close();
                             Payment History</h5>
                         <p class="card-text">Total Paid: <strong>₱<?php echo number_format($totalPaid, 2); ?></strong>
                         </p>
-                        <p class="card-text">Last Payment: <?php echo date('F j, Y', $paymentDate); ?></p>
+                        <p class="card-text">Last Payment:
+                            <?php
+                            if ($paymentDate !== false) {
+                                echo date('F j, Y', $paymentDate);
+                            } else {
+                                echo 'No Payments Made';
+                            }
+                            ?>
+                        </p>
                     </div>
                 </div>
             </a>

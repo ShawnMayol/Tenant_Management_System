@@ -52,11 +52,25 @@
 
     <!-- Maintenance Requests Card -->
     <div class="col-md-4 mb-4">
-        <a href="?page=admin.maintenance" class="card-link">
+        <a href="?page=manager.maintenance" class="card-link">
             <div class="card text-white bg-danger hover-card">
                 <div class="card-body">
                     <h5 class="card-title"><i class="bi bi-tools" style="margin-right: 10px;"></i> Maintenance Requests</h5>
                     <p class="card-text display-4"><?php echo $totalRequests; ?></p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+     <!-- Total Payments Card -->
+     <div class="col-md-4 mb-4">
+        <a href="?page=admin.staff" class="card-link">
+            <div class="card text-white bg-success hover-card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-cash" style="margin-right: 10px;"></i> Payments this month
+                    </h5>
+                    <p class="card-text display-4"><?php echo $completedPayments ?></p>
                 </div>
             </div>
         </a>
@@ -86,17 +100,6 @@
         </a>
     </div> -->
 
-    <!-- Payments this month Card -->
-    <!-- <div class="col-md-4 mb-4">
-        <a href="payments-this-month.php" class="card-link">
-            <div class="card text-white bg-success hover-card">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-cash" style="margin-right: 10px;"></i> Payments this month</h5>
-                    <p class="card-text display-4">0</p>
-                </div>
-            </div>
-        </a>
-    </div> -->
 </div>
 <hr>
 <h3 class="mb-3">Announcements</h3>

@@ -7,42 +7,50 @@
     }
 </style>
 
-<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
-
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h1">Tenants</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="input-group me-2">
-                <input type="text" class="form-control" id="filterInput" placeholder="Search Tenant..." oninput="searchTenants()">
+                <input type="text" class="form-control" id="filterInput" placeholder="Search Tenant..."
+                    oninput="searchTenants()">
                 <span class="input-group-text">
                     <i class="bi bi-search d-flex align-items-center"></i>
-                </span> 
+                </span>
             </div>
             <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Status
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="statusDropdown">
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'All')">All</a></li>
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Online')">Online</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Offline')">Offline</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Deactivated')">Deactivated</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterStatus('userStatus', 'Offline')">Offline</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#"
+                            onclick="filterStatus('userStatus', 'Deactivated')">Deactivated</a></li>
                 </ul>
             </div>
             <div class="dropdown me-2">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="leaseStatusDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="leaseStatusDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Lease Status
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="leaseStatusDropdown">
                     <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'All')">All</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Active')">Active</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Expired')">Expired</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Terminated')">Terminated</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Active')">Active</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" onclick="filterStatus('leaseStatus', 'Expired')">Expired</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#"
+                            onclick="filterStatus('leaseStatus', 'Terminated')">Terminated</a></li>
                 </ul>
             </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="orderDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="orderDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Order by Start Date
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="orderDropdown">
@@ -55,16 +63,7 @@
     <div class="container">
         <div class="table-responsive">
             <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "tms";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+            include ('core/database.php');
 
             $sql = "
             SELECT t.tenant_ID, t.firstName, t.lastName, t.middleName, l.leaseStatus, l.startDate, u.userStatus, u.picDirectory
@@ -138,8 +137,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function(row) {
-            row.addEventListener('click', function() {
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
                 window.location.href = row.dataset.href;
             });
         });
@@ -160,11 +159,11 @@
                 } else {
                     rows[i].style.display = "none";
                 }
-            }       
+            }
         }
     }
 
-function filterStatus(statusType, filterValue) {
+    function filterStatus(statusType, filterValue) {
         var table = document.querySelector(".table tbody");
         var rows = table.getElementsByTagName("tr");
 
@@ -185,7 +184,7 @@ function filterStatus(statusType, filterValue) {
         var table = document.querySelector(".table tbody");
         var rows = Array.from(table.getElementsByTagName("tr"));
 
-        rows.sort(function(a, b) {
+        rows.sort(function (a, b) {
             var dateA = new Date(a.querySelector(".startDate").innerText);
             var dateB = new Date(b.querySelector(".startDate").innerText);
             if (orderType === 'asc') {
@@ -195,7 +194,7 @@ function filterStatus(statusType, filterValue) {
             }
         });
 
-        rows.forEach(function(row) {
+        rows.forEach(function (row) {
             table.appendChild(row);
         });
     }

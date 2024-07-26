@@ -18,18 +18,7 @@
 </script>
 <?php
         // Include database connection file
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "tms";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include ('core/database.php');
 
         $sql = "
         SELECT s.staff_ID, s.lastName, s.firstName, s.middleName, u.userStatus, a.activityDescription, a.activityTimestamp, u.picDirectory
@@ -130,39 +119,6 @@
 
         $conn->close();
         ?>
-
-        <!-- Pagination controls -->
-        <!-- <div class="d-flex justify-content-between">
-            <div>
-                <select id="rowsPerPage" class="form-select">
-                    <option value="10">10 rows per page</option>
-                    <option value="15">15 rows per page</option>
-                    <option value="20">20 rows per page</option>
-                </select>
-            </div>
-            <div>
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled" id="prevButton">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">1 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item" id="nextButton">
-                            <a class="page-link" href="#">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div> -->
-        
     </div>
 </div>
 

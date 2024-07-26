@@ -123,17 +123,6 @@ if ($statusResult->num_rows === 1) {
         <img src="assets/src/svg/c.svg" alt="Company Logo" style="width: 100%; height: 80%">
     </a>
     <ul class="navbar-nav flex-row w-100">
-        <!-- <li class="nav-item text-nowrap d-flex align-items-center text-white ms-4">
-            <div class="navbar-nav">
-                <span id="current-time"></span>
-                <span id="current-date"></span>
-            </div>
-        </li> -->
-        <!-- <li class="nav-item text-nowrap d-flex align-items-center text-white ms-4">
-            <div class="navbar-nav h3">
-                <span id="dynamic-greeting"></span>
-            </div>
-        </li> -->
         <li class="nav-item text-nowrap ms-auto">
             <button class="nav-link px-3 d-md-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
@@ -268,26 +257,6 @@ if ($statusResult->num_rows === 1) {
     // Initial call to set the time and date immediately
     updateTimeAndDate();
 
-//     function updateGreeting() {
-//     const now = new Date();
-//     const hours = now.getHours();
-//     let greeting;
-
-//     if (hours < 12) {
-//         greeting = "Good Morning, <?= htmlspecialchars($user) ?>!";
-//     } else if (hours < 18) {
-//         greeting = "Good Afternoon, <?= htmlspecialchars($user) ?>!";
-//     } else {
-//         greeting = "Good Evening, <?= htmlspecialchars($user) ?>!";
-//     }
-
-//     document.getElementById('dynamic-greeting').innerText = greeting;
-// }
-
-// // Update the greeting when the page loads
-// document.addEventListener('DOMContentLoaded', updateGreeting);
 </script>
-
 </body>
-
 </html>

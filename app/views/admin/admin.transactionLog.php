@@ -1,5 +1,5 @@
 <?php
-include ('handlers/tenant/retrieveTransactionLog.php');
+include ('handlers/admin/retrieveTransactionLog.php');
 ?>
 
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -25,7 +25,7 @@ include ('handlers/tenant/retrieveTransactionLog.php');
                     </thead>
                     <tbody>
                         <?php foreach ($paymentsLog as $plogs):
-                            $baseUrl = '/TMSv11/app/uploads/payment/';           // Change TMSv11 to Tenant_Management_System
+                            $baseUrl = '/TMSv11/app/uploads/payment/';          // Change TMSv11 to Tenant_Management_System
 
                             // Generate the URL dynamically
                             $imageUrl = $baseUrl . htmlspecialchars($plogs['proofOfPayment']);
