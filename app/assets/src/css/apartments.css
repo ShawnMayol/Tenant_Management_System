@@ -1,0 +1,59 @@
+body {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#higher-row {
+    height: 100px;
+}
+
+#cards-container {
+    min-height: 1200px;
+    margin-bottom: 60px;
+}
+
+.col {
+    padding: 1rem;
+    /* background-color: red; */
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+.custom-row {
+    margin-top: 30px;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.apartment-info {
+    margin: 10px 0 15px 0;
+}
+
+.apartment-info h5 {
+    margin-bottom: 15px;
+}
+
+.apartment-info p {
+    font-size: medium;
+    margin: 4px;
+}
+
+.btn-bd-primary {
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;     
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
+}
