@@ -6,6 +6,13 @@ Manager
 Username: CarlOmega2
 Password: CarlOmega2
 
+Added Tenants:
+Username: LanceCerenio1
+Password: LanceCerenio1
+
+Username: ShawnMayol2
+Password: ShawnMayol2
+
 Database: tms
 
 Note:
