@@ -1,21 +1,24 @@
-Admin
-Username: admin
-Password: admin
+# Tenant Management System
 
-Manager
-Username: CarlOmega2
-Password: CarlOmega2
+A PHP-based web application for managing tenants, with role-based access for admins, managers, and tenants.
 
-Added Tenants:
-Username: LanceCerenio1
-Password: LanceCerenio1
+## Running with XAMPP
 
-Username: ShawnMayol2
-Password: ShawnMayol2
+1. Install and open XAMPP, then start **Apache** and **MySQL** from the control panel.
+2. Copy the project folder into `C:\xampp\htdocs\`.
+3. Open **phpMyAdmin** at `http://localhost/phpmyadmin`, create a database named `tms`, and import `database/final_db.sql`.
+4. Open `http://localhost/Tenant_Management_System/` in your browser.
 
-Database: tms
+## Default Credentials
 
-Note:
+### Admin
+- Username: `admin`
+- Password: `admin`
 
-In line 28 on admin.transactionLog.php,manager.transactionLog.php,tenant.transactionLog.php replace the "TMSv11" in the
-base URL to "Tenant_Management_System"
+### Manager
+- Username: `CarlOmega2`
+- Password: `CarlOmega2`
+
+### Tenants
+- Username: `LanceCerenio1` / Password: `LanceCerenio1`
+- Username: `ShawnMayol2` / Password: `ShawnMayol2`
