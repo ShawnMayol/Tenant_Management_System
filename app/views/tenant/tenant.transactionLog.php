@@ -25,7 +25,7 @@ include ('handlers/tenant/retrieveTransactionLog.php');
                     </thead>
                     <tbody>
                         <?php foreach ($paymentsLog as $plogs):
-                            $baseUrl = '/TMSv11/app/uploads/payment/';           // Change TMSv11 to Tenant_Management_System
+                            $baseUrl = dirname($_SERVER['SCRIPT_NAME']) . '/uploads/payment/';
 
                             // Generate the URL dynamically
                             $imageUrl = $baseUrl . htmlspecialchars($plogs['proofOfPayment']);
